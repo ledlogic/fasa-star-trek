@@ -1,0 +1,282 @@
+/* st-char.css */
+
+.st-page {
+	position: relative;
+	height: 1311px;
+	width: 1013px;
+	overflow: hidden;
+}
+
+.st-page.st-initial-state {
+	/* initial state */
+	display: none;
+}
+
+.st-page-bk {
+	position: absolute;
+	top:0;
+	left:0;
+}
+
+.st-page-ft {
+	position: absolute;
+	top:0;
+	left:0;
+}
+
+.st-section {
+	border: 1px solid #ff0000;
+}
+
+.st-item {
+	border: 1px solid #cc0000;
+}
+
+.st-overview {
+	position: absolute;
+	top: 100px;
+	left: 250px;
+	width: 314px;
+	height: 100px;
+}
+
+.st-overview-item {
+	display: block;
+	font-size: 12px;
+	margin-top: 0.6px;
+}
+
+.st-overview-item-rank {
+	margin-left: 64px;
+}
+
+.st-overview-item-assignment {
+	margin-left: 100px;
+}
+
+.st-overview-item-ship {
+	margin-left: 204px;
+}
+
+.st-overview-item-position {
+	margin-left: 188px;
+}
+
+.st-demographics {
+	position: absolute;
+	top: 100px;
+	left: 628px;
+	width: 50px;
+	height: 100px;
+}
+
+.st-demographics-item {
+	display: block;
+	font-size: 12px;
+	margin-top: 0.6px;
+	text-align: right;
+}
+
+.st-player {
+	position: absolute;
+	top: 36px;
+	left: 590px;
+	font-size: 18px;
+}
+
+.st-aptitudes-base {
+	position: absolute;
+	top: 160px;
+	left: 640px;
+}
+
+.st-aptitudes-morph {
+	position: absolute;
+	top: 182px;
+	left: 640px;
+}
+
+.st-aptitudes-total {
+	position: absolute;
+	top: 204px;
+	left: 640px;
+}
+
+.st-aptitude {
+	display: inline-block;
+	margin: 0 0 0 0;
+	text-align: center;
+	width: 44.8px;
+}
+
+.st-aptitudes-total .st-aptitude {
+	font-family: 'Lato Black', 'Lato', 'Helvetica', sans-serif;
+	font-weight: bold;
+}
+
+.st-stats {
+	position: absolute;
+	top: 282px;
+	left: 506px;
+}
+
+.st-stat {
+	display: inline-block;
+	margin: 0 0 0 0;
+	text-align: center;
+	width: 44.8px;
+}
+
+.st-skills {
+}
+
+.st-skills-0 {
+	position: absolute;
+	top: 552px;
+	left: 236px;
+}
+
+.st-skills-1 {
+	position: absolute;
+	top: 552px;
+	left: 700px;
+}
+
+.st-skills-2 {
+	position: absolute;
+	top: 902px;
+	left: 700px;
+}
+
+.st-skill {
+	display: block;
+	font-size: 12px;
+	height: 18.32px;
+	margin: 0 0 0 0;
+	padding-top: 2px;
+}
+
+.st-skills-2 .st-skill {
+	height: 17.4px;
+}
+
+.st-skill-item {
+	display: inline-block;
+	margin: 0 0 0 0;
+	text-align: center;
+	width: 48px;
+}
+
+.st-skill-item-2 {
+	font-family: 'Lato Black', 'Lato', 'Helvetica', sans-serif;
+}
+
+.st-skill-item-subset {
+	text-align: left;
+	text-overflow: ellipses;
+	width: 112px;
+}
+
+.st-rep {
+	position: absolute;
+}
+
+.st-rep.st-rst-0 {
+	top: 128px;
+	left: 124px;
+}
+
+.st-rep.st-rst-1 {
+	top: 130px;
+	left: 344px;
+}
+
+.st-rst-item {
+	display: block;
+	margin: 11.6px 0 6px 0;
+	width: 236px;
+}
+
+.st-traits {
+	position: absolute;
+	left: 72px;
+	top: 324px;
+}
+
+.st-traits-item {
+	display: inline-block;
+	margin: 0 0 0 0;
+	width: 200px;
+}
+
+.st-implants {
+	position: absolute;
+	left: 66px;
+	top: 1066px;
+}
+
+.st-implants-item {
+	display: inline-block;
+	margin: 0 0 0 0;
+	width: 400px;
+}
+
+.st-armor {
+	position: absolute;
+	left: 130px;
+	top: 406px;
+}
+
+.st-armor-item {
+	display: inline-block;
+	margin: 0 0 0 0;
+	width:190px;
+}
+
+.st-gear {
+	position: absolute;
+	left: 72px;
+	top: 564px;
+}
+
+.st-gear-item {
+	display: inline-block;
+	margin: 0 0 0 0;
+	width: 300px;
+}
+
+.st-weapons {
+	position: absolute;
+	left: 236px;
+	top: 436px;
+}
+
+.st-weapon {
+	height: 32px;
+}
+
+.st-weapon-item {
+	display: inline-block;
+	margin: 0 0 0 0;
+	width: 86px;
+}
+
+.st-weapon-item:nth-of-type(1) {
+	width: 132px;
+}
+
+.st-weapon-item:nth-of-type(2) {
+	width: 86px;
+}
+
+.st-weapon-item:nth-of-type(3) {
+	width: 74px;
+}
+
+.st-weapon-item:nth-of-type(4) {
+	width: 82px;
+}
+
+.st-weapon-item:nth-of-type(5) {
+	width: 128px;
+}
