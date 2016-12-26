@@ -32,7 +32,8 @@ st.character = {
 
 		st.character.renderOverview();
 		st.character.renderDemographics();
-		//st.character.renderAptitudes();
+		st.character.renderAttributes();
+		st.character.renderEndurance();
 		//st.character.renderStats();
 		//st.character.renderSkills();
 		//st.character.renderArmor();
@@ -40,39 +41,47 @@ st.character = {
 		
 		$(".st-page").removeClass("st-initial-state");
 	},
-	renderAptitudes: function() {
-		st.log("rendering aptitudes");
+	renderAttributes: function() {
+		st.log("rendering attributes");
 
 		var spec = st.character.spec;
+		var attr = spec.attributes;
 
-		// base
-		var base = spec.aptitudes.base;
-		var $base = $("<div class=\"st-aptitudes-base\"></div>");
-		_.each(base, function(value, key) {
+		// attr
+		var $attr = $("<div class=\"st-section st-attributes\"></div>");
+		_.each(attr, function(value, key) {
 			var h = value;
-			$elm = $("<span class=\"st-aptitude st-aptitude-" + key + "\">" + h + "</span>");
-			$base.append($elm);
+			$elm = $("<span class=\"st-item st-attribute st-attribute-" + key + "\">" + h + "</span>");
+			$attr.append($elm);
 		});
-		st.character.$pageft.append($base);
+		st.character.$pageft.append($attr);
+	},
+	renderEndurance: function() {
+		st.log("rendering endurance");
 
-		// morph
-		var morph = spec.aptitudes.morph;
-		var $morph = $("<div class=\"st-aptitudes-morph\"></div>");
-		_.each(morph, function(value, key) {
-			var h = value ? value : "";
-			$elm = $("<span class=\"st-aptitude st-aptitude-" + key + "\">" + h + "</span>");
-			$morph.append($elm);
+		var spec = st.character.spec;
+				
+		var attr = spec.attributes;
+		
+		var endurance = spec.endurance;
+		endurance.inactsave = 20;
+		endurance.uncthresh = 5;
+		endurance.maxopoend = attr.end;
+		endurance.curropoend = " ";
+		endurance.woundhealrate = Math.floor(attr.end / 20);
+		endurance.fathealrate = Math.floor(attr.end / 10);	
+		
+		console.log(endurance);
+		
+		// endurance
+		var $endurance = $("<div class=\"st-section st-endurance\"></div>");
+		_.each(endurance, function(value, key) {
+			var h = value;
+			$elm = $("<span class=\"st-item st-endurance-item st-endurance-item-" + key + "\">" + h + "</span>");
+			$endurance.append($elm);
 		});
-		st.character.$pageft.append($morph);
-
-		// total
-		var $total = $("<div class=\"st-aptitudes-total\"></div>");
-		_.each(base, function(value, key) {
-			var t = spec.aptitudes.base[key] + spec.aptitudes.morph[key]
-			$elm = $("<span class=\"st-aptitude st-aptitude-" + key + "\">" + t + "</span>");
-			$total.append($elm);
-		});
-		st.character.$pageft.append($total);
+		console.log($endurance);
+		st.character.$pageft.append($endurance);
 	},
 	renderDemographics: function() {
 		st.log("rendering demographics");
