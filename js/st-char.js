@@ -34,10 +34,7 @@ st.character = {
 		st.character.renderDemographics();
 		st.character.renderAttributes();
 		st.character.renderEndurance();
-		//st.character.renderStats();
-		//st.character.renderSkills();
-		//st.character.renderArmor();
-		//st.character.renderWeapons();
+		st.character.renderSkills();
 		
 		$(".st-page").removeClass("st-initial-state");
 	},
@@ -131,37 +128,19 @@ st.character = {
 		for (var i=0;i<3;i++) {
 			var skillsI = skills[i];
 
+			var y = 0;
+			
 			var $skillsI = $("<div class=\"st-section st-skills st-skills-" + i + "\"></div>");
-			_.each(skillsI, function(skill) {
-				var h1 = skill.split(",");
-				var skillName = h1[0];
-				var key = skillName.toLowerCase().replace(/ /g,"-").split(":").join("-");
-				var html = [];
-
-				html.push("<span class=\"st-skill st-skill-" + key + "\" title=\"" + key.toUpperCase() + "\">");
-				var h2 = h1.slice(1);
-				if (h2.length < 2) {
-					value = "";
-				} else {
-					items = h2[1].split(" ");
-					if (items.length) {
-						_.each(items, function(item, i) {
-							html.push("<span class=\"st-skill-item st-skill-item-" + key + "\">" + item + "</span>");
-						});
-
-						var cIndex = skillName.indexOf(":");
-						if (cIndex > -1) {
-							var subset = skillName.substring(cIndex+1);
-							if (subset) {
-								var subsetKey = subset.toLowerCase();
-								html.push("<span class=\"st-skill-item st-skill-item-subset st-skill-item-" + subsetKey + "\">" + subset + "</span>");
-							}
-						}
-					}					
+			_.each(skillsI, function(value, key) {
+				var h = value + "";
+				if (!h) {
+					h = "&nbsp;"
 				}
-				html.push("</span>");
-				$elm = $(html.join(""));
+				$elm = $("<span class=\"st-item st-skill-item st-skill-item-" + key + "\""
+						+" style=\"top: " + y + "px\""
+						+">" + h + "</span>");
 				$skillsI.append($elm);
+				y += 17.6;
 			});
 			st.character.$pageft.append($skillsI);
 		}		

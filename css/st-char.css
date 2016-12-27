@@ -123,7 +123,7 @@
 	position: absolute;
 	top: 252px;
 	left: 78px;
-	width: 614px;
+	width: 352px;
 }
 
 .st-endurance-item {
@@ -147,6 +147,14 @@
 	visibility: hidden;
 }
 
+.st-endurance-item-woundhealrate {
+	margin: 12px 0 0 0;
+}
+
+.st-endurance-item-fathealrate {
+	margin: 12px 0 0 0;
+}
+
 /* stats */
 
 .st-stats {
@@ -162,57 +170,42 @@
 	width: 44.8px;
 }
 
-
-
-
-
-
 .st-skills {
+	line-height: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 .st-skills-0 {
 	position: absolute;
-	top: 552px;
+	top: 536px;
 	left: 236px;
 }
 
 .st-skills-1 {
 	position: absolute;
-	top: 552px;
-	left: 700px;
+	top: 536px;
+	left: 444px;
 }
 
 .st-skills-2 {
 	position: absolute;
-	top: 902px;
-	left: 700px;
+	top: 536px;
+	left: 652px;
 }
 
 .st-skill {
 	display: block;
-	font-size: 12px;
-	height: 18.32px;
 	margin: 0 0 0 0;
-	padding-top: 2px;
-}
-
-.st-skills-2 .st-skill {
-	height: 17.4px;
 }
 
 .st-skill-item {
+	position: absolute;
 	display: inline-block;
+	font-size: 10px;
+	line-height: 14px;
 	margin: 0 0 0 0;
+	padding: 0 0 0 0;
 	text-align: center;
-	width: 48px;
-}
-
-.st-skill-item-2 {
-	font-family: 'Lato Black', 'Lato', 'Helvetica', sans-serif;
-}
-
-.st-skill-item-subset {
-	text-align: left;
-	text-overflow: ellipses;
-	width: 112px;
+	width: 30px;
 }
