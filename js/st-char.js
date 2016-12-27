@@ -136,10 +136,42 @@ st.character = {
 				if (!h) {
 					h = "&nbsp;"
 				}
-				$elm = $("<span class=\"st-item st-skill-item st-skill-item-" + key + "\""
+				var elm = "";
+				console.log(key);
+				var i1 = key.indexOf("-1-");
+				var i2 = key.indexOf("-2-");
+				var i3 = key.indexOf("-3-");
+				if (i1 > -1) {
+					var classKey = key.substring(0, i1+2);
+					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i1+3));
+					if (dispKey) {
+						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
+								+" style=\"top: " + y + "px\""
+								+">" + dispKey + "</span>");
+					}
+				}
+				if (i2 > -1) {
+					var classKey = key.substring(0, i2+2);
+					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i2+3));
+					if (dispKey) {
+						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
+								+" style=\"top: " + y + "px\""
+								+">" + dispKey + "</span>");
+					}
+				}
+				if (key.indexOf("-3-") > -1) {
+					var classKey = key.substring(0, i3+2);
+					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i3+3));
+					if (dispKey) {
+						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
+								+" style=\"top: " + y + "px\""
+								+">" + dispKey + "</span>");
+					}
+				}
+				elm += ("<span class=\"st-item st-skill-item st-skill-item-" + key + "\""
 						+" style=\"top: " + y + "px\""
 						+">" + h + "</span>");
-				$skillsI.append($elm);
+				$skillsI.append(elm);
 				y += 17.6;
 			});
 			st.character.$pageft.append($skillsI);

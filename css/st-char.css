@@ -170,28 +170,33 @@
 	width: 44.8px;
 }
 
+.border .st-skills {
+	border: 1px solid orange;
+}
+
 .st-skills {
 	line-height: 0px;
 	margin: 0;
 	padding: 0;
+	width: 100px;
 }
 
 .st-skills-0 {
 	position: absolute;
 	top: 536px;
-	left: 236px;
+	left: 80px;
 }
 
 .st-skills-1 {
 	position: absolute;
 	top: 536px;
-	left: 444px;
+	left: 290px;
 }
 
 .st-skills-2 {
 	position: absolute;
 	top: 536px;
-	left: 652px;
+	left: 498px;
 }
 
 .st-skill {
@@ -199,13 +204,95 @@
 	margin: 0 0 0 0;
 }
 
-.st-skill-item {
+.st-skill-item-key {
 	position: absolute;
 	display: inline-block;
 	font-size: 10px;
+	left: 0px;
 	line-height: 14px;
 	margin: 0 0 0 0;
 	padding: 0 0 0 0;
 	text-align: center;
 	width: 30px;
 }
+
+.st-skill-item-key {
+	position: absolute;
+	display: inline-block;
+	font-size: 10px;
+	left: 0px;
+	line-height: 14px;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	text-align: left;
+	width: 177px;
+}
+
+.st-skill-item {
+	position: absolute;
+	display: inline-block;
+	font-size: 10px;
+	left: 156px;
+	line-height: 14px;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	text-align: center;
+	width: 30px;
+}
+
+.st-skill-item-key-language-1 {
+	padding-left: 58px;
+}
+
+.st-skill-item-key-medical-sciences-1 {
+	padding-left: 88px;
+}
+
+.st-skill-item-key-medical-sciences-2 {
+	padding-left: 110px;
+}
+
+.st-skill-item-key-physical-sciences-2 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-physical-sciences-3 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-planetary-survival-2 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-planetary-survival-3 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-social-sciences-3 {
+	visibility: hidden;
+}
+
+.st-skill-item-key-space-sciences-1 {
+	padding-left: 82px;
+}
+
+.st-skill-item-key-space-sciences-2 {
+	visibility: hidden;
+}
+
+.st-skill-item-key-space-sciences-3 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-trivia-1 {
+	padding-left: 36px;
+}
+
+.st-skill-item-key-trivia-2 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-trivia-3 {
+	padding-left: 24px;
+}
+
