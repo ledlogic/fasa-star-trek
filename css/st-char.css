@@ -121,7 +121,7 @@
 
 .st-endurance {
 	position: absolute;
-	top: 252px;
+	top: 254px;
 	left: 78px;
 	width: 352px;
 }
@@ -307,8 +307,36 @@
 .st-item.st-action-point {
 	border: 1px solid black;
 	display: inline-block;
-	position: absolute;
 	height: 39.5px;
-	width: 32px;
 	margin: 1px;
+	position: absolute;
+	width: 32px;
+}
+
+.st-tohits {
+	height: 100px;
+	left: 428px;
+	position: absolute;
+	top: 244px;
+	width: 264px;
+}
+
+.st-item.st-tohit {
+	display: inline-block;
+	font-size: 10px;
+	height: 26px;
+	margin: 1px;
+	padding: 8px 2px 0 0;
+	position: absolute;
+	text-align: right;
+	width: 86px;
+}
+
+.st-tohit-hth {
+	left: 87px;
+}
+
+.st-tohit-bareDamage {
+	left: 90px;
+	top: 24px;
 }

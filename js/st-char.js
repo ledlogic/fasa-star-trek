@@ -30,12 +30,15 @@ st.character = {
 	render: function() {
 		st.log("rendering char");
 
-		st.character.renderOverview();
-		st.character.renderDemographics();
-		st.character.renderAttributes();
-		st.character.renderEndurance();
-		st.character.renderSkills();
-		st.character.renderActionPoints();
+		var that = st.character;
+		
+		that.renderOverview();
+		that.renderDemographics();
+		that.renderAttributes();
+		that.renderEndurance();
+		that.renderSkills();
+		that.renderActionPoints();
+		that.renderToHits();
 		
 		$(".st-page").removeClass("st-initial-state");
 	},
@@ -199,38 +202,23 @@ st.character = {
 		var $stats = $("<div class=\"st-section st-stats\"></div>");
 		_.each(stats, function(value, key) {
 			var h = value;
-			var $elm = $("<span class=\"st-stat st-stat-" + key + "\" title=\"" + key.toUpperCase() + "\">" + h + "</span>");
+			var $elm = $("<span class=\"st-item st-stat st-stat-" + key + "\" title=\"" + key.toUpperCase() + "\">" + h + "</span>");
 			$stats.append($elm);
 		});
 		st.character.$pageft.append($stats);
 	},
-	renderArmor: function() {
-		st.log("rendering armor");
-
+	renderToHits: function() {
+		st.log("rendering to hits");
+		
 		var spec = st.character.spec;
-		var armor = spec.armor;
-		var $armor = $("<div class=\"st-section st-armor\"></div>");
-		_.each(armor, function(value, key) {
-			var $elm = $("<span class=\"st-armor-item st-armor-item-" + key + "\" title=\"" + key + "\">" + value + "</span>");
-			$armor.append($elm);
-		});
-		st.character.$pageft.append($armor);
-	},
-	renderWeapons: function() {
-		st.log("rendering weapons");
 
-		var spec = st.character.spec;
-		var weapons = spec.weapons;
-		var i = 0;
-		var $weapons = $("<div class=\"st-section st-weapons\"></div>");
-		_.each(weapons, function(weapon) {
-			var $weapon = $("<div class=\"st-weapon\"></div>");
-			_.each(weapon, function(value, key) {
-				var $elm = $("<span class=\"st-weapon-item st-weapon-item-" + key + "\">" + value + "</span>");
-				$weapon.append($elm);
-			});
-			$weapons.append($weapon);
+		var tohits = spec.tohits;
+		var $tohits = $("<div class=\"st-section st-tohits\"></div>");
+		_.each(tohits, function(value, key) {
+			var h = value;
+			var $elm = $("<span class=\"st-item st-tohit st-tohit-" + key + "\" title=\"" + key.toUpperCase() + "\">" + h + "</span>");
+			$tohits.append($elm);
 		});
-		st.character.$pageft.append($weapons);
+		st.character.$pageft.append($tohits);
 	}
 };

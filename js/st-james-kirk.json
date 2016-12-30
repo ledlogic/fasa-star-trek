@@ -23,6 +23,11 @@
 		},
 		"endurance": {
 		},
+		"tohits": {
+			"modern": 79,
+			"hth": 80,
+			"bareDamage": "1d10+8"
+		},
 		"skills": {
 			"0": {
 				"administration": 60,
