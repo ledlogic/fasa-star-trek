@@ -296,3 +296,19 @@
 	padding-left: 24px;
 }
 
+.st-action-points {
+	height: 766px;
+	left: 698px;
+	position: absolute;
+	top: 134px;
+	width: 38px;
+}
+
+.st-item.st-action-point {
+	border: 1px solid black;
+	display: inline-block;
+	position: absolute;
+	height: 39.5px;
+	width: 32px;
+	margin: 1px;
+}

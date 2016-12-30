@@ -6,7 +6,6 @@ _.mixin({
 		capWords[i] = _.capitalizeWord(words[i]);
 	}
 	ret = capWords.join(" ");
-	console.log(ret);
 	return ret;
   },
   capitalizeWord: function(string) {

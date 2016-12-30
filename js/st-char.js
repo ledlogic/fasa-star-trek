@@ -35,8 +35,25 @@ st.character = {
 		st.character.renderAttributes();
 		st.character.renderEndurance();
 		st.character.renderSkills();
+		st.character.renderActionPoints();
 		
 		$(".st-page").removeClass("st-initial-state");
+	},
+	renderActionPoints: function() {
+		st.log("rendering action points");
+
+		var spec = st.character.spec;
+		var attr = spec.attributes;
+		var dex = attr.dex;
+		var ap = Math.floor(dex / 10.0) + 4;
+		
+		var $attr = $("<div class=\"st-section st-action-points\"></div>");
+		var y = (18 - ap) * 42.5;
+		$elm = $("<span class=\"st-item st-action-point\""
+				 + " style=\"top: " + y + "px\""
+				 + "></span>");
+		$attr.append($elm);
+		st.character.$pageft.append($attr);
 	},
 	renderAttributes: function() {
 		st.log("rendering attributes");
@@ -68,8 +85,6 @@ st.character = {
 		endurance.woundhealrate = Math.floor(attr.end / 20);
 		endurance.fathealrate = Math.floor(attr.end / 10);	
 		
-		console.log(endurance);
-		
 		// endurance
 		var $endurance = $("<div class=\"st-section st-endurance\"></div>");
 		_.each(endurance, function(value, key) {
@@ -77,7 +92,6 @@ st.character = {
 			$elm = $("<span class=\"st-item st-endurance-item st-endurance-item-" + key + "\">" + h + "</span>");
 			$endurance.append($elm);
 		});
-		console.log($endurance);
 		st.character.$pageft.append($endurance);
 	},
 	renderDemographics: function() {
@@ -137,7 +151,6 @@ st.character = {
 					h = "&nbsp;"
 				}
 				var elm = "";
-				console.log(key);
 				var i1 = key.indexOf("-1-");
 				var i2 = key.indexOf("-2-");
 				var i3 = key.indexOf("-3-");
