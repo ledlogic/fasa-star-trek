@@ -1,0 +1,12 @@
+{
+	"characters": [
+		{
+			"name": "James Kirk",
+			"uri": "st-james-kirk.json"
+		},
+		{
+			"name": "Spock",
+			"uri": "st-spock.json"
+		}
+	]	
+}

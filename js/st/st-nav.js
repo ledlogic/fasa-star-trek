@@ -22,7 +22,7 @@ st.nav = {
 	loadChars: function() {
 		st.log("loading chars");
 
-		$.ajax("js/st-char-list.json")
+		$.ajax("js/char/st-char-list.json")
 		.done(function(data, status, jqxhr) {
 			st.nav.characters = data.characters;
 			setTimeout(st.nav.renderChars, 10);

@@ -46,6 +46,12 @@
 	border: 1px solid transparent;
 }
 
+/* allegiance */
+
+.st-allegiance {
+	position: relative;
+}
+
 /* overview */
 
 .st-overview {
@@ -183,19 +189,19 @@
 
 .st-skills-0 {
 	position: absolute;
-	top: 536px;
+	top: 350px;
 	left: 80px;
 }
 
 .st-skills-1 {
 	position: absolute;
-	top: 536px;
+	top: 350px;
 	left: 290px;
 }
 
 .st-skills-2 {
 	position: absolute;
-	top: 536px;
+	top: 350px;
 	left: 498px;
 }
 
@@ -240,8 +246,30 @@
 	width: 30px;
 }
 
+.st-skill-item-key-artistic-expression-1 {
+	padding-left: 98px;
+}
+
 .st-skill-item-key-language-1 {
 	padding-left: 58px;
+}
+
+.st-skill-item-key-language-2,
+.st-skill-item-key-language-3,
+.st-skill-item-key-language-4,
+.st-skill-item-key-language-5 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-life-sciences-1 {
+	padding-left: 72px;
+}
+
+.st-skill-item-key-life-sciences-2,
+.st-skill-item-key-life-sciences-3,
+.st-skill-item-key-life-sciences-4,
+.st-skill-item-key-life-sciences-5 {
+	padding-left: 24px;
 }
 
 .st-skill-item-key-medical-sciences-1 {
@@ -252,23 +280,72 @@
 	padding-left: 110px;
 }
 
-.st-skill-item-key-physical-sciences-2 {
+.st-skill-item-key-medical-sciences-3,
+.st-skill-item-key-medical-sciences-4,
+.st-skill-item-key-medical-sciences-5,
+.st-skill-item-key-medical-sciences-6 {
 	padding-left: 24px;
 }
 
-.st-skill-item-key-physical-sciences-3 {
+.st-skill-item-key-physical-sciences-1 {
+	padding-left: 88px;
+}
+
+.st-skill-item-key-physical-sciences-2,
+.st-skill-item-key-physical-sciences-3,
+.st-skill-item-key-physical-sciences-4 {
 	padding-left: 24px;
 }
 
-.st-skill-item-key-planetary-survival-2 {
+.st-skill-item-key-planetary-sciences-1 {
+	padding-left: 98px;
+}
+
+.st-skill-item-key-planetary-sciences-2,
+.st-skill-item-key-planetary-sciences-3,
+.st-skill-item-key-planetary-sciences-4 {
 	padding-left: 24px;
 }
 
-.st-skill-item-key-planetary-survival-3 {
+.st-skill-item-key-planetary-survival-1 {
+	padding-left: 88px;
+}
+
+.st-skill-item-key-planetary-survival-2,
+.st-skill-item-key-planetary-survival-3,
+.st-skill-item-key-planetary-survival-4 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-social-sciences-1 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-social-sciences-2 {
 	padding-left: 24px;
 }
 
 .st-skill-item-key-social-sciences-3 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-social-sciences-4 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-social-sciences-5 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-social-sciences-6 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-social-sciences-7 {
+	visibility: hidden;
+}
+
+.st-skill-item-key-social-sciences-8 {
 	visibility: hidden;
 }
 
@@ -281,6 +358,14 @@
 }
 
 .st-skill-item-key-space-sciences-3 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-space-sciences-4 {
+	padding-left: 24px;
+}
+
+.st-skill-item-key-space-sciences-5 {
 	padding-left: 24px;
 }
 

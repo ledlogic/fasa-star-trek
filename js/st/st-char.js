@@ -16,7 +16,7 @@ st.character = {
 	loadChar: function(uri) {
 		st.log("loading char");
 
-		$.ajax("js/" + uri)
+		$.ajax("js/char/" + uri)
 		.done(function(data, status, jqxhr) {
 			st.character.spec = data.spec;
 			setTimeout(st.character.render,10);
@@ -32,6 +32,8 @@ st.character = {
 
 		var that = st.character;
 		
+		that.renderReset();		
+		that.renderAllegiance();
 		that.renderOverview();
 		that.renderDemographics();
 		that.renderAttributes();
@@ -42,6 +44,9 @@ st.character = {
 		
 		$(".st-page").removeClass("st-initial-state");
 	},
+	renderReset: function() {
+		st.character.$pageft.html("");
+	},
 	renderActionPoints: function() {
 		st.log("rendering action points");
 
@@ -50,12 +55,30 @@ st.character = {
 		var dex = attr.dex;
 		var ap = Math.floor(dex / 10.0) + 4;
 		
+		// attr
 		var $attr = $("<div class=\"st-section st-action-points\"></div>");
 		var y = (18 - ap) * 42.5;
 		$elm = $("<span class=\"st-item st-action-point\""
 				 + " style=\"top: " + y + "px\""
 				 + "></span>");
 		$attr.append($elm);
+		st.character.$pageft.append($attr);
+	},
+	renderAllegiance: function() {
+		st.log("rendering allegiance");
+
+		var spec = st.character.spec;
+		var all = spec.allegiance.toLowerCase();
+		
+		var size = 8/17 * 328;
+		var left = 8/17 * 107;
+		var top = 8/17 * 112;
+		
+		// attr
+		var img = "img/st-" + all + ".png";
+		var $attr = $("<div class=\"st-section st-allegiance\" style=\"left: " + left + "px; top: " + top + "px;\">"
+				      + "<img src=\"" + img + "\" width=\"" + size + "\" height=\"" + size + "\" />"
+				      + "</div>");
 		st.character.$pageft.append($attr);
 	},
 	renderAttributes: function() {
@@ -157,6 +180,9 @@ st.character = {
 				var i1 = key.indexOf("-1-");
 				var i2 = key.indexOf("-2-");
 				var i3 = key.indexOf("-3-");
+				var i4 = key.indexOf("-4-");
+				var i5 = key.indexOf("-5-");
+				var i6 = key.indexOf("-6-");
 				if (i1 > -1) {
 					var classKey = key.substring(0, i1+2);
 					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i1+3));
@@ -175,9 +201,36 @@ st.character = {
 								+">" + dispKey + "</span>");
 					}
 				}
-				if (key.indexOf("-3-") > -1) {
+				if (i3 > -1) {
 					var classKey = key.substring(0, i3+2);
 					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i3+3));
+					if (dispKey) {
+						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
+								+" style=\"top: " + y + "px\""
+								+">" + dispKey + "</span>");
+					}
+				}
+				if (i4 > -1) {
+					var classKey = key.substring(0, i4+2);
+					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i4+3));
+					if (dispKey) {
+						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
+								+" style=\"top: " + y + "px\""
+								+">" + dispKey + "</span>");
+					}
+				}
+				if (i5 > -1) {
+					var classKey = key.substring(0, i5+2);
+					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i5+3));
+					if (dispKey) {
+						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
+								+" style=\"top: " + y + "px\""
+								+">" + dispKey + "</span>");
+					}
+				}
+				if (i6 > -1) {
+					var classKey = key.substring(0, i6+2);
+					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i6+3));
 					if (dispKey) {
 						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
 								+" style=\"top: " + y + "px\""
