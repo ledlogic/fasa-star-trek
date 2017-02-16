@@ -40,16 +40,38 @@ st.character = {
 	loadCharCsv: function(uri) {
 		st.log("loading char from csv");
 		
-		Papa.parse("csv/char/" + uri, {
+		var uriArr = uri.split(":");
+		var csv = uriArr[0];
+		var n = uriArr[1];
+		
+		Papa.parse("csv/char/" + csv, {
 			delimiter: ",",
 			download: true,
 			header: true,
-			complete: st.character.charResponse,
+			complete: function(d) {
+				st.character.charResponse(d,n);
+			},
 			encoding: "UTF-8"
 		});
 	},
-	charResponse: function() {
+	charResponse: function(d, name) {
 		st.log("char response");
+		
+		st.log(d);
+		st.log(d.data);
+		var fields = d.meta.fields;
+		var data = d.data;
+		
+		var nameCol = -1;
+		for (var i=0; i<fields.length; i++) {
+			var searchName = fields[i];
+			if (searchName === name) {
+				nameCol = i;
+				break;
+			}			
+		}
+		
+		st.log("nameCol[" + nameCol + "]");
 		
 		st.character.spec = {};
 		setTimeout(st.character.render,10);

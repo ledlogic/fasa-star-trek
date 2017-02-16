@@ -10,10 +10,36 @@
 			"name": "Spock",
 			"uri": "st-spock.json"
 		},
+		
 		{
 			"allegiance": "Blakes-7",
 			"name": "Kerr Avon",
-			"uri": "st-blakes-7.csv"
+			"uri": "st-blakes-7.csv:Avon"
+		},
+		{
+			"allegiance": "Blakes-7",
+			"name": "Rog Blake",
+			"uri": "st-blakes-7.csv:Blake"
+		},
+		{
+			"allegiance": "Blakes-7",
+			"name": "Cally",
+			"uri": "st-blakes-7.csv:Cally"
+		},
+		{
+			"allegiance": "Blakes-7",
+			"name": "Olag Gan",
+			"uri": "st-blakes-7.csv:Gan"
+		},
+		{
+			"allegiance": "Blakes-7",
+			"name": "Jenna Stannis",
+			"uri": "st-blakes-7.csv:Jenna"
+		},
+		{
+			"allegiance": "Blakes-7",
+			"name": "Vila Restal",
+			"uri": "st-blakes-7.csv:Vila"
 		}
 	]	
 }

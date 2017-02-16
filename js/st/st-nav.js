@@ -41,7 +41,7 @@ st.nav = {
 			var character = st.nav.characters[i];
 			var option = new Option();
 			option.value = character.uri;
-			option.text = character.name;
+			option.text = character.allegiance + ": " + character.name;
 			$sel.append(option);
 		}
 	},
