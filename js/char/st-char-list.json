@@ -1,12 +1,19 @@
 {
 	"characters": [
 		{
+			"allegiance": "Federation",
 			"name": "James Kirk",
 			"uri": "st-james-kirk.json"
 		},
 		{
+			"allegiance": "Federation",
 			"name": "Spock",
 			"uri": "st-spock.json"
+		},
+		{
+			"allegiance": "Blakes-7",
+			"name": "Kerr Avon",
+			"uri": "st-kerr-avon.json"
 		}
 	]	
 }
