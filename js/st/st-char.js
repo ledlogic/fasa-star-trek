@@ -15,7 +15,17 @@ st.character = {
 	},
 	loadChar: function(uri) {
 		st.log("loading char");
-
+		
+		if (uri.indexOf(".json") > -1) {
+			st.character.loadCharJson(uri);
+		}
+		if (uri.indexOf(".csv") > -1) {
+			st.character.loadCharCsv(uri);
+		}
+	},
+	loadCharJson: function(uri) {
+		st.log("loading char from json");
+		
 		$.ajax("js/char/" + uri)
 		.done(function(data, status, jqxhr) {
 			st.character.spec = data.spec;
@@ -26,6 +36,23 @@ st.character = {
 		})
 		.always(function() {
 		});
+	},
+	loadCharCsv: function(uri) {
+		st.log("loading char from csv");
+		
+		Papa.parse("csv/char/" + uri, {
+			delimiter: ",",
+			download: true,
+			header: true,
+			complete: st.character.charResponse,
+			encoding: "UTF-8"
+		});
+	},
+	charResponse: function() {
+		st.log("char response");
+		
+		st.character.spec = {};
+		setTimeout(st.character.render,10);
 	},
 	render: function() {
 		st.log("rendering char");
