@@ -257,7 +257,8 @@
 .st-skill-item-key-language-2,
 .st-skill-item-key-language-3,
 .st-skill-item-key-language-4,
-.st-skill-item-key-language-5 {
+.st-skill-item-key-language-5,
+.st-skill-item-key-language-6 {
 	padding-left: 24px;
 }
 
@@ -318,7 +319,7 @@
 }
 
 .st-skill-item-key-social-sciences-1 {
-	padding-left: 24px;
+	padding-left: 84px;
 }
 
 .st-skill-item-key-social-sciences-2 {
@@ -369,6 +370,10 @@
 	padding-left: 24px;
 }
 
+.st-skill-item-key-sports-1 {
+	padding-left: 36px;
+}
+
 .st-skill-item-key-trivia-1 {
 	padding-left: 36px;
 }
@@ -379,6 +384,10 @@
 
 .st-skill-item-key-trivia-3 {
 	padding-left: 24px;
+}
+
+.st-skill-item-key-vehicle-operation-1 {
+	padding-left: 98px;
 }
 
 .st-action-points {

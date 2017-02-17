@@ -123,16 +123,8 @@ st.character = {
 			
 			spec.endurance = {};
 			
-			spec.tohits = {
-/*				"modern": 79,
-				"hth": 80,
-				"bareDamage": "1d10+8" */
-			},
-			
 			spec.skills = {};
-			
 			var skills0 = {};
-			
 			skills0["administration"] = baseMap(csvSpec["administration"].value);
 			skills0["artistic-expression"] = "";
 			skills0["carousing"] = baseMap(csvSpec["bargain"].value);
@@ -154,19 +146,17 @@ st.character = {
 			skills0["language-5-recon"] = baseMap(csvSpec["recon"].value);
 			skills0["language-6-stealth"] = baseMap(csvSpec["stealth"].value);
 			skills0["leadership"] = baseMap(csvSpec["leader"].value);
-			skills0["life-sciences-1-agriculture"] = baseMap(csvSpec["farming"].value);
-			skills0["life-sciences-2-biology"] = baseMap(csvSpec["biology"].value);
-			skills0["life-sciences-3"] = "";
+			skills0["life-sciences-1-"] = "";
+			skills0["life-sciences-2-agriculture"] = baseMap(csvSpec["farming"].value);
+			skills0["life-sciences-3-biology"] = baseMap(csvSpec["biology"].value);
 			skills0["life-sciences-4"] = "";
 			skills0["life-sciences-5"] = "";
 			skills0["life-sciences-6"] = "";
 			skills0["life-support-syst-technology"] = "";
 			skills0["marksmanship-archaic-firearms"] = baseMap(csvSpec["firearms"].value);
-			
 			spec.skills["0"] = skills0;
 			
 			var skills1 = {};
-
 			skills1["marksmanship-modern-weapon"] = baseMap(csvSpec["fast draw"].value);
 			skills1["mechanical-engineering"] = baseMap(csvSpec["mechanical"].value);
 			skills1["medical-sciences-1-"] = baseMap(csvSpec["medical"].value);
@@ -197,28 +187,26 @@ st.character = {
 			skills1["shuttlecraft-systems-technology"] = "";
 			skills1["small-equipment-systems-operation"] = baseMap(csvSpec["security systems"].value);
 			skills1["small-equipment-systems-technology"] = baseMap(csvSpec["security systems"].value);
-		
 			spec.skills["1"] = skills1;
 			
-			var skills2 = {};
-			
+			var skills2 = {};			
 			skills2["small-unit-tactics"] = baseMap(csvSpec["tactics"].value);
-			skills2["social-sciences-1-anthropology"] = baseMap(csvSpec["anthropology"].value);
-			skills2["social-sciences-2-economics"] = baseMap(csvSpec["economics"].value);
-			skills2["social-sciences-3-political-science"] = baseMap(csvSpec["political science"].value);
-			skills2["social-sciences-4-"] = "";
+			skills2["social-sciences-1-"] = "";
+			skills2["social-sciences-2-anthropology"] = baseMap(csvSpec["anthropology"].value);
+			skills2["social-sciences-3-economics"] = baseMap(csvSpec["economics"].value);
+			skills2["social-sciences-4-political-science"] = baseMap(csvSpec["political science"].value);
 			skills2["social-sciences-5-"] = "";
 			skills2["social-sciences-6-"] = "";
 			skills2["social-sciences-7-federation-history"] = baseMap(csvSpec["history"].value);
 			skills2["social-sciences-8-federation-law"] = baseMap(csvSpec["law"].value);
-			skills2["space-sciences-1-astrogation"] = "";
+			skills2["space-sciences-1-astrogation"] = baseMap(csvSpec["navigation"].value);
 			skills2["space-sciences-2-astronomy"] = baseMap(csvSpec["astronomy"].value);
 			skills2["space-sciences-3-astronautics"] = "";
 			skills2["space-sciences-4-astrophysics"] = "";
 			skills2["space-sciences-5"] = "";
 			skills2["sports-1-swim"] = baseMap(csvSpec["swim"].value);
 			skills2["starship-combat-strategy-tactics"] = baseMap(csvSpec["ships' tactics"].value);
-			skills2["starship-helm-operation"] = baseMap(csvSpec["navigation"].value);
+			skills2["starship-helm-operation"] = "";
 			skills2["starship-sensors"] = baseMap(csvSpec["detector ops"].value);
 			skills2["starship-weaponry-operation"] = baseMap(csvSpec["gunnery"].value);
 			skills2["starship-weaponry-technology"] = baseMap(csvSpec["weapons systems"].value);
@@ -231,11 +219,43 @@ st.character = {
 			skills2["vehicle-operation-1-ground"] = baseMap(csvSpec["vehicle (ground)"].value);
 			skills2["warp-drive-technology"] = baseMap(csvSpec["stardrive ops"].value);
 			skills2["zero-g-operations"] = baseMap(csvSpec["eva"].value);
-			
 			spec.skills["2"] = skills2;
 			
-			setTimeout(st.character.render,10);
+			var str = spec.attributes["str"];
+			var dex = spec.attributes["dex"];
+			var unarmed = skills1["personal-combat-unarmed"];
+			
+			spec.tohits = {
+				"modern": st.character.charAverageStat(dex, skills1["marksmanship-modern-weapon"]),
+				"hth": st.character.charAverageStat(dex, unarmed),
+				"bareDamage": st.character.bareHandDamage(str, unarmed)
+			},
+			
+			setTimeout(st.character.render, 10);
 		}
+	},
+	bareHandDamage: function(str, unarmed) {
+		var die = 0;
+		var mod = 0;
+		if (str >= 01 && str <= 25) {
+			die = 1;
+			mod = -3;  
+		} else if (str >= 26 && str <= 50) {
+			die = 1;
+		} else if (str >= 51 && str <= 75) {
+			die = 1;
+			mod = 3;  
+		} else if (str >= 76 && str <= 100) {
+			die = 2;
+			mod = -3;  
+		} else if (str >= 101 && str <= 125) {
+			die = 2;
+		} else if (str >= 126 && str <= 150) {
+			die = 2;
+			mod = 3;  
+		}
+		mod += Math.floor(unarmed / 10);
+		return die + "D10" + (mod < 0 ? mod : "") + (mod > 0 ? "+" + mod : "");
 	},
 	render: function() {
 		st.log("rendering char");
