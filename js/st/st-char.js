@@ -106,7 +106,8 @@ st.character = {
 			spec.overview["assignment"] = "";
 			spec.overview["ship"] = csvSpec["ship"].value;
 			spec.overview["position"] = csvSpec["position"].value;
-			
+			spec.overview["searchName"] = searchName;
+
 			spec.demographics = {};
 			spec.demographics["sex"] = csvSpec["sex"].value;
 			spec.demographics["race"] = csvSpec["race"].value;
@@ -297,17 +298,22 @@ st.character = {
 	renderAllegiance: function() {
 		st.log("rendering allegiance");
 
-		var spec = st.character.spec;
-		var all = spec.allegiance.toLowerCase().replace(/\s/g, "-");
-		
 		var size = 8/17 * 328;
 		var left = 8/17 * 107;
 		var top = 8/17 * 112;
+		var spec = st.character.spec;
+		var all = spec.allegiance.toLowerCase().replace(/\s/g, "-");
+		var img = "";
+		
+		if (all == "blake's-7") {
+			img = "img/blake's-7/" + st.character.spec.overview.searchName.toLowerCase() + ".jpg";			
+		} else {
+			img = "img/st-" + all + ".png";
+		}
 		
 		// attr
-		var img = "img/st-" + all + ".png";
 		var $attr = $("<div class=\"st-section st-allegiance\" style=\"left: " + left + "px; top: " + top + "px;\">"
-				      + "<img src=\"" + img + "\" width=\"" + size + "\" height=\"" + size + "\" />"
+				      + "<img src=\"" + img + "\" width=\"" + size + "\" />"
 				      + "</div>");
 		st.character.$pageft.append($attr);
 	},
