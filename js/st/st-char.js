@@ -482,20 +482,6 @@ st.character = {
 			st.character.$pageft.append($skillsI);
 		}		
 	},
-	renderStats: function() {
-		st.log("rendering stats");
-
-		var spec = st.character.spec;
-
-		var stats = spec.stats;
-		var $stats = $("<div class=\"st-section st-stats\"></div>");
-		_.each(stats, function(value, key) {
-			var h = value;
-			var $elm = $("<span class=\"st-item st-stat st-stat-" + key + "\" title=\"" + key.toUpperCase() + "\">" + h + "</span>");
-			$stats.append($elm);
-		});
-		st.character.$pageft.append($stats);
-	},
 	renderToHits: function() {
 		st.log("rendering to hits");
 		
