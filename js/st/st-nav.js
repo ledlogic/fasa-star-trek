@@ -8,6 +8,8 @@ st.nav = {
 		$(".st-nav-link").click(st.nav.click);
 		$("#st-select-char").bind("change", st.nav.selectChar);
 		st.nav.loadChars();
+		
+		$("#st-gen-allegiance").bind("change", st.nav.selectAllegiance);
 	},
 	click: function() {
 		st.log("clicked nav");
@@ -55,6 +57,17 @@ st.nav = {
 		} else {
 			st.character.hideChar();
 		}
+	},
+	selectAllegiance: function() {
+		st.log("selected allegiance");
+
+		var $sel = $(this);
+		var allegiance = $sel.val();
+		if ("romulan" == allegiance) {
+			st.character.genAllegianceChar(allegiance);			
+		} else {
+			alert("Allegiance not available yet: " + allegiance);
+		}		
 	},
 	showLinks: function() {
 		$(".st-nav-links").show();
