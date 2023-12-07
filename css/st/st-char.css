@@ -46,17 +46,11 @@
 	border: 1px solid transparent;
 }
 
-/* allegiance */
-
-.st-allegiance {
-	position: relative;
-}
-
 /* overview */
 
 .st-overview {
 	position: absolute;
-	top: 100px;
+	top: 0px;
 	left: 250px;
 	width: 314px;
 	height: 100px;
@@ -88,7 +82,7 @@
 
 .st-demographics {
 	position: absolute;
-	top: 100px;
+	top: 0px;
 	left: 628px;
 	width: 50px;
 	height: 100px;
@@ -105,12 +99,13 @@
 
 .st-attributes {
 	position: absolute;
-	top: 218px;
+	top: 118px;
 	left: 78px;
 	width: 614px;
 }
 
 .st-attribute {
+	border: 1px solid #000;
 	display: inline-block;
 	float: left;
 	font-size: 12px;
@@ -127,7 +122,7 @@
 
 .st-endurance {
 	position: absolute;
-	top: 254px;
+	top: 154px;
 	left: 78px;
 	width: 352px;
 }
@@ -165,7 +160,7 @@
 
 .st-stats {
 	position: absolute;
-	top: 282px;
+	top: 182px;
 	left: 506px;
 }
 
