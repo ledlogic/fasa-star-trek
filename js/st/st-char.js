@@ -8,9 +8,37 @@
  */
 st.character = {
 	spec: {},
+	
+	mod: {},
+	
+	allAttributes: ["str", "end", "int", "dex", "cha", "luc", "psi"],
+
+	baseAttributes: {
+		"str":40,
+		"end":40,
+		"int":40,
+		"dex":40,
+		"cha":40,
+		"luc":40,
+		"psi":0			
+	},
+	
 	$pageft: null,
+	
 	init: function() {
 		st.log("init character");
 		st.character.$pageft = $(".st-page .st-page-ft");
-	}	
+
+		// romulans tend to be somewhat stronger, more hardy, and more agile than humans, but they are not very lucky.
+		// they tend to have a somewhat lower Psionic Potential than do the Vulcans.
+		var r = {};
+		st.character.mod["romulan"] = r;
+		r["str"] = 10;
+		r["end"] = 10;
+		r["int"] = 0;
+		r["dex"] = 5;
+		r["cha"] = 0;
+		r["luc"] = -10;
+		r["psi"] = -20;
+	}
 };

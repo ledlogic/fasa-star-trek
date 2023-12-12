@@ -107,7 +107,6 @@
 .st-attribute {
 	border: 1px solid #000;
 	display: inline-block;
-	float: left;
 	font-size: 12px;
 	font-weight: bold;
 	height: 20px;
@@ -129,7 +128,6 @@
 
 .st-endurance-item {
 	display: inline-block;
-	float: left;
 	font-size: 10px;
 	font-weight: bold;
 	height: 16px;
@@ -138,6 +136,10 @@
 	position: relative;
 	text-align: center;
 	width: 87.4px;
+}
+
+.st-demographics-item-race {
+	text-transform: capitalize;
 }
 
 .st-endurance-item-inactsave {

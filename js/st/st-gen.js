@@ -46,13 +46,12 @@ st.gen = {
 		mod += Math.floor(unarmed / 10);
 		return die + "D10" + (mod < 0 ? mod : "") + (mod > 0 ? "+" + mod : "");
 	},
-	genRomulan: function(allegiance) {
+	genRomulan: function(race) {
 		st.log("gen romulan");
 		
 		var spec = {};
 		st.character.spec = spec;
 		
-		spec.allegiance = allegiance;
 		spec.overview = {};
 		spec.overview["name"] = "";
 		spec.overview["rank"] = "";
@@ -63,17 +62,9 @@ st.gen = {
 
 		spec.demographics = {};
 		spec.demographics["sex"] = "";
-		spec.demographics["race"] = allegiance;
-		
-		var baseMap = st.character.charMapStrStatBetweenBases;
-		spec.attributes = {};
-		spec.attributes["str"] = 40;
-		spec.attributes["end"] = 40;
-		spec.attributes["int"] = 40;
-		spec.attributes["dex"] = 40;
-		spec.attributes["cha"] = 40;
-		spec.attributes["luc"] = 40;
-		spec.attributes["psi"] = 0;
+		spec.demographics["race"] = race;
+	
+		st.gen.genAttributes();
 		
 		spec.endurance = {};
 		
@@ -176,7 +167,68 @@ st.gen = {
 			spec.skills["2"] = skills2;
 		
 		st.gen.genWeapons();
+		
+		console.log(st.character.spec);
 				
 		setTimeout(st.render.renderChar, 10);
+	},
+	
+	genAttributes: function() {
+		var spec = st.character.spec;
+		spec.attributes = {};
+				
+		// roll 3D10
+		var allAttributes = st.character.allAttributes;
+		var baseAttributes = st.character.baseAttributes;
+		for (var i=0;i<allAttributes.length;i++) {
+			var attribute = allAttributes[i];
+			spec.attributes[attribute] = st.math.die(3, 10, baseAttributes[attribute]);
+		}
+		console.log("base, attributes[" + JSON.stringify(baseAttributes) + "]");
+		console.log("initial, attributes[" + JSON.stringify(spec.attributes) + "]");
+		
+		var race = spec.demographics["race"];
+		var racialAdjustments = st.character.mod[race];
+		for (var i=0;i<allAttributes.length;i++) {
+			var attribute = allAttributes[i];
+			spec.attributes[attribute] = Math.max(1, spec.attributes[attribute] + racialAdjustments[attribute]);
+		}		
+		console.log("race, adjustments[" + race + "]");
+		console.log("racial, adjustments[" + JSON.stringify(racialAdjustments) + "]");
+		console.log("post racial, attributes[" + JSON.stringify(spec.attributes) + "]");
+		
+		// bonus points may be added to any attribute except psi.
+		var bonusPoints = Math.round(0.5 * st.math.die(1, 100, 0));
+		var remainingPoints = bonusPoints;
+		var bonusAttributes = ["str", "end", "int", "dex", "cha", "luc"];
+		var shuffledAttributes = _.shuffle(bonusAttributes);
+		
+		// no more than 30 points may be added to one attribute.
+		var appliedBonuses = {};
+		for (var i=0;i<bonusAttributes.length;i++) {
+			var bonusAttribute = bonusAttributes[i];
+			appliedBonuses[bonusAttribute] = 0;
+		}	
+		
+		while (remainingPoints > 0) {
+			for (var i=0; (i<bonusAttributes.length) && (remainingPoints>0); i++) {
+				var shuffledAttribute = shuffledAttributes[i];
+				
+				// no more than 30 points may be added to one attribute.
+				var currentAppliedBonus = appliedBonuses[shuffledAttribute];
+				var bonus = Math.min(st.math.die(1, remainingPoints, 0), 30 - currentAppliedBonus);
+				
+				// no attribute may be adjusted to more than 99 by using bonus points.
+				bonus = Math.min(bonus, 99-spec.attributes[shuffledAttribute]);
+				bonus = Math.max(bonus, 0);				
+				spec.attributes[shuffledAttribute] += bonus;
+				appliedBonuses[shuffledAttribute] += bonus;
+				remainingPoints -= bonus;
+			};
+		}
+		
+		console.log("bonus[" + bonusPoints + "]");
+		console.log("applied[" + JSON.stringify(appliedBonuses) + "]");
+		console.log("after, attributes[" + JSON.stringify(spec.attributes) + "]");
 	}
 };

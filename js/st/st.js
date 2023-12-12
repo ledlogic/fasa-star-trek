@@ -9,6 +9,7 @@ var st = {
 
 	init: function() {
 		st.character.init();
+		st.math.init();
 		st.nav.init();
 	}
 };
