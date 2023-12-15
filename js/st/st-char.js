@@ -7,7 +7,11 @@
  * of individual attributes.
  */
 st.character = {
-	spec: {},
+	spec: {
+		overview: {},
+		demographics: {},
+		endurance: {}
+	},
 	
 	mod: {},
 	
@@ -21,6 +25,11 @@ st.character = {
 		"cha":40,
 		"luc":40,
 		"psi":0			
+	},
+	
+	inactsave: {
+		"human": 20,
+		"romulan": 15
 	},
 	
 	$pageft: null,

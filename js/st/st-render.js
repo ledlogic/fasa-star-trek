@@ -58,34 +58,10 @@ st.render = {
 		var $attr = $("<div class=\"st-section st-attributes\"></div>");
 		_.each(attr, function(value, key) {
 			var h = value;
-			$elm = $("<span class=\"st-item st-attribute st-attribute-" + key + "\">" + h + "</span>");
+			$elm = $("<span class=\"st-item st-attribute st-attribute-" + key + "\"><label>" + key + "</label>" + h + "</span>");
 			$attr.append($elm);
 		});
 		st.character.$pageft.append($attr);
-	},
-	renderEndurance: function() {
-		st.log("rendering endurance");
-
-		var spec = st.character.spec;
-				
-		var attr = spec.attributes;
-		
-		var endurance = spec.endurance;
-		endurance.inactsave = 20;
-		endurance.uncthresh = 5;
-		endurance.maxopoend = attr.end;
-		endurance.curropoend = " ";
-		endurance.woundhealrate = Math.floor(attr.end / 20);
-		endurance.fathealrate = Math.floor(attr.end / 10);	
-		
-		// endurance
-		var $endurance = $("<div class=\"st-section st-endurance\"></div>");
-		_.each(endurance, function(value, key) {
-			var h = value;
-			$elm = $("<span class=\"st-item st-endurance-item st-endurance-item-" + key + "\">" + h + "</span>");
-			$endurance.append($elm);
-		});
-		st.character.$pageft.append($endurance);
 	},
 	renderDemographics: function() {
 		st.log("rendering demographics");
@@ -97,10 +73,36 @@ st.render = {
 		var $demographics = $("<div class=\"st-section st-demographics\"></div>");
 		_.each(demographics, function(value, key) {
 			var h = value + "";
-			$elm = $("<span class=\"st-item st-demographics-item st-demographics-item-" + key + "\">" + h + "</span>");
+			$elm = $("<span class=\"st-item st-demographics-item st-demographics-item-" + key + "\"><label>" + key + "</label>" + h + "</span>");
 			$demographics.append($elm);
 		});
 		st.character.$pageft.append($demographics);
+	},
+	renderEndurance: function() {
+		st.log("rendering endurance");
+
+		var spec = st.character.spec;
+				
+		var attr = spec.attributes;
+		
+		var endurance = spec.endurance;
+		var race = spec.demographics["race"];
+		var inactsave = st.character.inactsave[race];
+		endurance.inactsave = inactsave;
+		endurance.uncthresh = 5;
+		endurance.maxopoend = attr.end;
+		endurance.curropoend = "&nbsp;";
+		endurance.woundhealrate = Math.floor(attr.end / 20);
+		endurance.fathealrate = Math.floor(attr.end / 10);	
+		
+		// endurance
+		var $endurance = $("<div class=\"st-section st-endurance\"></div>");
+		_.each(endurance, function(value, key) {
+			var h = value;
+			$elm = $("<span class=\"st-item st-endurance-item st-endurance-item-" + key + "\"><label>" + key + "</label>" + h + "</span>");
+			$endurance.append($elm);
+		});
+		st.character.$pageft.append($endurance);
 	},
 	renderOverview: function() {
 		st.log("rendering overview");
@@ -128,8 +130,9 @@ st.render = {
 		st.log("rendering skills");
 
 		var spec = st.character.spec;
-
 		var skills = spec.skills;
+			
+		st.character.$pageft.append("<h2 class=\"st-skill-list-header\">Skill List</h2>");
 		
 		// there are three sets of skills, to match the display
 		for (var i=0;i<3;i++) {
@@ -139,71 +142,20 @@ st.render = {
 			
 			var $skillsI = $("<div class=\"st-section st-skills st-skills-" + i + "\"></div>");
 			_.each(skillsI, function(value, key) {
+				
+				console.log(key);
+				
 				var h = value + "";
 				if (!h) {
 					h = "&nbsp;"
 				}
 				var elm = "";
-				var i1 = key.indexOf("-1-");
-				var i2 = key.indexOf("-2-");
-				var i3 = key.indexOf("-3-");
-				var i4 = key.indexOf("-4-");
-				var i5 = key.indexOf("-5-");
-				var i6 = key.indexOf("-6-");
-				if (i1 > -1) {
-					var classKey = key.substring(0, i1+2);
-					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i1+3));
-					if (dispKey) {
-						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
-								+" style=\"top: " + y + "px\""
-								+">" + dispKey + "</span>");
-					}
-				}
-				if (i2 > -1) {
-					var classKey = key.substring(0, i2+2);
-					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i2+3));
-					if (dispKey) {
-						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
-								+" style=\"top: " + y + "px\""
-								+">" + dispKey + "</span>");
-					}
-				}
-				if (i3 > -1) {
-					var classKey = key.substring(0, i3+2);
-					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i3+3));
-					if (dispKey) {
-						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
-								+" style=\"top: " + y + "px\""
-								+">" + dispKey + "</span>");
-					}
-				}
-				if (i4 > -1) {
-					var classKey = key.substring(0, i4+2);
-					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i4+3));
-					if (dispKey) {
-						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
-								+" style=\"top: " + y + "px\""
-								+">" + dispKey + "</span>");
-					}
-				}
-				if (i5 > -1) {
-					var classKey = key.substring(0, i5+2);
-					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i5+3));
-					if (dispKey) {
-						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
-								+" style=\"top: " + y + "px\""
-								+">" + dispKey + "</span>");
-					}
-				}
-				if (i6 > -1) {
-					var classKey = key.substring(0, i6+2);
-					var dispKey = _.capitalize2(key.replace(/-/g, ' ').substring(i6+3));
-					if (dispKey) {
-						elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
-								+" style=\"top: " + y + "px\""
-								+">" + dispKey + "</span>");
-					}
-				}
+				var classKey = "";
+				var str = key.replace(/-/g, ' ');
+				var dispKey = _.capitalize2(str);
+				elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
+						+" style=\"top: " + y + "px\""
+						+">" + dispKey + "</span>");
 				elm += ("<span class=\"st-item st-skill-item st-skill-item-" + key + "\""
 						+" style=\"top: " + y + "px\""
 						+">" + h + "</span>");
@@ -222,7 +174,7 @@ st.render = {
 		var $tohits = $("<div class=\"st-section st-tohits\"></div>");
 		_.each(tohits, function(value, key) {
 			var h = value;
-			var $elm = $("<span class=\"st-item st-tohit st-tohit-" + key + "\" title=\"" + key.toUpperCase() + "\">" + h + "</span>");
+			var $elm = $("<span class=\"st-item st-tohit st-tohit-" + key + "\" title=\"" + key.toUpperCase() + "\"><label>" + key + "</label>" + h + "</span>");
 			$tohits.append($elm);
 		});
 		st.character.$pageft.append($tohits);

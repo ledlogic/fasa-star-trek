@@ -1,7 +1,7 @@
 /* ep.css */
 
 * {
-	font-family: 'Lato Semibold', 'Lato', 'Helvetica', sans-serif; /* eclipse phase table font is lato */
+	font-family: 'Helvetica', "Arial", sans-serif; /* eclipse phase table font is lato */
 }
 
 p {
@@ -13,11 +13,20 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Heliotype LET Plain Medium', 'Heliotype LET', 'Palatino', fantasy; /* eclipse phase title font is heliotype */
+	font-family: 'Helvetica', "Arial", sans-serif; /* eclipse phase table font is lato */
+}
+
+h2 {
+	font-size: 1.2em;
+	font-weight: bold;
 }
 
 h4 {
 	font-size: 0.8em;
+}
+
+label {
+	font-weight: normal;
 }
 
 .progress-bar {

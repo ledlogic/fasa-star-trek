@@ -29,11 +29,10 @@
 /* border */
 
 .st-section {
-	border: 1px solid #ff0000;
 }
 
 .st-item {
-	border: 1px solid #cc0000;
+	border: 1px solid #000;
 }
 
 /* .no-border */
@@ -84,15 +83,26 @@
 	position: absolute;
 	top: 0px;
 	left: 628px;
-	width: 50px;
+	width: 100px;
 	height: 100px;
 }
 
 .st-demographics-item {
-	display: block;
+	display: inline-block;
 	font-size: 12px;
 	margin-top: 0.6px;
+	position: relative;
 	text-align: right;
+}
+
+.st-demographics-item.st-demographics-item-race {
+	text-transform: uppercase;
+}
+
+.st-demographics-item label {
+	position: absolute;
+	left: -40px;
+	text-transform: uppercase; 
 }
 
 /* attributes */
@@ -117,6 +127,12 @@
 	width: 87.4px;
 }
 
+.st-attribute label {
+	position: absolute;
+	left: 8px;
+	text-transform: uppercase; 
+}
+
 /* endurance */
 
 .st-endurance {
@@ -132,22 +148,17 @@
 	font-weight: bold;
 	height: 16px;
 	margin: 0 0 0 0;
-	padding: 0 0 0 0;
+	padding: 0 0 0 72px;
 	position: relative;
 	text-align: center;
 	width: 87.4px;
 }
 
-.st-demographics-item-race {
-	text-transform: capitalize;
-}
-
-.st-endurance-item-inactsave {
-	visibility: hidden;
-}
-
-.st-endurance-item-uncthresh {
-	visibility: hidden;
+.st-endurance-item label {
+	position: absolute;
+	font-size: 0.8em;
+	left: 8px;
+	text-transform: uppercase; 
 }
 
 .st-endurance-item-woundhealrate {
@@ -156,6 +167,14 @@
 
 .st-endurance-item-fathealrate {
 	margin: 12px 0 0 0;
+}
+
+.st-endurance-item-woundhealrate label {
+	font-size: 0.7em;
+}
+
+.st-endurance-item-fathealrate label {
+	font-size: 0.7em;
 }
 
 /* stats */
@@ -175,6 +194,13 @@
 
 .border .st-skills {
 	border: 1px solid orange;
+}
+
+.st-skill-list-header {
+	position: absolute;	
+	top: 304px;
+	left: 80px;
+	width: 400px;
 }
 
 .st-skills {
@@ -216,6 +242,7 @@
 	margin: 0 0 0 0;
 	padding: 0 0 0 0;
 	text-align: center;
+	text-transform: capitalize;
 	width: 30px;
 }
 
@@ -228,35 +255,32 @@
 	margin: 0 0 0 0;
 	padding: 0 0 0 0;
 	text-align: left;
-	width: 177px;
+	width: 186px;
 }
 
 .st-skill-item {
 	position: absolute;
 	display: inline-block;
 	font-size: 10px;
-	left: 156px;
+	left: 166px;
 	line-height: 14px;
 	margin: 0 0 0 0;
 	padding: 0 0 0 0;
 	text-align: center;
-	width: 30px;
+	width: 20px;
 }
 
 .st-skill-item-key-artistic-expression-1 {
 	padding-left: 98px;
 }
 
-.st-skill-item-key-language-1 {
-	padding-left: 58px;
-}
-
+.st-skill-item-key-language-1,
 .st-skill-item-key-language-2,
 .st-skill-item-key-language-3,
 .st-skill-item-key-language-4,
 .st-skill-item-key-language-5,
 .st-skill-item-key-language-6 {
-	padding-left: 24px;
+	padding-left: 58px;
 }
 
 .st-skill-item-key-life-sciences-1 {
