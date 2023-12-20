@@ -24,6 +24,16 @@
 	position: absolute;
 	top:0;
 	left:0;
+	
+    border: 1px solid #000;
+    width: 748px;
+    display: block;
+    height: 772px;
+}
+
+.st-status {
+	font-size: 12px;
+	font-weight: bold;
 }
 
 /* border */
@@ -88,21 +98,16 @@
 }
 
 .st-demographics-item {
-	display: inline-block;
+	display: block;
 	font-size: 12px;
 	margin-top: 0.6px;
-	position: relative;
-	text-align: right;
-}
-
-.st-demographics-item.st-demographics-item-race {
+	text-align: center;
 	text-transform: uppercase;
 }
 
 .st-demographics-item label {
 	position: absolute;
 	left: -40px;
-	text-transform: uppercase; 
 }
 
 /* attributes */
@@ -198,7 +203,7 @@
 
 .st-skill-list-header {
 	position: absolute;	
-	top: 304px;
+	top: 284px;
 	left: 80px;
 	width: 400px;
 }
@@ -212,19 +217,19 @@
 
 .st-skills-0 {
 	position: absolute;
-	top: 350px;
+	top: 330px;
 	left: 80px;
 }
 
 .st-skills-1 {
 	position: absolute;
-	top: 350px;
+	top: 330px;
 	left: 290px;
 }
 
 .st-skills-2 {
 	position: absolute;
-	top: 350px;
+	top: 330px;
 	left: 498px;
 }
 
@@ -454,4 +459,41 @@
 .st-tohit-bareDamage {
 	left: 90px;
 	top: 24px;
+}
+
+/* beginning */
+
+.st-beginning {
+	background-color: #fff;
+	border: 1px solid red;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top:30%;
+	left: 10%;
+	height: 33%;
+	width: 80%;
+}
+
+.st-beginning-header {
+	margin-top: 0px;
+}
+
+.st-beginning-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+.st-beginning .st-key {
+	position: relative;
+	left: 10%;
+}
+.st-beginning .st-value {
+	float:right;
+	margin-right: 30%;
+}
+
+.st-actions {
+	margin-top: 20px;
+	text-align: right;
 }

@@ -90,3 +90,6 @@ label {
 .st-nav-char .progress {
 	display: none;
 }
+.st-hidden {
+	display: none;
+}

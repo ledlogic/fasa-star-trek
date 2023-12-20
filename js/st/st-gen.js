@@ -56,17 +56,29 @@ st.gen = {
 		spec.overview["assignment"] = "";
 		spec.overview["ship"] = "";
 		spec.overview["position"] = "";
-
-		spec.demographics["sex"] = "";
-		spec.demographics["race"] = race;
 	
+		st.gen.genDemographics(race);
 		st.gen.genAttributes();
 		st.gen.genSkills();
 		st.gen.genWeapons();
 		
 		console.log(st.character.spec);
-				
+		
+		setTimeout(st.render.hideNav, 10);
 		setTimeout(st.render.renderChar, 10);
+		setTimeout(st.render.renderTheBeginning, 10);
+	},
+	
+	genDemographics: function(race) {
+		var spec = st.character.spec;
+		var demographics = spec.demographics;
+
+		demographics["age"] = 18;
+		
+		var sex = st.math.die(1,2,-1) == 0 ? "male" : "female";
+		demographics.sex = sex;
+		
+		demographics["race"] = race;
 	},
 	
 	genAttributes: function() {
@@ -158,10 +170,10 @@ st.gen = {
 		skills0["life-sciences"] = "";
 		skills0["life-sciences-agriculture"] = "";
 		skills0["life-sciences-biology"] = "";
+		skills0["life-support-syst-technology"] = "";
 		spec.skills["0"] = skills0;
 		
 		var skills1 = {};
-		skills1["life-support-syst-technology"] = "";
 		skills1["marksmanship-archaic-firearms"] = "";
 		skills1["marksmanship-modern-weapon"] = "";
 		skills1["mechanical-engineering"] = "";
@@ -186,16 +198,17 @@ st.gen = {
 		skills1["shuttlecraft-systems-technology"] = "";
 		skills1["small-equipment-systems-operation"] = "";
 		skills1["small-equipment-systems-technology"] = "";
+		skills1["small-unit-tactics"] = "";
 		spec.skills["1"] = skills1;
 		
 		var skills2 = {};			
-		skills2["small-unit-tactics"] = "";
 		skills2["social-sciences"] = "";
 		skills2["social-sciences-anthropology"] = "";
 		skills2["social-sciences-economics"] = "";
 		skills2["social-sciences-federation-history"] = "";
 		skills2["social-sciences-federation-law"] = "";
 		skills2["social-sciences-political-science"] = "";
+		skills2["social-sciences-romulan-history"] = "";
 		skills2["space-sciences-astrogation"] = "";
 		skills2["space-sciences-astronautics"] = "";
 		skills2["space-sciences-astronomy"] = "";

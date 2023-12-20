@@ -73,6 +73,9 @@ st.render = {
 		var $demographics = $("<div class=\"st-section st-demographics\"></div>");
 		_.each(demographics, function(value, key) {
 			var h = value + "";
+			if (!h) {
+				h = "&nbsp;"
+			}
 			$elm = $("<span class=\"st-item st-demographics-item st-demographics-item-" + key + "\"><label>" + key + "</label>" + h + "</span>");
 			$demographics.append($elm);
 		});
@@ -178,5 +181,35 @@ st.render = {
 			$tohits.append($elm);
 		});
 		st.character.$pageft.append($tohits);
+	},
+	renderTheBeginning: function() {
+		var $status = $(".st-status");
+		$status.removeClass("st-hidden");
+		$("#st-status-current").html("The Beginning");
+		
+		var skills = {};
+		skills["computer-operation"] = 5;
+		skills["language-*"] = 5;
+		skills["marksmanship-modern"] = 5;
+		skills["personal-combat-armed-dueling-stick"] = 5;
+		skills["personal-combat-unarmed"] = 5;
+		skills["social-sciences-romulan-history"] = 5;
+		skills["small-equipment-systems-operation"] = 5;
+		skills["sports-*"] = 5;
+		
+		var $beginning = $("<div class=\"st-beginning\"></div>")
+		$beginning.append("<h2 class=\"st-beginning-header\">The Beginning</h2>")
+		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>")
+		_.each(skills, function(value, key) {
+			var h = value;
+			var $elm = $("<div><span class=\"st-key\">" + key + "</span><span class=\"st-value\">" + value + "</span></div>");
+			$beginning.append($elm);
+		});
+		$beginning.append("<div class=\"st-actions\"><button id=\"\">OK</button></div>")
+		
+		st.character.$pageft.append($beginning);
+	},
+	hideNav: function() {
+		$(".st-nav.row").hide();		
 	}
 };
