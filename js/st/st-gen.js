@@ -51,11 +51,13 @@ st.gen = {
 		
 		var spec = st.character.spec;
 		
-		spec.overview["name"] = "";
-		spec.overview["rank"] = "";
-		spec.overview["assignment"] = "";
-		spec.overview["ship"] = "";
-		spec.overview["position"] = "";
+		spec.overview = {
+			"name": 0,
+			"rank": 0,
+			"assignment": 0,
+			"ship": 0,
+			"position": 0
+		};
 	
 		st.gen.genDemographics(race);
 		st.gen.genAttributes();
@@ -142,90 +144,18 @@ st.gen = {
 	
 	genSkills: function() {
 		var spec = st.character.spec;
-
-		spec.skills = {};
-		
-		var skills0 = {};
-		skills0["administration"] = "";
-		skills0["artistic-expression"] = "";
-		skills0["carousing"] = "";
-		skills0["communication-systems-operation"] = "";
-		skills0["communication-systems-technology"] = "";
-		skills0["computer-operation"] = "";
-		skills0["computer-technology"] = "";
-		skills0["damage-control-procedures"] = "";
-		skills0["deflector-shield-operation"] = "";
-		skills0["deflector-shield-technology"] = "";
-		skills0["electronics-technology"] = "";
-		skills0["environmental-suit-operation"] = "";
-		skills0["gaming"] = "";
-		skills0["instruction"] = "";
-		skills0["language-andorian"] = "";
-		skills0["language-galactic"] = "";
-		skills0["language-klingon"] = "";
-		skills0["language-orion"] = "";
-		skills0["language-romulan"] = "";
-		skills0["language-vulcan"] = "";
-		skills0["leadership"] = "";
-		skills0["life-sciences"] = "";
-		skills0["life-sciences-agriculture"] = "";
-		skills0["life-sciences-biology"] = "";
-		skills0["life-support-syst-technology"] = "";
-		spec.skills["0"] = skills0;
-		
-		var skills1 = {};
-		skills1["marksmanship-archaic-firearms"] = "";
-		skills1["marksmanship-modern-weapon"] = "";
-		skills1["mechanical-engineering"] = "";
-		skills1["medical-sciences"] = "";
-		skills1["medical-sciences"] = "";
-		skills1["medical-sciences-human"] = "";
-		skills1["medical-sciences-psychology-human"] = "";
-		skills1["medical-sciences-surgery"] = "";
-		skills1["medical-sciences-telepathy"] = "";
-		skills1["negotiation-diplomacy"] = "";
-		skills1["personal-combat-armed"] = "";
-		skills1["personal-combat-unarmed"] = "";
-		skills1["personal-weapons-technology"] = "";
-		skills1["physical-sciences-chemistry"] = "";
-		skills1["physical-sciences-mathematics"] = "";
-		skills1["physical-sciences-physics"] = "";
-		skills1["planetary-sciences-geology"] = "";
-		skills1["planetary-sciences-mining"] = "";
-		skills1["planetary-survival"] = "";
-		skills1["security-procedures"] = "";
-		skills1["shuttlecraft-pilot"] = "";
-		skills1["shuttlecraft-systems-technology"] = "";
-		skills1["small-equipment-systems-operation"] = "";
-		skills1["small-equipment-systems-technology"] = "";
-		skills1["small-unit-tactics"] = "";
-		spec.skills["1"] = skills1;
-		
-		var skills2 = {};			
-		skills2["social-sciences"] = "";
-		skills2["social-sciences-anthropology"] = "";
-		skills2["social-sciences-economics"] = "";
-		skills2["social-sciences-federation-history"] = "";
-		skills2["social-sciences-federation-law"] = "";
-		skills2["social-sciences-political-science"] = "";
-		skills2["social-sciences-romulan-history"] = "";
-		skills2["space-sciences-astrogation"] = "";
-		skills2["space-sciences-astronautics"] = "";
-		skills2["space-sciences-astronomy"] = "";
-		skills2["space-sciences-astrophysics"] = "";
-		skills2["sports-swim"] = "";
-		skills2["starship-combat-strategy-tactics"] = "";
-		skills2["starship-helm-operation"] = "";
-		skills2["starship-sensors"] = "";
-		skills2["starship-weaponry-operation"] = "";
-		skills2["starship-weaponry-technology"] = "";
-		skills2["streetwise"] = "";
-		skills2["transporter-operation-procedures"] = "";
-		skills2["transporter-systems-technology"] = "";
-		skills2["trivia"] = "";
-		skills2["vehicle-operation-1-ground"] = "";
-		skills2["warp-drive-technology"] = "";
-		skills2["zero-g-operations"] = "";
-		spec.skills["2"] = skills2;
+		spec.skills = st.skills.baseSkills;
+	},
+	
+	getChoices: function(key) {
+		var ret = [];
+		var trimmedKey = key.split("*")[0];
+		var skillKeys = _.keys(st.skills.baseSkills);
+		_.each(skillKeys, function(skill) {
+			if (skill.indexOf(trimmedKey) === 0) {
+				ret.push(skill);
+			}
+		});
+		return ret;
 	}
 };

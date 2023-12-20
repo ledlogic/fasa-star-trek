@@ -138,24 +138,20 @@ st.render = {
 		st.character.$pageft.append("<h2 class=\"st-skill-list-header\">Skill List</h2>");
 		
 		// there are three sets of skills, to match the display
+		var columnSize = Math.ceil(_.size(skills) / 3.0);
+		var skillsI = _.chunkObj(skills, columnSize);
+		
 		for (var i=0;i<3;i++) {
-			var skillsI = skills[i];
-
 			var y = 0;
-			
 			var $skillsI = $("<div class=\"st-section st-skills st-skills-" + i + "\"></div>");
-			_.each(skillsI, function(value, key) {
-				
-				console.log(key);
-				
+			_.each(skillsI[i], function(value, key) {
 				var h = value + "";
 				if (!h) {
 					h = "&nbsp;"
 				}
 				var elm = "";
 				var classKey = "";
-				var str = key.replace(/-/g, ' ');
-				var dispKey = _.capitalize2(str);
+				var dispKey = _.keyToLabel(key);
 				elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
 						+" style=\"top: " + y + "px\""
 						+">" + dispKey + "</span>");
@@ -202,14 +198,60 @@ st.render = {
 		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>")
 		_.each(skills, function(value, key) {
 			var h = value;
-			var $elm = $("<div><span class=\"st-key\">" + key + "</span><span class=\"st-value\">" + value + "</span></div>");
+			var dispKey = _.keyToLabel(key);
+			var $elm = $("<div></div>");
+			var $choice = $("<span class=\"st-key\">" + dispKey + "</span>");
+			if (key.indexOf("*") > -1) {
+				var choices = st.gen.getChoices(key);				
+				var $choice = $("<select class=\"st-key\"></select>");
+				$choice.on("change", st.render.selectBeginningSkill);
+				$choice.append("<option value=\"\">Choose a skill</option>");
+				_.each(choices, function(choice) {
+					var choiceLabel = _.keyToLabel(choice);
+					$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+				});		
+			}
+			$elm.append($choice);
+			
+			$elm.append("<span class=\"st-value\">" + value + "</span>");
 			$beginning.append($elm);
 		});
-		$beginning.append("<div class=\"st-actions\"><button id=\"\">OK</button></div>")
-		
+		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled>OK</button></div>");
+
 		st.character.$pageft.append($beginning);
+		
+		$("#st-beginning-ok").on("click", st.render.actionBeginningOk);
 	},
 	hideNav: function() {
 		$(".st-nav.row").hide();		
+	},
+	selectBeginningSkill: function(skill) {
+		console.log("selectBeginningSkill");
+		var $sel = $(this);
+		var skill = $sel.val();
+		console.log("- skill[" + skill + "]");
+		st.render.checkBeginningActionStatus();
+	},
+	checkBeginningActionStatus: function() {
+		console.log("checkBeginningActionStatus");
+		var sels = $(".st-beginning select");
+		var selCount = 0;
+		_.each(sels, function(sel) {
+			var $sel = $(sel);
+			var skill = $sel.val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		if (sels.length === selCount) {
+			console.log("- ok");
+			$("#st-beginning-ok").removeAttr("disabled");
+		} else {
+			console.log("- ng");
+			$("#st-beginning-ok").attr("disabled", "disabled");
+		}
+	},
+	actionBeginningOk: function() {
+		console.log("actionBeginningOk");
 	}
 };

@@ -474,6 +474,7 @@
 	left: 10%;
 	height: 33%;
 	width: 80%;
+	box-shadow: 2px 2px 2px 0px #FF0000;
 }
 
 .st-beginning-header {
