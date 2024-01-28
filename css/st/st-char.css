@@ -507,9 +507,13 @@
 	position: relative;
 	top:20%;
 	left: 10%;
-	height: 310px;
+	height: 360px;
 	width: 80%;
 	box-shadow: 2px 2px 2px 0px #FF0000;
+}
+
+.st-beginning-electives .st-key-div {
+	height: 22px;
 }
 
 .st-beginning-electives .st-key {
@@ -520,4 +524,8 @@
 .st-beginning-electives .st-value {
 	float:right;
 	margin-right: 30%;
+}
+
+.st-disabled {
+	opacity: 0.75;
 }

@@ -267,11 +267,15 @@ st.render = {
 			st.log(key + ":" + value);
 			specSkills[key] = value;
 		});
-		var $beginning = $(".st-beginning");
-		$beginning.remove();
+		
+		st.render.hideBeginning();
 		
 		st.render.renderChar();
 		st.render.renderTheBeginningElectives();
+	},
+	hideBeginning: function() {
+		var $beginning = $(".st-beginning");
+		$beginning.remove();
 	},
 	
 	/* THE BEGINNING - electives */
@@ -280,19 +284,23 @@ st.render = {
 		st.render.renderStatus(title);
 			
 		var skills = st.skills.romulanBeginningElectivesSkills;
-		var $beginning = $("<div class=\"st-beginning-electives\"></div>")
-		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>")
-		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>")
+		var $beginning = $("<div class=\"st-beginning-electives\"></div>");
+		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>");
+		var qty = st.skills.romulanBeginningElectivesSkillsQty;
+		$beginning.append("<span class=\"st-beginning-instructions\">Please select " + qty + " from the choices below:</span>")
 		_.each(skills, function(value, key) {
 			var h = value;
 			var dispKey = _.keyToLabel(key);
-			var $elm = $("<div></div>");
-			var $choice = $("<span class=\"st-key\" data-key=\"" + key + "\">" + dispKey + "</span>");
+			var $elm = $("<div class=\"st-key-div\" data-key=\"" + key + "\"></div>");
+			var $checkbox = $("<input type=\"checkbox\" class=\"st-checkbox\" data-key=\"" + key + "\" />")
+			$checkbox.on("click", st.render.actionBeginningElectivesCheckbox);
+			$elm.append($checkbox);
+			var $choice = $("<span class=\"st-key st-key-span st-disabled\" data-key=\"" + key + "\">" + dispKey + "</span>");
 			var astIndex = key.indexOf("*");
 			if (astIndex > -1) {
 				var prefix = key.substring(0, astIndex);
 				var choices = st.gen.getChoices(key);				
-				var $choice = $("<select class=\"st-key\" data-key-prefix=\"" + prefix + "\"></select>");
+				var $choice = $("<select class=\"st-key st-select st-disabled\" data-key=\"" + key + "\" data-key-prefix=\"" + prefix + "\"></select>");
 				$choice.on("change", st.render.selectBeginningElectivesSkill);
 				$choice.append("<option value=\"\">Choose a skill</option>");
 				_.each(choices, function(choice) {
@@ -319,16 +327,32 @@ st.render = {
 	},
 	checkBeginningElectivesActionStatus: function() {
 		console.log("checkBeginningElectivesActionStatus");
-		var sels = $(".st-beginning-electives select");
+		
+		var qty = st.skills.romulanBeginningElectivesSkillsQty;
+		
+		$(".st-key-span, .st-key-select, .st-value").addClass("st-disabled");
+		
+		var $cbs = $(".st-beginning-electives .st-checkbox:checked");
+		var cbsCount = $cbs.length;
+		st.log("cbsCount[" + cbsCount + "]");
+
 		var selCount = 0;
-		_.each(sels, function(sel) {
-			var $sel = $(sel);
-			var skill = $sel.val();
-			if (skill) {
+		_.each($cbs, function(cb) {
+			var key = $(cb).data("key");
+			$(".st-key-span[data-key='" + key + "'], .st-key-select[data-key='" + key + "'], .st-value[data-key='" + key + "']").removeClass("st-disabled");
+			var $sel = $cbs.parent().find(".st-select");
+			if ($sel.length == 0) {
 				selCount++;
+			} else {
+				var skill = $sel.val();
+				if (skill) {
+					selCount++;
+				}
 			}
 		});
-		if (sels.length === selCount) {
+		st.log("selCount[" + selCount + "]");
+	
+		if (cbsCount === 2 && cbsCount === selCount) {
 			st.log("- ok");
 			$("#st-beginning-ok").removeAttr("disabled");
 		} else {
@@ -344,20 +368,37 @@ st.render = {
 		
 		var skills = st.skills.romulanBeginningElectivesSkills;
 		_.each(skills, function(value, key) {
+		});
+		
+		var $cbs = $(".st-beginning-electives .st-checkbox:checked");
+		var cbsCount = $cbs.length;
+		st.log("cbsCount[" + cbsCount + "]");
+
+		_.each($cbs, function(cb) {
+			var key = $(cb).data("key");
 			var $valueElem = $(".st-beginning-electives .st-value[data-key='" + key + "']");
 			var value = parseInt($valueElem.html(),10);
 			var astIndex = key.indexOf("*");
 			if (astIndex > -1) {
 				var prefix = key.substring(0, astIndex);
-				var $sel = $(".st-beginning .st-key[data-key-prefix='" + prefix + "']");
+				var $sel = $(".st-beginning-electives .st-key[data-key-prefix='" + prefix + "']");
 				key = $sel.val();
 			}
 			st.log(key + ":" + value);
 			specSkills[key] = value;
 		});
+
+		st.render.hideBeginningElectives();		
+		st.render.renderChar();
+		// TODO: next step
+	},
+	hideBeginningElectives: function() {
 		var $beginning = $(".st-beginning-electives");
 		$beginning.remove();
-		
-		st.render.renderChar();
+	},
+	actionBeginningElectivesCheckbox: function(event) {
+		var $that = $(this);
+		var key = $that.data("key");
+		st.render.checkBeginningElectivesActionStatus();
 	}
 };
