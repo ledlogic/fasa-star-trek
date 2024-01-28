@@ -133,13 +133,15 @@ st.render = {
 		st.log("rendering skills");
 
 		var spec = st.character.spec;
+		debugger;
 		var skills = spec.skills;
+		var valuedSkills = st.skills.withValue(skills);
 			
 		st.character.$pageft.append("<h2 class=\"st-skill-list-header\">Skill List</h2>");
 		
 		// there are three sets of skills, to match the display
-		var columnSize = Math.ceil(_.size(skills) / 3.0);
-		var skillsI = _.chunkObj(skills, columnSize);
+		var columnSize = Math.ceil(_.size(valuedSkills) / 3.0);
+		var skillsI = _.chunkObj(valuedSkills, columnSize);
 		
 		for (var i=0;i<3;i++) {
 			var y = 0;
@@ -265,7 +267,7 @@ st.render = {
 				key = $sel.val();
 			}
 			st.log(key + ":" + value);
-			specSkills[key] = value;
+			specSkills[key] += value;
 		});
 		
 		st.render.hideBeginning();
@@ -300,7 +302,7 @@ st.render = {
 			if (astIndex > -1) {
 				var prefix = key.substring(0, astIndex);
 				var choices = st.gen.getChoices(key);				
-				var $choice = $("<select class=\"st-key st-select st-disabled\" data-key=\"" + key + "\" data-key-prefix=\"" + prefix + "\"></select>");
+				var $choice = $("<select class=\"st-key st-key-select st-disabled\" disabled=\"disabled\" data-key=\"" + key + "\" data-key-prefix=\"" + prefix + "\"></select>");
 				$choice.on("change", st.render.selectBeginningElectivesSkill);
 				$choice.append("<option value=\"\">Choose a skill</option>");
 				_.each(choices, function(choice) {
@@ -331,6 +333,7 @@ st.render = {
 		var qty = st.skills.romulanBeginningElectivesSkillsQty;
 		
 		$(".st-key-span, .st-key-select, .st-value").addClass("st-disabled");
+		$(".st-key-select").attr("disabled", "disabled");
 		
 		var $cbs = $(".st-beginning-electives .st-checkbox:checked");
 		var cbsCount = $cbs.length;
@@ -340,6 +343,7 @@ st.render = {
 		_.each($cbs, function(cb) {
 			var key = $(cb).data("key");
 			$(".st-key-span[data-key='" + key + "'], .st-key-select[data-key='" + key + "'], .st-value[data-key='" + key + "']").removeClass("st-disabled");
+			$(".st-key-select[data-key='" + key + "']").removeAttr("disabled");
 			var $sel = $cbs.parent().find(".st-select");
 			if ($sel.length == 0) {
 				selCount++;
@@ -385,7 +389,7 @@ st.render = {
 				key = $sel.val();
 			}
 			st.log(key + ":" + value);
-			specSkills[key] = value;
+			specSkills[key] += value;
 		});
 
 		st.render.hideBeginningElectives();		

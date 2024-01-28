@@ -86,10 +86,10 @@ st.skills = {
 		"social-sciences:-political-science": 0,
 		"social-sciences:-romulan-history": 0,
 		"social-sciences:-romulan-law": 0,
-		"space-sciences-astrogation": 0,
-		"space-sciences-astronautics": 0,
-		"space-sciences-astronomy": 0,
-		"space-sciences-astrophysics": 0,
+		"space-sciences:-astrogation": 0,
+		"space-sciences:-astronautics": 0,
+		"space-sciences:-astronomy": 0,
+		"space-sciences:-astrophysics": 0,
 		"sports:-bowling": 0,
 		"sports:-gravball": 0,
 		"sports:-swimming": 0,
@@ -113,26 +113,35 @@ st.skills = {
 	},
 	romulanBeginningSkills: {
 		"computer-operation": 5,
-		"language-*": 5,
+		"language:-*": 5,
 		"marksmanship-modern": 5,
 		"personal-combat-armed:-dueling-stick": 5,
 		"personal-combat-unarmed": 5,
 		"social-sciences:-romulan-history": 5,
 		"small-equipment-systems-operation": 5,
-		"sports-*": 5
+		"sports:-*": 5
 	},
 	romulanBeginningElectivesSkillsQty: 2,
 	romulanBeginningElectivesSkills: {
 		"communication-systems-operation": 5,
-		"language-*": 5,
+		"language:-*": 5,
 		"leadership": 5,
-		"life-sciences-*": 5,
-		"marksmanship-archaic-weapons": 5,
+		"life-sciences:-*": 5,
+		"marksmanship-archaic:-*": 5,
 		"personal-combat-armed": 5,
-		"physical-sciences-*": 5,
-		"planetary-survival-*": 5,
-		"sports-*": 5,
+		"physical-sciences:-*": 5,
+		"planetary-survival:-*": 5,
+		"sports:-*": 5,
 		"social-sciences:-*": 5,
-		"space-sciences-*": 5
+		"space-sciences:-*": 5
+	},
+	withValue:function(skills) {
+		var ret = {};
+		_.each(skills, function(value, key) {
+			if (value) {
+				ret[key] = value;
+			}
+		});
+		return ret;
 	}
 };
