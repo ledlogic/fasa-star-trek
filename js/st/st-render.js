@@ -133,7 +133,6 @@ st.render = {
 		st.log("rendering skills");
 
 		var spec = st.character.spec;
-		debugger;
 		var skills = spec.skills;
 		var valuedSkills = st.skills.withValue(skills);
 			
@@ -285,6 +284,9 @@ st.render = {
 		var title = "The Beginning Electives";
 		st.render.renderStatus(title);
 			
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+			
 		var skills = st.skills.romulanBeginningElectivesSkills;
 		var $beginning = $("<div class=\"st-beginning-electives\"></div>");
 		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>");
@@ -306,8 +308,11 @@ st.render = {
 				$choice.on("change", st.render.selectBeginningElectivesSkill);
 				$choice.append("<option value=\"\">Choose a skill</option>");
 				_.each(choices, function(choice) {
-					var choiceLabel = _.keyToLabel(choice);
-					$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+					// only can add beginning electives with rank zero (TRW:GOM40)
+					if (specSkills[choice] === 0) {
+						var choiceLabel = _.keyToLabel(choice);
+						$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+					}
 				});		
 			}
 			$elm.append($choice);
@@ -329,8 +334,6 @@ st.render = {
 	},
 	checkBeginningElectivesActionStatus: function() {
 		console.log("checkBeginningElectivesActionStatus");
-		
-		var qty = st.skills.romulanBeginningElectivesSkillsQty;
 		
 		$(".st-key-span, .st-key-select, .st-value").addClass("st-disabled");
 		$(".st-key-select").attr("disabled", "disabled");
@@ -356,7 +359,8 @@ st.render = {
 		});
 		st.log("selCount[" + selCount + "]");
 	
-		if (cbsCount === 2 && cbsCount === selCount) {
+		var qty = st.skills.romulanBeginningElectivesSkillsQty;
+		if (cbsCount === qty && cbsCount === selCount) {
 			st.log("- ok");
 			$("#st-beginning-ok").removeAttr("disabled");
 		} else {
