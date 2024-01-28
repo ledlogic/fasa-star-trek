@@ -74,5 +74,15 @@ st.skills = {
 		"vehicle-operation-1-ground": 0,
 		"warp-drive-technology": 0,
 		"zero-g-operations": 0
+	},
+	romulanBeginningSkills: {
+		"computer-operation": 5,
+		"language-*": 5,
+		"marksmanship-modern": 5,
+		"personal-combat-armed-dueling-stick": 5,
+		"personal-combat-unarmed": 5,
+		"social-sciences-romulan-history": 5,
+		"small-equipment-systems-operation": 5,
+		"sports-*": 5
 	}
 };

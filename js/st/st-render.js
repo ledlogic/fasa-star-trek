@@ -178,21 +178,15 @@ st.render = {
 		});
 		st.character.$pageft.append($tohits);
 	},
-	renderTheBeginning: function() {
+	renderStatus: function(status) {
 		var $status = $(".st-status");
 		$status.removeClass("st-hidden");
-		$("#st-status-current").html("The Beginning");
-		
-		var skills = {};
-		skills["computer-operation"] = 5;
-		skills["language-*"] = 5;
-		skills["marksmanship-modern"] = 5;
-		skills["personal-combat-armed-dueling-stick"] = 5;
-		skills["personal-combat-unarmed"] = 5;
-		skills["social-sciences-romulan-history"] = 5;
-		skills["small-equipment-systems-operation"] = 5;
-		skills["sports-*"] = 5;
-		
+		$("#st-status-current").html(status);
+	},
+	renderTheBeginning: function() {
+		st.render.renderStatus("The Beginning");
+			
+		var skills = st.skills.romulanBeginningSkills;
 		var $beginning = $("<div class=\"st-beginning\"></div>")
 		$beginning.append("<h2 class=\"st-beginning-header\">The Beginning</h2>")
 		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>")
@@ -200,10 +194,12 @@ st.render = {
 			var h = value;
 			var dispKey = _.keyToLabel(key);
 			var $elm = $("<div></div>");
-			var $choice = $("<span class=\"st-key\">" + dispKey + "</span>");
-			if (key.indexOf("*") > -1) {
+			var $choice = $("<span class=\"st-key\" data-key=\"" + key + "\">" + dispKey + "</span>");
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
 				var choices = st.gen.getChoices(key);				
-				var $choice = $("<select class=\"st-key\"></select>");
+				var $choice = $("<select class=\"st-key\" data-key-prefix=\"" + prefix + "\"></select>");
 				$choice.on("change", st.render.selectBeginningSkill);
 				$choice.append("<option value=\"\">Choose a skill</option>");
 				_.each(choices, function(choice) {
@@ -212,8 +208,7 @@ st.render = {
 				});		
 			}
 			$elm.append($choice);
-			
-			$elm.append("<span class=\"st-value\">" + value + "</span>");
+			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
 			$beginning.append($elm);
 		});
 		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled>OK</button></div>");
@@ -229,7 +224,7 @@ st.render = {
 		console.log("selectBeginningSkill");
 		var $sel = $(this);
 		var skill = $sel.val();
-		console.log("- skill[" + skill + "]");
+		st.log("- skill[" + skill + "]");
 		st.render.checkBeginningActionStatus();
 	},
 	checkBeginningActionStatus: function() {
@@ -244,14 +239,35 @@ st.render = {
 			}
 		});
 		if (sels.length === selCount) {
-			console.log("- ok");
+			st.log("- ok");
 			$("#st-beginning-ok").removeAttr("disabled");
 		} else {
-			console.log("- ng");
+			st.log("- ng");
 			$("#st-beginning-ok").attr("disabled", "disabled");
 		}
 	},
 	actionBeginningOk: function() {
 		console.log("actionBeginningOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+		
+		var skills = st.skills.romulanBeginningSkills;
+		_.each(skills, function(value, key) {
+			var $valueElem = $(".st-beginning .st-value[data-key='" + key + "']");
+			var value = parseInt($valueElem.html(),10);
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
+				var $sel = $(".st-beginning .st-key[data-key-prefix='" + prefix + "']");
+				key = $sel.val();
+			}
+			st.log(key + ":" + value);
+			specSkills[key] = value;
+		});
+		var $beginning = $(".st-beginning");
+		$beginning.remove();
+		
+		st.render.renderSkills();
 	}
 };
