@@ -38,9 +38,6 @@
 
 /* border */
 
-.st-section {
-}
-
 .st-item {
 	border: 1px solid #000;
 }
@@ -470,7 +467,7 @@
 	font-size: 12px;
 	padding: 10px;
 	position: relative;
-	top:30%;
+	top: 20%;
 	left: 10%;
 	height: 33%;
 	width: 80%;
@@ -485,10 +482,12 @@
 	display: block;
 	margin-bottom: 10px;
 }
+
 .st-beginning .st-key {
 	position: relative;
 	left: 10%;
 }
+
 .st-beginning .st-value {
 	float:right;
 	margin-right: 30%;
@@ -497,4 +496,28 @@
 .st-actions {
 	margin-top: 20px;
 	text-align: right;
+}
+
+.st-beginning-electives {
+	background-color: #fff;
+	border: 1px solid red;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top:20%;
+	left: 10%;
+	height: 310px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #FF0000;
+}
+
+.st-beginning-electives .st-key {
+	position: relative;
+	left: 10%;
+}
+
+.st-beginning-electives .st-value {
+	float:right;
+	margin-right: 30%;
 }

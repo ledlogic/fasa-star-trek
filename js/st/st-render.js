@@ -145,21 +145,20 @@ st.render = {
 			var y = 0;
 			var $skillsI = $("<div class=\"st-section st-skills st-skills-" + i + "\"></div>");
 			_.each(skillsI[i], function(value, key) {
-				var h = value + "";
-				if (!h) {
-					h = "&nbsp;"
+				if (value) {
+					var h = value + "";
+					var elm = "";
+					var classKey = "";
+					var dispKey = _.keyToLabel(key);
+					elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
+							+" style=\"top: " + y + "px\""
+							+">" + dispKey + "</span>");
+					elm += ("<span class=\"st-item st-skill-item st-skill-item-" + key + "\""
+							+" style=\"top: " + y + "px\""
+							+">" + h + "</span>");
+					$skillsI.append(elm);
+					y += 17.6;
 				}
-				var elm = "";
-				var classKey = "";
-				var dispKey = _.keyToLabel(key);
-				elm += ("<span class=\"st-item st-skill-item-key st-skill-item-key-" + classKey + "\""
-						+" style=\"top: " + y + "px\""
-						+">" + dispKey + "</span>");
-				elm += ("<span class=\"st-item st-skill-item st-skill-item-" + key + "\""
-						+" style=\"top: " + y + "px\""
-						+">" + h + "</span>");
-				$skillsI.append(elm);
-				y += 17.6;
 			});
 			st.character.$pageft.append($skillsI);
 		}		
@@ -183,12 +182,18 @@ st.render = {
 		$status.removeClass("st-hidden");
 		$("#st-status-current").html(status);
 	},
+		hideNav: function() {
+		$(".st-nav.row").hide();		
+	},
+
+	/* THE BEGINNING */
 	renderTheBeginning: function() {
-		st.render.renderStatus("The Beginning");
+		var title = "The Beginning";
+		st.render.renderStatus(title);
 			
 		var skills = st.skills.romulanBeginningSkills;
 		var $beginning = $("<div class=\"st-beginning\"></div>")
-		$beginning.append("<h2 class=\"st-beginning-header\">The Beginning</h2>")
+		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>")
 		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>")
 		_.each(skills, function(value, key) {
 			var h = value;
@@ -216,9 +221,6 @@ st.render = {
 		st.character.$pageft.append($beginning);
 		
 		$("#st-beginning-ok").on("click", st.render.actionBeginningOk);
-	},
-	hideNav: function() {
-		$(".st-nav.row").hide();		
 	},
 	selectBeginningSkill: function(skill) {
 		console.log("selectBeginningSkill");
@@ -268,6 +270,94 @@ st.render = {
 		var $beginning = $(".st-beginning");
 		$beginning.remove();
 		
-		st.render.renderSkills();
+		st.render.renderChar();
+		st.render.renderTheBeginningElectives();
+	},
+	
+	/* THE BEGINNING - electives */
+	renderTheBeginningElectives: function() {
+		var title = "The Beginning Electives";
+		st.render.renderStatus(title);
+			
+		var skills = st.skills.romulanBeginningElectivesSkills;
+		var $beginning = $("<div class=\"st-beginning-electives\"></div>")
+		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>")
+		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>")
+		_.each(skills, function(value, key) {
+			var h = value;
+			var dispKey = _.keyToLabel(key);
+			var $elm = $("<div></div>");
+			var $choice = $("<span class=\"st-key\" data-key=\"" + key + "\">" + dispKey + "</span>");
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
+				var choices = st.gen.getChoices(key);				
+				var $choice = $("<select class=\"st-key\" data-key-prefix=\"" + prefix + "\"></select>");
+				$choice.on("change", st.render.selectBeginningElectivesSkill);
+				$choice.append("<option value=\"\">Choose a skill</option>");
+				_.each(choices, function(choice) {
+					var choiceLabel = _.keyToLabel(choice);
+					$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+				});		
+			}
+			$elm.append($choice);
+			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
+			$beginning.append($elm);
+		});
+		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled>OK</button></div>");
+
+		st.character.$pageft.append($beginning);
+		
+		$("#st-beginning-ok").on("click", st.render.actionBeginningElectivesOk);
+	},
+	selectBeginningElectivesSkill: function(skill) {
+		console.log("selectBeginningElectivesSkill");
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.render.checkBeginningElectivesActionStatus();
+	},
+	checkBeginningElectivesActionStatus: function() {
+		console.log("checkBeginningElectivesActionStatus");
+		var sels = $(".st-beginning-electives select");
+		var selCount = 0;
+		_.each(sels, function(sel) {
+			var $sel = $(sel);
+			var skill = $sel.val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		if (sels.length === selCount) {
+			st.log("- ok");
+			$("#st-beginning-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-beginning-ok").attr("disabled", "disabled");
+		}
+	},
+	actionBeginningElectivesOk: function() {
+		console.log("actionBeginningElectivesOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+		
+		var skills = st.skills.romulanBeginningElectivesSkills;
+		_.each(skills, function(value, key) {
+			var $valueElem = $(".st-beginning-electives .st-value[data-key='" + key + "']");
+			var value = parseInt($valueElem.html(),10);
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
+				var $sel = $(".st-beginning .st-key[data-key-prefix='" + prefix + "']");
+				key = $sel.val();
+			}
+			st.log(key + ":" + value);
+			specSkills[key] = value;
+		});
+		var $beginning = $(".st-beginning-electives");
+		$beginning.remove();
+		
+		st.render.renderChar();
 	}
 };
