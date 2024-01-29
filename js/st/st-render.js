@@ -140,7 +140,7 @@ st.render = {
 		
 		// there are three sets of skills, to match the display
 		var columnSize = Math.ceil(_.size(valuedSkills) / 3.0);
-		var skillsI = _.chunkObj(valuedSkills, columnSize);
+		var skillsI = st.render.chunkObj(valuedSkills, columnSize);
 		
 		for (var i=0;i<3;i++) {
 			var y = 0;
@@ -163,6 +163,31 @@ st.render = {
 			});
 			st.character.$pageft.append($skillsI);
 		}		
+	},
+	chunkObj: function(obj, chunks) {
+		var ret = [];
+		var objSize = _.size(obj);
+		var ave = [];
+		ave[0] = Math.ceil(objSize / chunks);
+		ave[1] = Math.round((objSize - ave[0]) / (chunks-1));
+		ave[2] = Math.ceil((objSize - ave[0] - ave[1]) / (chunks-2));
+		
+		console.log(ave);
+		
+		var row = 0;
+		var current = 0;
+		_.each(obj, function(value, key) {
+			if (row > ave[current]) {
+				current++;
+				row=0;
+			}
+			if (!ret[current]) {
+				ret[current] = {};
+			}
+			ret[current][key] = value;
+			row++;
+		});
+		return ret;
 	},
 	renderToHits: function() {
 		st.log("rendering to hits");
@@ -404,9 +429,7 @@ st.render = {
 		var $beginning = $(".st-beginning-electives");
 		$beginning.remove();
 	},
-	actionBeginningElectivesCheckbox: function(event) {
-		var $that = $(this);
-		var key = $that.data("key");
+	actionBeginningElectivesCheckbox: function() {
 		st.render.checkBeginningElectivesActionStatus();
 	}
 };

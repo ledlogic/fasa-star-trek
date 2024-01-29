@@ -26,7 +26,7 @@ st.gen = {
 	genBareHandDamage: function(str, unarmed) {
 		var die = 0;
 		var mod = 0;
-		if (str >= 01 && str <= 25) {
+		if (str >= 1 && str <= 25) {
 			die = 1;
 			mod = -3;  
 		} else if (str >= 26 && str <= 50) {
