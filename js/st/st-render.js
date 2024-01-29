@@ -399,10 +399,6 @@ st.render = {
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
 		
-		var skills = st.skills.romulanBeginningElectivesSkills;
-		_.each(skills, function(value, key) {
-		});
-		
 		var $cbs = $(".st-beginning-electives .st-checkbox:checked");
 		var cbsCount = $cbs.length;
 		st.log("cbsCount[" + cbsCount + "]");

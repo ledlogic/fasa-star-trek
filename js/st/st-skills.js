@@ -12,8 +12,10 @@ st.skills = {
 		"artistic-expression:-holography": 0,
 		"artistic-expression:-graphic-design": 0,
 		"carousing": 0,
-		"communication-systems-operation": 0,
-		"communication-systems-technology": 0,
+		"cloaking-device-technology": 0,
+		"cloaking-procedures": 0,
+		"communication-operation": 0,
+		"communication-technology": 0,
 		"computer-operation": 0,
 		"computer-technology": 0,
 		"damage-control-procedures": 0,
@@ -26,15 +28,30 @@ st.skills = {
 		"gaming:-wargames": 0,
 		"instruction": 0,
 		"language:-andorian": 0,
+		"language:-caitian": 0,
+		"language:-edoan": 0,
+		"language:-french": 0,
+		"language:-gaelic": 0,
 		"language:-galactic": 0,
-		"language:-klingon": 0,
+		"language:-gorn": 0,
+		"language:-klingonaase": 0,
+		"language:-latin": 0,
 		"language:-orion": 0,
 		"language:-romulan": 0,
+		"language:-russian": 0,
+		"language:-swahili": 0,
+		"language:-tellarite": 0,
 		"language:-vulcan": 0,
 		"leadership": 0,
 		"life-sciences:-agriculture": 0,
 		"life-sciences:-biology": 0,
-		"life-support-syst-technology": 0,
+		"life-sciences:-bionics": 0,
+		"life-sciences:-botany": 0,
+		"life-sciences:-ecology": 0,
+		"life-sciences:-exobiology": 0,
+		"life-sciences:-genetics": 0,
+		"life-sciences:-zoology": 0,
+		"life-support-technology": 0,
 		"marksmanship-archaic:-axe": 0,
 		"marksmanship-archaic:-bow": 0,
 		"marksmanship-archaic:-dagger": 0,
@@ -43,12 +60,21 @@ st.skills = {
 		"marksmanship-archaic:-spear": 0,
 		"marksmanship-modern": 0,
 		"mechanical-engineering": 0,
+		"medical-sciences:-andorian": 0,
+		"medical-sciences:-caitian": 0,
+		"medical-sciences:-edoan": 0,
+		"medical-sciences:-gorn": 0,
 		"medical-sciences:-human": 0,
+		"medical-sciences:-klingon": 0,
+		"medical-sciences:-orion": 0,
 		"medical-sciences:-pathology": 0,
 		"medical-sciences:-psychology": 0,
+		"medical-sciences:-romulan": 0,
 		"medical-sciences:-surgery": 0,
+		"medical-sciences:-tellarite": 0,
 		"medical-sciences:-telepathy": 0,
-		"negotiation-diplomacy": 0,
+		"medical-sciences:-vulcan": 0,
+		"negotiation/diplomacy": 0,
 		"personal-combat-armed:-axe": 0,
 		"personal-combat-armed:-club": 0,
 		"personal-combat-armed:-dagger": 0,
@@ -74,9 +100,9 @@ st.skills = {
 		"planetary-survival:-desert": 0,
 		"security-procedures": 0,
 		"shuttlecraft-pilot": 0,
-		"shuttlecraft-systems-technology": 0,
-		"small-equipment-systems-operation": 0,
-		"small-equipment-systems-technology": 0,
+		"shuttlecraft-technology": 0,
+		"small-equipment-operation": 0,
+		"small-equipment-technology": 0,
 		"small-unit-tactics": 0,
 		"social-sciences:-anthropology": 0,
 		"social-sciences:-archeology": 0,
@@ -103,7 +129,7 @@ st.skills = {
 		"starship-weaponry-technology": 0,
 		"streetwise": 0,
 		"transporter-operation-procedures": 0,
-		"transporter-systems-technology": 0,
+		"transporter-technology": 0,
 		"trivia:-SCUBA": 0,
 		"vehicle-operation:-aircraft": 0,
 		"vehicle-operation:-ground": 0,
@@ -118,12 +144,12 @@ st.skills = {
 		"personal-combat-armed:-dueling-stick": 5,
 		"personal-combat-unarmed": 5,
 		"social-sciences:-romulan-history": 5,
-		"small-equipment-systems-operation": 5,
+		"small-equipment-operation": 5,
 		"sports:-*": 5
 	},
 	romulanBeginningElectivesSkillsQty: 2,
 	romulanBeginningElectivesSkills: {
-		"communication-systems-operation": 5,
+		"communication-operation": 5,
 		"language:-*": 5,
 		"leadership": 5,
 		"life-sciences:-*": 5,
@@ -143,5 +169,134 @@ st.skills = {
 			}
 		});
 		return ret;
+	},
+	romulanBroadeningSkills: {
+		"starship-operations-specialties": {
+			"helm/navigation": {
+				"deflector-shield-operation": 10,
+				"small-equipment-operation": 5,
+				"space-sciences:-astrogation": 20,
+				"starship-combat-strategy-tactics": 10,
+				"starship-helm-operation": 20,
+				"starship-sensors": 10
+			},
+			"communications": {
+				"communication-operation": 20,
+				"computer-operation": 10,
+				"damage-control-procedures": 10,
+				"language:-*": 30,
+				"small-equipment-operation": 5
+			},
+			"weapon": {
+				"cloaking-procedures": 10,
+				"computer-operation": 10,
+				"small-equipment-operation": 5,
+				"starship-combat-strategy-tactics": 20,
+				"starship-sensors": 10,
+				"starship-weaponry-operation": 20
+			}
+		},
+		"starship-support-specialties": {
+			"propulsion/power": {
+				"computer-operation": 10,
+				"mechanical-engineering": 10,
+				"shuttlecraft-technology": 10,
+				"small-equipment-operation": 5,
+				"space-sciences:-astronautics": 20,
+				"warp-drive-technology": 20
+			},
+			"support": {
+				"cloaking-device-technology": 10,
+				"computer-operation": 10,
+				"computer-technology": 10,
+				"deflector-shield-technology": 10,
+				"life-support-technology": 10,
+				"small-equipment-operation": 5,
+				"starship-weaponry-technology": 10,
+				"transporter-technology": 0
+			},
+			"small-equipment": {
+				"computer-operation": 10,
+				"electronics-technology": 20,
+				"personal-weapons-technology": 10,
+				"shuttlecraft-technology": 10,
+				"small-equipment-operation": 5,
+				"small-equipment-technology": 20
+			}
+		},
+		"science-specialties": {
+			"computer-sciences": {
+				"computer-operation": 10,
+				"computer-technology": 20,
+				"damage-control-procedures": 0,
+				"electronics-technology": 10,
+				"physical-sciences:-computer-science": 20,
+				"small-equipment-operation": 5,
+				"starship-sensors": 10
+			},
+			"medical-sciences": {
+				"computer-operation": 10,
+				"life-sciences:-*": 10,
+				"life-sciences:-*": 10,
+				"life-sciences:-*": 10,
+				"medical-sciences:-romulan": 20,
+				"medical-sciences:-psychology": 10,
+				"small-equipment-operation": 5
+			},
+			"specific-sciences": {
+				"computer-operation": 10,
+				"*-sciences:-*": 20,
+				"*-sciences:-*": 10,
+				"*-sciences:-*": 10,
+				"small-equipment-operation": 5,
+				"starship-sensors": 10
+			}
+		},
+		"military-operations-specialties": {
+			"security": {
+				"marksmanship-modern": 10,
+				"personal-combat-unarmed": 10,
+				"personal-weapons-technology": 10,
+				"security-procedures": 20,
+				"small-equipment-operation": 5,
+				"small-unit-tactics": 10,
+				"social-sciences:-romulan-law": 10
+			},
+			"ground-forces": {
+				"marksmanship-modern": 20,
+				"personal-combat-armed:-*": 10,
+				"personal-combat-unarmed": 10,
+				"personal-weapons-technology": 10,
+				"small-equipment-operation": 5,
+				"small-unit-tactics": 20
+			}
+		},
+		"administration-specialties": {
+			"business-administration": {
+				"administration": 20,
+				"computer-operation": 10,
+				"leadership": 10,
+				"negotiation/diplomacy": 10,
+				"small-equipment-operation": 5,
+				"social-sciences:-economics": 20,
+			},
+			"law": {
+				"administration": 10,
+				"leadership": 10,
+				"negotiation/diplomacy": 20,
+				"small-equipment-operation": 5,
+				"social-sciences:-romulan-history": 10,
+				"social-sciences:-romulan-law": 10
+			},
+			"diplomacy": {
+				"administration": 10,
+				"artistic-expression:-painting": 0,
+				"language:-*": 20,
+				"language:-*": 10,
+				"language:-*": 10,
+				"negotiation/diplomacy": 0,
+				"small-equipment-operation": 5
+			}
+		}
 	}
 };
