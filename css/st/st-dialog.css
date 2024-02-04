@@ -90,14 +90,19 @@
 	margin-bottom: 10px;
 }
 
-.st-broadening .st-key {
-	position: relative;
+.st-broadening .st-specialty-span {
 	margin-left: 10px;
+	position: relative;
+	text-decoration: underline;
 }
 
-.st-broadening .st-specialty {
+.st-beginning-electives .st-skill-div {
+	height: 22px;
+}
+
+.st-broadening .st-skill-span {
+	margin-left: 10px;
 	position: relative;
-	left: 10%;
 }
 
 .st-broadening .st-value {

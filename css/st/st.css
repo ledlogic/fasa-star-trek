@@ -90,6 +90,19 @@ label {
 .st-nav-char .progress {
 	display: none;
 }
+
 .st-hidden {
 	display: none;
+}
+
+.st-scrolldiv {
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+button {
+	color: #ff0000;
+}
+button[disabled=disabled] {
+	color: #000000;
 }

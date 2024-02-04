@@ -11,9 +11,9 @@ st.dialog = {
 		st.render.renderAge();
 			
 		var skills = st.skills.romulanBeginningSkills;
-		var $beginning = $("<div class=\"st-beginning\"></div>")
-		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>")
-		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>")
+		var $beginning = $("<div class=\"st-beginning\"></div>");
+		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>");
+		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>");
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
 			var $elm = $("<div></div>");
@@ -117,14 +117,14 @@ st.dialog = {
 		var $beginning = $("<div class=\"st-beginning-electives\"></div>");
 		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>");
 		var qty = st.skills.romulanBeginningElectivesSkillsQty;
-		$beginning.append("<span class=\"st-beginning-instructions\">Please select " + qty + " from the choices below:</span>")
+		$beginning.append("<span class=\"st-beginning-instructions\">Please select " + qty + " from the choices below:</span>");
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
 			var $elm = $("<div class=\"st-key-div\" data-key=\"" + key + "\"></div>");
 			var $checkbox = $("<input type=\"checkbox\" class=\"st-checkbox\" data-key=\"" + key + "\" />")
 			$checkbox.on("click", st.dialog.actionBeginningElectivesCheckbox);
 			$elm.append($checkbox);
-			var $choice = $("<span class=\"st-key st-key-span st-disabled\" data-key=\"" + key + "\">" + dispKey + "</span>");
+			var $choice = $("<span class=\"st-key-span st-disabled\" data-key=\"" + key + "\">" + dispKey + "</span>");
 			var astIndex = key.indexOf("*");
 			if (astIndex > -1) {
 				var prefix = key.substring(0, astIndex);
@@ -138,7 +138,7 @@ st.dialog = {
 						var choiceLabel = _.keyToLabel(choice);
 						$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
 					}
-				});		
+				});			
 			}
 			$elm.append($choice);
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
@@ -161,7 +161,7 @@ st.dialog = {
 	checkBeginningElectivesActionStatus: function() {
 		console.log("checkBeginningElectivesActionStatus");
 		
-		$(".st-key-span, .st-key-select, .st-value").addClass("st-disabled");
+		$(".st-key-span, .st-key-select, .st-value").not(".st-disabled").addClass("st-disabled");
 		$(".st-key-select").attr("disabled", "disabled");
 		
 		var $cbs = $(".st-beginning-electives .st-checkbox:checked");
@@ -249,31 +249,55 @@ st.dialog = {
 		$broadening.append("<h2 class=\"st-broadening-header\">" + title + "</h2>");
 		$broadening.append("<span class=\"st-broadening-instructions\">Please choose a focus from the broadening selections below:</span>")
 		
+		$scrollDiv = $("<div class=\"st-scrolldiv\"></div>");
 		_.each(categories, function(value, key) {
 			var category = value;
 			var dispCategory = _.keyToLabel(key);
 			var $elm = $("<div class=\"st-key-div\" data-key=\"" + key + "\"></div>");
 			
-			_.each(category, function(specialtySkills, specialty) {
-				console.log([category, specialty, specialtySkills]);
+			_.each(category, function(skills, specialty) {
+				//console.log([category, specialty, skills]);
 				
 				var dispSpecialty = _.keyToLabel(specialty);
 				var $specialtyElm = $("<div class=\"st-specialty-div\" data-key=\"" + specialty + "\"></div>");
 				var $checkbox = $("<input type=\"checkbox\" class=\"st-checkbox\" data-key=\"" + specialty + "\" />")
 				$checkbox.on("click", st.dialog.actionBroadeningCheckbox);
 				$specialtyElm.append($checkbox);
-				var $choice = $("<span class=\"st-key st-key-span st-disabled\" data-key=\"" + specialty + "\">" + dispCategory + ":" + dispSpecialty + "</span>");
+				var $choice = $("<span class=\"st-specialty-span st-disabled\" data-key=\"" + specialty + "\">" + dispCategory + ":" + dispSpecialty + "</span>");
 				$specialtyElm.append($choice);
 				
+				_.each(skills, function(value, skillKey) {
+					var dispKey = _.keyToLabel(skillKey);
+					var $skillElm = $("<div class=\"st-skill-div\" data-key=\"" + skillKey + "\"></div>");
+					var $choice = $("<span class=\"st-skill-span st-disabled\" data-key=\"" + skillKey + "\">" + dispKey + "</span>");
+					var astIndex = skillKey.indexOf("*");
+					if (astIndex > -1) {
+						var prefix = skillKey.substring(0, astIndex);
+						//var choices = st.gen.getChoices(skillKey);				
+						var $choice = $("<select class=\"st-skill st-key-select st-disabled\" disabled=\"disabled\" data-key=\"" + skillKey + "\" data-key-prefix=\"" + prefix + "\"></select>");
+						/*
+						$choice.on("change", st.dialog.selectBeginningElectivesSkill);
+						$choice.append("<option value=\"\">Choose a skill</option>");
+						_.each(choices, function(choice) {
+							// only can add beginning electives with rank zero (TRW:GOM40)
+							if (specSkills[choice] === 0) {
+								var choiceLabel = _.keyToLabel(choice);
+								$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+							}
+						});
+						*/		
+					}
+					$skillElm.append($choice);
+					$skillElm.append("<span class=\"st-value st-disabled\" data-key=\"" + key + "\">" + value + "</span>");
+					$specialtyElm.append($skillElm);
+				});
 				$elm.append($specialtyElm);
 			});
-			
-			$broadening.append($elm);
+			$scrollDiv.append($elm);
 		});
+		$broadening.append($scrollDiv);
 		$broadening.append("<div class=\"st-actions\"><button id=\"st-broadening-ok\" disabled>OK</button></div>");
-
 		st.character.$pageft.append($broadening);
-		
 		$("#st-broadening-ok").on("click", st.dialog.actionBroadeningOk);
 	},
 	actionBroadeningOk: function() {
@@ -282,22 +306,32 @@ st.dialog = {
 	checkBroadeningActionStatus: function() {
 		console.log("checkBroadeningActionStatus");
 		
-		$(".st-key-span, .st-key-select, .st-value").not(".st-disabled").addClass("st-disabled");
-		$(".st-key-select").attr("disabled", "disabled");
+		$(".st-specialty-span, .st-specialty-skill, .st-value").not(".st-disabled").addClass("st-disabled");
+		$(".st-specialty-skill-select").attr("disabled", "disabled");
 		
-		var $cbs = $(".st-broadening .st-checkbox:checked");
+		var $cbs = $(".st-specialty-div .st-checkbox:checked");
 		var cbsCount = $cbs.length;
 		st.log("cbsCount[" + cbsCount + "]");
 		
 		var selCount = 0;
 		_.each($cbs, function(cb) {
-			var key = $(cb).data("key");
-			var $keys = $(".st-key-span[data-key='" + key + "'], .st-key-select[data-key='" + key + "'], .st-value[data-key='" + key + "']");
+			var specialty = $(cb).data("key");
+			st.logObj("specialty", specialty);
+			var $specialty = $(".st-specialty-span[data-key='" + specialty + "']");
+			st.logObj("$specialty", $specialty);
+			var $subspecialty = $(".st-specialty-div[data-key='" + specialty + "']");
+			st.logObj("$subspecialty", $subspecialty);
+			var $skills = $subspecialty.find(".st-skill-span");
+			st.logObj("$skills", $skills);
+			var $values = $subspecialty.find(".st-value");
+			st.logObj("$values", $values);
 			window.setTimeout(function() {
-				$keys.removeClass("st-disabled");
-			}, 10);		
-			
-			$(".st-key-select[data-key='" + key + "']").removeAttr("disabled");
+				$specialty.removeClass("st-disabled");
+				$subspecialty.removeClass("st-disabled");
+				$skills.removeClass("st-disabled");
+				$values.removeClass("st-disabled");
+			}, 10);
+
 			var $sel = $cbs.parent().find(".st-select");
 			if ($sel.length == 0) {
 				selCount++;
@@ -325,6 +359,6 @@ st.dialog = {
 
 		st.dialog.checkBroadeningActionStatus();
 		
-		$(".st-key-span").not(".st-disabled").addClass("st-disabled");
+		$(".st-skill-span").not(".st-disabled").addClass("st-disabled");
 	}
 };
