@@ -10,7 +10,7 @@ st.character = {
 	spec: {
 		overview: {},
 		demographics: {
-			age: 0
+			age: "0 years"
 		},
 		endurance: {}
 	},
@@ -51,5 +51,10 @@ st.character = {
 		r["cha"] = 0;
 		r["luc"] = -10;
 		r["psi"] = -20;
+	},
+	
+	setAge: function(age) {
+		st.character.spec.demographics.age = age;
+		st.render.renderAge();
 	}
 };

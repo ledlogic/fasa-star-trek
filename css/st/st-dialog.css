@@ -25,9 +25,10 @@
 	margin-bottom: 10px;
 }
 
-.st-beginning .st-key {
+.st-beginning .st-key,
+.st-beginning .st-key-select {
+	margin-left: 10px;
 	position: relative;
-	left: 10%;
 }
 
 .st-beginning .st-value {
@@ -55,9 +56,10 @@
 	height: 22px;
 }
 
-.st-beginning-electives .st-key {
+.st-beginning-electives .st-key-span,
+.st-beginning-electives .st-key-select {
+	margin-left: 10px;
 	position: relative;
-	left: 10%;
 }
 
 .st-beginning-electives .st-value {
@@ -90,7 +92,8 @@
 	margin-bottom: 10px;
 }
 
-.st-broadening .st-specialty-span {
+.st-broadening .st-specialty-span,
+.st-broadening .st-skill-select {
 	margin-left: 10px;
 	position: relative;
 	text-decoration: underline;

@@ -211,7 +211,10 @@ st.render = {
 		$status.removeClass("st-hidden");
 		$("#st-status-current").html(status);
 	},
-		hideNav: function() {
+	hideNav: function() {
 		$(".st-nav.row").hide();		
+	},
+	renderAge: function() {
+		st.log("render age");		
 	}
 };
