@@ -74,9 +74,9 @@
 	font-size: 12px;
 	padding: 10px;
 	position: relative;
-	top: 20%;
+	top: 10%;
 	left: 10%;
-	height: 33%;
+	height: 80%;
 	width: 80%;
 	box-shadow: 2px 2px 2px 0px #FF0000;
 }
@@ -91,6 +91,11 @@
 }
 
 .st-broadening .st-key {
+	position: relative;
+	margin-left: 10px;
+}
+
+.st-broadening .st-specialty {
 	position: relative;
 	left: 10%;
 }

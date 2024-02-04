@@ -211,12 +211,12 @@ st.dialog = {
 
 		st.dialog.dialogTheBroadening();
 	},
-	hideBeginningElectives: function() {
-		var $beginning = $(".st-beginning-electives");
-		$beginning.remove();
+	hideBroadening: function() {
+		var $broadening = $(".st-broadening");
+		$broadening.remove();
 	},
 	actionBeginningElectivesCheckbox: function() {
-		st.dialog.checkBeginningElectivesActionStatus();
+		st.dialog.checkBroadeningActionStatus();
 	},
 	
 	/* THE BROADENING */
@@ -224,25 +224,32 @@ st.dialog = {
 		var title = "The Broadening";
 		st.render.renderStatus(title);
 			
-		var spec = st.character.spec;
-		var specSkills = spec.skills;
-
-		var skillMajorCats = st.skills.romulanBroadeningSkills;
-		console.log(_.keys(skillMajorCats));
+		var categories = st.skills.romulanBroadeningSkills;
 			
 		var $broadening = $("<div class=\"st-broadening\"></div>");
 		$broadening.append("<h2 class=\"st-broadening-header\">" + title + "</h2>");
 		var qty = st.skills.romulanBeginningElectivesSkillsQty;
 		$broadening.append("<span class=\"st-broadening-instructions\">Please choose a focus from the broadening selections below:</span>")
-		_.each(skillMajorCats, function(value, key) {
-			var dispKey = _.keyToLabel(key);
+		
+		_.each(categories, function(value, key) {
+			var category = value;
+			var dispCategory = _.keyToLabel(key);
 			var $elm = $("<div class=\"st-key-div\" data-key=\"" + key + "\"></div>");
-			var $checkbox = $("<input type=\"checkbox\" class=\"st-checkbox\" data-key=\"" + key + "\" />")
-			$checkbox.on("click", st.dialog.actionBeginningElectivesCheckbox);
-			$elm.append($checkbox);
-			var $choice = $("<span class=\"st-key st-key-span st-disabled\" data-key=\"" + key + "\">" + dispKey + "</span>");
-			$elm.append($choice);
-			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
+			
+			_.each(category, function(specialtySkills, specialty) {
+				console.log([category, specialty, specialtySkills]);
+				
+				var dispSpecialty = _.keyToLabel(specialty);
+				var $specialtyElm = $("<div class=\"st-specialty-div\" data-key=\"" + specialty + "\"></div>");
+				var $checkbox = $("<input type=\"checkbox\" class=\"st-checkbox\" data-key=\"" + specialty + "\" />")
+				$checkbox.on("click", st.dialog.actionBroadeningCheckbox);
+				$specialtyElm.append($checkbox);
+				var $choice = $("<span class=\"st-key st-key-span st-disabled\" data-key=\"" + specialty + "\">" + dispCategory + ":" + dispSpecialty + "</span>");
+				$specialtyElm.append($choice);
+				
+				$elm.append($specialtyElm);
+			});
+			
 			$broadening.append($elm);
 		});
 		$broadening.append("<div class=\"st-actions\"><button id=\"st-broadening-ok\" disabled>OK</button></div>");
@@ -253,5 +260,45 @@ st.dialog = {
 	},
 	actionBroadeningOk: function() {
 		console.log("actionBroadeningOk");
+	},
+	checkBroadeningActionStatus: function() {
+		console.log("checkBroadeningActionStatus");
+		return;
+		
+		$(".st-key-span, .st-key-select, .st-value").addClass("st-disabled");
+		$(".st-key-select").attr("disabled", "disabled");
+		
+		var $cbs = $(".st-broadening .st-checkbox:checked");
+		var cbsCount = $cbs.length;
+		st.log("cbsCount[" + cbsCount + "]");
+
+		var selCount = 0;
+		_.each($cbs, function(cb) {
+			var key = $(cb).data("key");
+			$(".st-key-span[data-key='" + key + "'], .st-key-select[data-key='" + key + "'], .st-value[data-key='" + key + "']").removeClass("st-disabled");
+			$(".st-key-select[data-key='" + key + "']").removeAttr("disabled");
+			var $sel = $cbs.parent().find(".st-select");
+			if ($sel.length == 0) {
+				selCount++;
+			} else {
+				var skill = $sel.val();
+				if (skill) {
+					selCount++;
+				}
+			}
+		});
+		st.log("selCount[" + selCount + "]");
+	
+		var qty = st.skills.romulanBeginningElectivesSkillsQty;
+		if (cbsCount === qty && cbsCount === selCount) {
+			st.log("- ok");
+			$("#st-beginning-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-beginning-ok").attr("disabled", "disabled");
+		}
+	},
+	actionBroadeningCheckbox: function() {
+		st.dialog.checkBroadeningActionStatus();
 	}
 };
