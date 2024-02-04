@@ -1,6 +1,10 @@
 st.dialog = {
+
 	/* THE BEGINNING */
+
 	dialogTheBeginning: function() {
+		console.log("dialogTheBeginning");
+
 		var title = "The Beginning";
 		st.render.renderStatus(title);
 		st.character.demographics.age = "0-5";
@@ -40,6 +44,7 @@ st.dialog = {
 	},
 	selectBeginningSkill: function(skill) {
 		console.log("selectBeginningSkill");
+		
 		var $sel = $(this);
 		var skill = $sel.val();
 		st.log("- skill[" + skill + "]");
@@ -47,6 +52,7 @@ st.dialog = {
 	},
 	checkBeginningActionStatus: function() {
 		console.log("checkBeginningActionStatus");
+
 		var sels = $(".st-beginning select");
 		var selCount = 0;
 		_.each(sels, function(sel) {
@@ -90,12 +96,17 @@ st.dialog = {
 		st.dialog.dialogTheBeginningElectives();
 	},
 	hideBeginning: function() {
+		console.log("hideBeginning");
+		
 		var $beginning = $(".st-beginning");
 		$beginning.remove();
 	},
 	
 	/* THE BEGINNING - electives */
+
 	dialogTheBeginningElectives: function() {
+		console.log("dialogTheBeginningElectives");
+
 		var title = "The Beginning Electives";
 		st.render.renderStatus(title);
 			
@@ -141,6 +152,7 @@ st.dialog = {
 	},
 	selectBeginningElectivesSkill: function(skill) {
 		console.log("selectBeginningElectivesSkill");
+
 		var $sel = $(this);
 		var skill = $sel.val();
 		st.log("- skill[" + skill + "]");
@@ -212,15 +224,22 @@ st.dialog = {
 		st.dialog.dialogTheBroadening();
 	},
 	hideBroadening: function() {
+		console.log("hideBroadening");
+
 		var $broadening = $(".st-broadening");
 		$broadening.remove();
 	},
 	actionBeginningElectivesCheckbox: function() {
+		console.log("actionBeginningElectivesCheckbox");
+
 		st.dialog.checkBroadeningActionStatus();
 	},
 	
 	/* THE BROADENING */
+
 	dialogTheBroadening: function() {
+		console.log("dialogTheBroadening");
+
 		var title = "The Broadening";
 		st.render.renderStatus(title);
 			
@@ -228,7 +247,6 @@ st.dialog = {
 			
 		var $broadening = $("<div class=\"st-broadening\"></div>");
 		$broadening.append("<h2 class=\"st-broadening-header\">" + title + "</h2>");
-		var qty = st.skills.romulanBeginningElectivesSkillsQty;
 		$broadening.append("<span class=\"st-broadening-instructions\">Please choose a focus from the broadening selections below:</span>")
 		
 		_.each(categories, function(value, key) {
@@ -263,19 +281,22 @@ st.dialog = {
 	},
 	checkBroadeningActionStatus: function() {
 		console.log("checkBroadeningActionStatus");
-		return;
 		
-		$(".st-key-span, .st-key-select, .st-value").addClass("st-disabled");
+		$(".st-key-span, .st-key-select, .st-value").not(".st-disabled").addClass("st-disabled");
 		$(".st-key-select").attr("disabled", "disabled");
 		
 		var $cbs = $(".st-broadening .st-checkbox:checked");
 		var cbsCount = $cbs.length;
 		st.log("cbsCount[" + cbsCount + "]");
-
+		
 		var selCount = 0;
 		_.each($cbs, function(cb) {
 			var key = $(cb).data("key");
-			$(".st-key-span[data-key='" + key + "'], .st-key-select[data-key='" + key + "'], .st-value[data-key='" + key + "']").removeClass("st-disabled");
+			var $keys = $(".st-key-span[data-key='" + key + "'], .st-key-select[data-key='" + key + "'], .st-value[data-key='" + key + "']");
+			window.setTimeout(function() {
+				$keys.removeClass("st-disabled");
+			}, 10);		
+			
 			$(".st-key-select[data-key='" + key + "']").removeAttr("disabled");
 			var $sel = $cbs.parent().find(".st-select");
 			if ($sel.length == 0) {
@@ -288,17 +309,22 @@ st.dialog = {
 			}
 		});
 		st.log("selCount[" + selCount + "]");
-	
-		var qty = st.skills.romulanBeginningElectivesSkillsQty;
-		if (cbsCount === qty && cbsCount === selCount) {
+		
+		var qty = 1;
+		//if (cbsCount === qty && cbsCount === selCount) {
+		if (cbsCount === qty) {
 			st.log("- ok");
-			$("#st-beginning-ok").removeAttr("disabled");
+			$("#st-broadening-ok").removeAttr("disabled");
 		} else {
 			st.log("- ng");
-			$("#st-beginning-ok").attr("disabled", "disabled");
+			$("#st-broadening-ok").attr("disabled", "disabled");
 		}
 	},
 	actionBroadeningCheckbox: function() {
+		console.log("actionBroadeningCheckbox");
+
 		st.dialog.checkBroadeningActionStatus();
+		
+		$(".st-key-span").not(".st-disabled").addClass("st-disabled");
 	}
 };
