@@ -1,0 +1,101 @@
+/* st-dialogs.css */
+
+/* beginning */
+
+.st-beginning {
+	background-color: #fff;
+	border: 1px solid red;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 20%;
+	left: 10%;
+	height: 33%;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #FF0000;
+}
+
+.st-beginning-header {
+	margin-top: 0px;
+}
+
+.st-beginning-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-beginning .st-key {
+	position: relative;
+	left: 10%;
+}
+
+.st-beginning .st-value {
+	float:right;
+	margin-right: 30%;
+}
+
+/* st-beginning-electives */
+
+.st-beginning-electives {
+	background-color: #fff;
+	border: 1px solid red;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top:20%;
+	left: 10%;
+	height: 360px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #FF0000;
+}
+
+.st-beginning-electives .st-key-div {
+	height: 22px;
+}
+
+.st-beginning-electives .st-key {
+	position: relative;
+	left: 10%;
+}
+
+.st-beginning-electives .st-value {
+	float:right;
+	margin-right: 30%;
+}
+
+/* broadening */
+
+.st-broadening {
+	background-color: #fff;
+	border: 1px solid red;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 20%;
+	left: 10%;
+	height: 33%;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #FF0000;
+}
+
+.st-broadening-header {
+	margin-top: 0px;
+}
+
+.st-broadening-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-broadening .st-key {
+	position: relative;
+	left: 10%;
+}
+
+.st-broadening .st-value {
+	float:right;
+	margin-right: 30%;
+}

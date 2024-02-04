@@ -9,7 +9,9 @@
 st.character = {
 	spec: {
 		overview: {},
-		demographics: {},
+		demographics: {
+			age: 0
+		},
 		endurance: {}
 	},
 	

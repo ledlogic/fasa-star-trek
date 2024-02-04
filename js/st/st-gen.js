@@ -64,11 +64,14 @@ st.gen = {
 		st.gen.genSkills();
 		st.gen.genWeapons();
 		
-		console.log(st.character.spec);
+		//console.log(st.character.spec);
 		
 		setTimeout(st.render.hideNav, 10);
 		setTimeout(st.render.renderChar, 10);
-		setTimeout(st.render.renderTheBeginning, 10);
+		
+		// jump!
+		//setTimeout(st.dialog.dialogTheBeginning, 10);
+		setTimeout(st.dialog.dialogTheBroadening, 10);		
 	},
 	
 	genDemographics: function(race) {
