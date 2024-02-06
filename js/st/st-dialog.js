@@ -308,6 +308,40 @@ st.dialog = {
 	},
 	actionBroadeningOk: function() {
 		console.log("actionBroadeningOk");
+		
+		/*
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+		
+		var $cbs = $(".st-beginning-electives .st-checkbox:checked");
+		var cbsCount = $cbs.length;
+		st.log("cbsCount[" + cbsCount + "]");
+
+		_.each($cbs, function(cb) {
+			var key = $(cb).data("key");
+			var $valueElem = $(".st-beginning-electives .st-value[data-key='" + key + "']");
+			var value = parseInt($valueElem.html(),10);
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
+				var $sel = $(".st-beginning-electives .st-key[data-key-prefix='" + prefix + "']");
+				key = $sel.val();
+			}
+			st.log(key + ":" + value);
+			specSkills[key] += value;
+		});
+		*/
+
+		st.dialog.hideBroadening();
+		st.render.renderChar();
+
+		//st.dialog.dialogTheBroadening();
+	},
+	hideBroadening: function() {
+		console.log("hideBroadening");
+
+		var $dialog = $(".st-broadening");
+		$dialog.remove();
 	},
 	checkBroadeningActionStatus: function() {
 		console.log("checkBroadeningActionStatus");

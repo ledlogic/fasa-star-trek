@@ -184,7 +184,9 @@ st.skills = {
 				"communication-operation": 20,
 				"computer-operation": 10,
 				"damage-control-procedures": 10,
-				"language:-*": 30,
+				"language:-*1": 10,
+				"language:-*2": 10,
+				"language:-*3": 10,
 				"small-equipment-operation": 5
 			},
 			"weapon": {
@@ -236,18 +238,18 @@ st.skills = {
 			},
 			"medical-sciences": {
 				"computer-operation": 10,
-				"life-sciences:-*": 10,
-				"life-sciences:-*": 10,
-				"life-sciences:-*": 10,
+				"life-sciences:-*1": 10,
+				"life-sciences:-*2": 10,
+				"life-sciences:-*3": 10,
 				"medical-sciences:-romulan": 20,
 				"medical-sciences:-psychology": 10,
 				"small-equipment-operation": 5
 			},
 			"specific-sciences": {
 				"computer-operation": 10,
-				"*-sciences:-*": 20,
-				"*-sciences:-*": 10,
-				"*-sciences:-*": 10,
+				"*-sciences:-*1": 20,
+				"*-sciences:-*2": 10,
+				"*-sciences:-*3": 10,
 				"small-equipment-operation": 5,
 				"starship-sensors": 10
 			}
@@ -291,9 +293,9 @@ st.skills = {
 			"diplomacy": {
 				"administration": 10,
 				"artistic-expression:-painting": 0,
-				"language:-*": 20,
-				"language:-*": 10,
-				"language:-*": 10,
+				"language:-*1": 20,
+				"language:-*2": 10,
+				"language:-*3": 10,
 				"negotiation/diplomacy": 0,
 				"small-equipment-operation": 5
 			}
