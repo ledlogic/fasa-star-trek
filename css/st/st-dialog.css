@@ -92,11 +92,15 @@
 	margin-bottom: 10px;
 }
 
-.st-broadening .st-specialty-span,
-.st-broadening .st-skill-select {
+.st-broadening .st-specialty-span {
 	margin-left: 10px;
 	position: relative;
 	text-decoration: underline;
+}
+
+.st-broadening .st-key-select {
+	display: inline-block;
+	margin-left: 23px;
 }
 
 .st-beginning-electives .st-skill-div {
@@ -104,8 +108,7 @@
 }
 
 .st-broadening .st-skill-span {
-	margin-left: 10px;
-	position: relative;
+	margin-left: 23px;
 }
 
 .st-broadening .st-value {

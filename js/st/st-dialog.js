@@ -284,19 +284,14 @@ st.dialog = {
 					var astIndex = skillKey.indexOf("*");
 					if (astIndex > -1) {
 						var prefix = skillKey.substring(0, astIndex);
-						//var choices = st.gen.getChoices(skillKey);				
+						var choices = st.gen.getChoices(skillKey);				
 						var $choice = $("<select class=\"st-skill st-key-select st-disabled\" disabled=\"disabled\" data-key=\"" + skillKey + "\" data-key-prefix=\"" + prefix + "\"></select>");
-						/*
-						$choice.on("change", st.dialog.selectBeginningElectivesSkill);
+						$choice.on("change", st.dialog.selectBroadeningSkill);
 						$choice.append("<option value=\"\">Choose a skill</option>");
 						_.each(choices, function(choice) {
-							// only can add beginning electives with rank zero (TRW:GOM40)
-							if (specSkills[choice] === 0) {
-								var choiceLabel = _.keyToLabel(choice);
-								$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
-							}
+							var choiceLabel = _.keyToLabel(choice);
+							$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
 						});
-						*/		
 					}
 					$skillElm.append($choice);
 					$skillElm.append("<span class=\"st-value st-disabled\" data-key=\"" + key + "\">" + value + "</span>");
@@ -317,8 +312,8 @@ st.dialog = {
 	checkBroadeningActionStatus: function() {
 		console.log("checkBroadeningActionStatus");
 		
-		$(".st-specialty-span, .st-specialty-skill, .st-value").not(".st-disabled").addClass("st-disabled");
-		$(".st-specialty-skill-select").attr("disabled", "disabled");
+		$(".st-specialty-span, .st-specialty-skill, .st-value, .st-key-select").not(".st-disabled").addClass("st-disabled");
+		$(".st-key-select").attr("disabled", "disabled");
 		
 		var $cbs = $(".st-specialty-div .st-checkbox:checked");
 		var cbsCount = $cbs.length;
@@ -331,11 +326,15 @@ st.dialog = {
 			var $subspecialty = $(".st-specialty-div[data-key='" + specialty + "']");
 			var $skills = $subspecialty.find(".st-skill-span");
 			var $values = $subspecialty.find(".st-value");
+			var $selects = $subspecialty.find(".st-key-select");
 			window.setTimeout(function() {
 				$specialty.removeClass("st-disabled");
 				$subspecialty.removeClass("st-disabled");
 				$skills.removeClass("st-disabled");
 				$values.removeClass("st-disabled");
+				$selects.removeClass("st-disabled");
+
+				$selects.removeAttr("disabled");
 			}, 10);
 
 			var $sel = $cbs.parent().find(".st-select");
@@ -362,6 +361,16 @@ st.dialog = {
 	},
 	actionBroadeningCheckbox: function() {
 		console.log("actionBroadeningCheckbox");
+
 		setTimeout(st.dialog.checkBroadeningActionStatus(), 10);
-	}
+	},
+	selectBroadeningSkill: function(skill) {
+		console.log("selectBroadeningSkill");
+
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkBroadeningActionStatus();
+	},
+
 };
