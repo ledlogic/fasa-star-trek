@@ -215,7 +215,7 @@ st.skills = {
 				"life-support-technology": 10,
 				"small-equipment-operation": 5,
 				"starship-weaponry-technology": 10,
-				"transporter-technology": 0
+				"transporter-technology": 10
 			},
 			"small-equipment": {
 				"computer-operation": 10,
@@ -230,7 +230,6 @@ st.skills = {
 			"computer-sciences": {
 				"computer-operation": 10,
 				"computer-technology": 20,
-				"damage-control-procedures": 0,
 				"electronics-technology": 10,
 				"physical-sciences:-computer-science": 20,
 				"small-equipment-operation": 5,
@@ -292,11 +291,10 @@ st.skills = {
 			},
 			"diplomacy": {
 				"administration": 10,
-				"artistic-expression:-painting": 0,
 				"language:-*1": 20,
 				"language:-*2": 10,
 				"language:-*3": 10,
-				"negotiation/diplomacy": 0,
+				"negotiation/diplomacy": 20,
 				"small-equipment-operation": 5
 			}
 		}

@@ -309,28 +309,38 @@ st.dialog = {
 	actionBroadeningOk: function() {
 		console.log("actionBroadeningOk");
 		
-		/*
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
 		
-		var $cbs = $(".st-beginning-electives .st-checkbox:checked");
+		var $cbs = $(".st-broadening .st-checkbox:checked");
 		var cbsCount = $cbs.length;
 		st.log("cbsCount[" + cbsCount + "]");
 
 		_.each($cbs, function(cb) {
 			var key = $(cb).data("key");
-			var $valueElem = $(".st-beginning-electives .st-value[data-key='" + key + "']");
-			var value = parseInt($valueElem.html(),10);
-			var astIndex = key.indexOf("*");
-			if (astIndex > -1) {
-				var prefix = key.substring(0, astIndex);
-				var $sel = $(".st-beginning-electives .st-key[data-key-prefix='" + prefix + "']");
-				key = $sel.val();
-			}
-			st.log(key + ":" + value);
-			specSkills[key] += value;
+			var $specialtyDiv = $("div.st-specialty-div[data-key='" + key + "']");
+			var $skillDivs = $specialtyDiv.find(".st-skill-div"); 
+		
+			_.each($skillDivs, function(skillDiv) {
+				var $skillDiv = $(skillDiv);
+				var skillKey = $skillDiv.data("key");
+				var skillValue = parseInt($skillDiv.find(".st-value").html(),10);
+				var astIndex = skillKey.indexOf("*");
+				if (astIndex > -1) {
+					var prefix = skillKey.substring(0, astIndex);
+					var $selects = $skillDiv.find(".st-key-select[data-key-prefix='" + prefix + "']");
+
+					_.each($selects, function(select) {
+						skillKey = $(select).val();
+						st.log(skillKey + ":" + skillValue);
+						specSkills[skillKey] += skillValue;
+					});	
+				} else {
+					st.log(skillKey + ":" + skillValue);
+					specSkills[skillKey] += skillValue;
+				}
+			});	
 		});
-		*/
 
 		st.dialog.hideBroadening();
 		st.render.renderChar();

@@ -142,10 +142,11 @@ st.render = {
 		st.character.$pageft.append("<h2 class=\"st-skill-list-header\">Skill List</h2>");
 		
 		// there are three sets of skills, to match the display
-		var columnSize = Math.ceil(_.size(valuedSkills) / 3.0);
-		var skillsI = st.render.chunkObj(valuedSkills, columnSize);
+		var columns = 3;
+		var skillsI = st.render.chunkObj(valuedSkills, columns);
+		st.logObj("skillsI", skillsI);
 		
-		for (var i=0;i<3;i++) {
+		for (var i=0;i<columns;i++) {
 			var y = 0;
 			var $skillsI = $("<div class=\"st-section st-skills st-skills-" + i + "\"></div>");
 			_.each(skillsI[i], function(value, key) {
@@ -168,25 +169,32 @@ st.render = {
 		}		
 	},
 	chunkObj: function(obj, chunks) {
+		st.log("chunkObj");
+		st.log("chunks[" + chunks + "]");
+		
 		var ret = [];
 		var objSize = _.size(obj);
+		st.log("objSize[" + objSize + "]");
 		var ave = [];
 		ave[0] = Math.ceil(objSize / chunks);
-		ave[1] = Math.round((objSize - ave[0]) / (chunks-1));
-		ave[2] = Math.ceil((objSize - ave[0] - ave[1]) / (chunks-2));
-		
-		console.log(ave);
+		ave[1] = Math.ceil((objSize - ave[0]) / (chunks-1));
+		ave[2] = Math.floor((objSize - ave[0] - ave[1]) / (chunks-2));
+		st.log("ave[" + ave + "]");
 		
 		var row = 0;
 		var current = 0;
 		_.each(obj, function(value, key) {
-			if (row > ave[current]) {
+			if (row >= ave[current]) {
 				current++;
 				row=0;
 			}
 			if (!ret[current]) {
 				ret[current] = {};
 			}
+			st.log("row[" + row + "]");
+			st.log("current[" + current + "]");
+			st.log("key[" + key + "]");
+			st.log("value[" + value + "]");
 			ret[current][key] = value;
 			row++;
 		});
