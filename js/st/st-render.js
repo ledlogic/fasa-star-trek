@@ -182,20 +182,17 @@ st.render = {
 		st.log("ave[" + ave + "]");
 		
 		var row = 0;
-		var current = 0;
+		var col = 0;
 		_.each(obj, function(value, key) {
-			if (row >= ave[current]) {
-				current++;
+			if (row >= ave[col]) {
+				col++;
 				row=0;
 			}
-			if (!ret[current]) {
-				ret[current] = {};
+			if (!ret[col]) {
+				ret[col] = {};
 			}
-			st.log("row[" + row + "]");
-			st.log("current[" + current + "]");
-			st.log("key[" + key + "]");
-			st.log("value[" + value + "]");
-			ret[current][key] = value;
+			st.log("col[" + col + "],row[" + row + "],key[" + key + "],value[" + value + "]");
+			ret[col][key] = value;
 			row++;
 		});
 		return ret;

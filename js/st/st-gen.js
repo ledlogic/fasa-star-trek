@@ -70,8 +70,8 @@ st.gen = {
 		setTimeout(st.render.renderChar, 10);
 		
 		// jump!
-		//setTimeout(st.dialog.dialogTheBeginning, 10);
-		setTimeout(st.dialog.dialogTheBroadening, 10);		
+		setTimeout(st.dialog.dialogTheBeginning, 10);
+		//setTimeout(st.dialog.dialogBroadeningElectives, 10);		
 	},
 	
 	genDemographics: function(race) {
@@ -147,7 +147,7 @@ st.gen = {
 	
 	genSkills: function() {
 		var spec = st.character.spec;
-		spec.skills = st.skills.baseSkills;
+		spec.skills = JSON.parse(JSON.stringify(st.skills.baseSkills));
 	},
 	
 	getChoices: function(key) {

@@ -161,15 +161,6 @@ st.skills = {
 		"social-sciences:-*": 5,
 		"space-sciences:-*": 5
 	},
-	withValue:function(skills) {
-		var ret = {};
-		_.each(skills, function(value, key) {
-			if (value) {
-				ret[key] = value;
-			}
-		});
-		return ret;
-	},
 	romulanBroadeningSkills: {
 		"starship-operations-specialties": {
 			"helm/navigation": {
@@ -298,5 +289,29 @@ st.skills = {
 				"small-equipment-operation": 5
 			}
 		}
+	},
+	
+	/* METHODS */
+	
+	withValue: function(skills) {
+		st.log("withValue");
+		var ret = {};
+		_.each(skills, function(value, key) {
+			if (value != 0) {
+				ret[key] = value;
+			}
+		});
+		return ret;
+	},
+	withoutValue: function(skills) {
+		st.log("withoutValue");
+		var ret = [];
+		_.each(st.skills.baseSkills, function(value, key) {
+			if (!skills[value]) {
+				ret.push(key);
+			}
+		});
+		//console.log(ret);
+		return ret;
 	}
 };

@@ -4,16 +4,16 @@
 
 .st-beginning {
 	background-color: #fff;
-	border: 1px solid red;
+	border: 1px solid #228b22;
 	display: block;
 	font-size: 12px;
 	padding: 10px;
 	position: relative;
 	top: 20%;
 	left: 10%;
-	height: 33%;
+	height: 294px;
 	width: 80%;
-	box-shadow: 2px 2px 2px 0px #FF0000;
+	box-shadow: 2px 2px 2px 0px #228b22;
 }
 
 .st-beginning-header {
@@ -23,6 +23,10 @@
 .st-beginning-instructions {
 	display: block;
 	margin-bottom: 10px;
+}
+
+.st-beginning .st-skill-div {
+	height: 22px;
 }
 
 .st-beginning .st-key,
@@ -40,16 +44,16 @@
 
 .st-beginning-electives {
 	background-color: #fff;
-	border: 1px solid red;
+	border: 1px solid #228b22;
 	display: block;
 	font-size: 12px;
 	padding: 10px;
 	position: relative;
 	top:20%;
 	left: 10%;
-	height: 360px;
+	height: 358px;
 	width: 80%;
-	box-shadow: 2px 2px 2px 0px #FF0000;
+	box-shadow: 2px 2px 2px 0px #228b22;
 }
 
 .st-beginning-electives .st-key-div {
@@ -71,16 +75,16 @@
 
 .st-broadening {
 	background-color: #fff;
-	border: 1px solid red;
+	border: 1px solid #228b22;
 	display: block;
 	font-size: 12px;
 	padding: 10px;
 	position: relative;
 	top: 10%;
 	left: 10%;
-	height: 80%;
+	height: 616px;
 	width: 80%;
-	box-shadow: 2px 2px 2px 0px #FF0000;
+	box-shadow: 2px 2px 2px 0px #228b22;
 }
 
 .st-broadening-header {
@@ -90,6 +94,10 @@
 .st-broadening-instructions {
 	display: block;
 	margin-bottom: 10px;
+}
+
+.st-broadening .st-specialty-div {
+	line-height: 22px;
 }
 
 .st-broadening .st-specialty-span {
@@ -103,7 +111,7 @@
 	margin-left: 23px;
 }
 
-.st-beginning-electives .st-skill-div {
+.st-broadening .st-skill-div {
 	height: 22px;
 }
 
@@ -112,6 +120,55 @@
 }
 
 .st-broadening .st-value {
+	float:right;
+	margin-right: 30%;
+}
+
+/* broadening electives */
+
+.st-broadening-electives {
+	background-color: #fff;
+	border: 1px solid #228b22;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 10%;
+	left: 10%;
+	height: 160px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #228b22;
+}
+
+.st-broadening-electives-header {
+	margin-top: 0px;
+}
+
+.st-broadening-electives-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-broadening-electives .st-specialty-span {
+	margin-left: 10px;
+	position: relative;
+	text-decoration: underline;
+}
+
+.st-broadening-electives .st-key-select {
+	display: inline-block;
+	margin-left: 23px;
+}
+
+.st-broadening-electives .st-skill-div {
+	height: 22px;
+}
+
+.st-broadening-electives .st-skill-span {
+	margin-left: 23px;
+}
+
+.st-broadening-electives .st-value {
 	float:right;
 	margin-right: 30%;
 }

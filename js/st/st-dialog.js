@@ -15,7 +15,7 @@ st.dialog = {
 		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>");
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
-			var $elm = $("<div></div>");
+			var $elm = $("<div class=\"st-skill-div\"></div>");
 			var $choice = $("<span class=\"st-key\" data-key=\"" + key + "\">" + dispKey + "</span>");
 			var astIndex = key.indexOf("*");
 			if (astIndex > -1) {
@@ -33,7 +33,7 @@ st.dialog = {
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
 			$beginning.append($elm);
 		});
-		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled>OK</button></div>");
+		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
 
 		st.character.$pageft.append($beginning);
 		st.render.renderAge();
@@ -143,7 +143,7 @@ st.dialog = {
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
 			$beginning.append($elm);
 		});
-		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled>OK</button></div>");
+		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
 
 		st.character.$pageft.append($beginning);
 		
@@ -345,7 +345,7 @@ st.dialog = {
 		st.dialog.hideBroadening();
 		st.render.renderChar();
 
-		//st.dialog.dialogTheBroadening();
+		st.dialog.dialogBroadeningElectives();
 	},
 	hideBroadening: function() {
 		console.log("hideBroadening");
@@ -416,5 +416,105 @@ st.dialog = {
 		st.log("- skill[" + skill + "]");
 		st.dialog.checkBroadeningActionStatus();
 	},
+	
+	/* BROADENING ELECTIVES */
+
+	dialogBroadeningElectives: function() {
+		console.log("dialogBroadeningElectives");
+
+		var title = "Broadening Electives";
+		st.render.renderStatus(title);
+		//st.character.setAge("5-10 years");
+		
+		var electiveValue = 10;
+			
+		var skills = st.skills.withoutValue(st.character.spec.skills);
+		var $electives = $("<div class=\"st-broadening-electives\"></div>");
+		$electives.append("<h2 class=\"st-broadening-electives-header\">" + title + "</h2>");
+		$electives.append("<span class=\"st-broadening-electives-instructions\">Please select two skills that you do not yet have:</span>");
+		
+		for (var i=0; i<2; i++) {
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var $select = $("<select class=\"st-key\" data-key=\"elective-" + i + "\"></select>");
+			$select.on("change", st.dialog.selectBroadeningElectivesSkill);
+			$select.append("<option value=\"\">Choose a skill</option>");
+			_.each(skills, function(key) {
+				var dispKey = _.keyToLabel(key);
+				$select.append("<option value=\"" + key + "\">" + dispKey + "</option>");
+			});
+			$elm.append($select);
+			$elm.append("<span class=\"st-value\" data-key=\"elective-value-" + i + "\">" + electiveValue + "</span>");
+			$electives.append($elm);
+		}
+		
+		$electives.append("<div class=\"st-actions\"><button id=\"st-broadening-electives-ok\" disabled=\"disabled\">OK</button></div>");
+
+		st.character.$pageft.append($electives);
+		st.render.renderAge();
+		
+		$("#st-broadening-electives-ok").on("click", st.dialog.actionBroadeningElectivesOk);
+	},
+	
+	selectBroadeningElectivesSkill: function() {
+		console.log("selectBroadeningElectivesSkill");
+
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkBroadeningElectivesActionStatus();
+	},
+	
+	checkBroadeningElectivesActionStatus:function() {
+		console.log("checkBroadeningActionStatus");
+
+		var selCount = 0;		
+		for (var i=0; i<2; i++) {
+			var key = "elective-" + i;
+			var $select = $("div select[data-key='" + key + "']");
+			var skillKey = $select.val();
+			if (skillKey) {
+				selCount++;
+			}
+		}
+		st.log("selCount[" + selCount + "]");
+		
+		var qty = 2;
+		if (selCount === qty) {
+			st.log("- ok");
+			$("#st-broadening-electives-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-broadening-electives-ok").attr("disabled", "disabled");
+		}
+	},
+	
+	actionBroadeningElectivesOk: function() {
+		console.log("actionBroadeningElectivesOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+
+		for (var i=0; i<2; i++) {
+			var key = "elective-" + i;
+			var $select = $("div select[data-key='" + key + "']");
+			var skillKey = $select.val();
+			var valueKey = "elective-value-" + i;
+			var skillValue = parseInt($(".st-value[data-key='" + valueKey + "']").html(), 10);
+			st.log(skillKey + ":" + skillValue);
+			specSkills[skillKey] += skillValue;
+		}
+
+		st.dialog.hideBroadeningElectives();
+		st.render.renderChar();
+
+		//st.dialog.dialogBroadeningElectives();
+	},
+	
+	hideBroadeningElectives: function() {
+		console.log("hideBroadeningElectives");
+
+		var $dialog = $(".st-broadening-electives");
+		$dialog.remove();
+	}
 
 };

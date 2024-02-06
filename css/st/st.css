@@ -101,8 +101,12 @@ label {
 }
 
 button {
-	color: #ff0000;
+	color: #228b22;
+	font-weight: bold;
 }
+
 button[disabled=disabled] {
 	color: #000000;
+	font-weight: normal;
+	font-style: italic;
 }
