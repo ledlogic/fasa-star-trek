@@ -69,10 +69,8 @@ st.gen = {
 		setTimeout(st.render.hideNav, 10);
 		setTimeout(st.render.renderChar, 10);
 		
-		// jump!
-		//setTimeout(st.dialog.dialogTheBeginning, 10);
-		//setTimeout(st.dialog.dialogBroadeningElectives, 10);
-		setTimeout(st.dialog.dialogComingTogether, 10);				
+		//setTimeout(st.dialog.dialogBeginning, 10);				
+		setTimeout(st.dialog.dialogBeginningElectives, 10);
 	},
 	
 	genDemographics: function(race) {

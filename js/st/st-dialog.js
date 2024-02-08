@@ -1,9 +1,9 @@
 st.dialog = {
 
-	/* THE BEGINNING */
+	/* BEGINNING */
 
-	dialogTheBeginning: function() {
-		console.log("dialogTheBeginning");
+	dialogBeginning: function() {
+		console.log("dialogBeginning");
 
 		var title = "The Beginning";
 		st.render.renderStatus(title);
@@ -91,7 +91,7 @@ st.dialog = {
 		st.dialog.hideBeginning();
 		
 		st.render.renderChar();
-		st.dialog.dialogTheBeginningElectives();
+		st.dialog.dialogBeginningElectives();
 	},
 	hideBeginning: function() {
 		console.log("hideBeginning");
@@ -100,10 +100,10 @@ st.dialog = {
 		$dialog.remove();
 	},
 	
-	/* THE BEGINNING - electives */
+	/* BEGINNING ELECTIVES */
 
-	dialogTheBeginningElectives: function() {
-		console.log("dialogTheBeginningElectives");
+	dialogBeginningElectives: function() {
+		console.log("dialogBeginningElectives");
 
 		var title = "The Beginning Electives";
 		st.render.renderStatus(title);
@@ -220,7 +220,7 @@ st.dialog = {
 			var astIndex = key.indexOf("*");
 			if (astIndex > -1) {
 				var prefix = key.substring(0, astIndex);
-				var $sel = $(".st-beginning-electives .st-key[data-key-prefix='" + prefix + "']");
+				var $sel = $(".st-beginning-electives .st-key-select[data-key-prefix='" + prefix + "']");
 				key = $sel.val();
 			}
 			st.log(key + ":" + value);
@@ -507,7 +507,7 @@ st.dialog = {
 		st.dialog.hideBroadeningElectives();
 		st.render.renderChar();
 
-		st.dialog.dialogAdvancedTraining();
+		st.dialog.dialogBroadeningAdvancedTraining();
 	},
 	
 	hideBroadeningElectives: function() {
@@ -517,10 +517,10 @@ st.dialog = {
 		$dialog.remove();
 	},
 	
-	/* DIALOG ADVANCED TRAINING */
+	/* BROADENING ADVANCED TRAINING */
 
-	dialogAdvancedTraining: function() {
-		console.log("dialogAdvancedTraining");
+	dialogBroadeningAdvancedTraining: function() {
+		console.log("dialogBroadeningAdvancedTraining");
 
 		var title = "Advanced Training";
 		st.render.renderStatus(title);
@@ -536,7 +536,7 @@ st.dialog = {
 		for (var i=0; i<3; i++) {
 			var $elm = $("<div class=\"st-skill-div\"></div>");
 			var $select = $("<select class=\"st-key st-select\" data-key=\"elective-" + i + "\"></select>");
-			$select.on("change", st.dialog.selectAdvancedTrainingSkill);
+			$select.on("change", st.dialog.selectBroadeningAdvancedTrainingSkill);
 			$select.append("<option value=\"\">Choose a skill</option>");
 			_.each(skills, function(key) {
 				var dispKey = _.keyToLabel(key);
@@ -552,20 +552,20 @@ st.dialog = {
 		st.character.$pageft.append($electives);
 		st.render.renderAge();
 		
-		$("#st-advanced-training-ok").on("click", st.dialog.actionAdvancedTrainingOk);
+		$("#st-advanced-training-ok").on("click", st.dialog.actionBroadeningAdvancedTrainingOk);
 	},
 	
-	selectAdvancedTrainingSkill: function() {
-		console.log("selectAdvancedTrainingSkill");
+	selectBroadeningAdvancedTrainingSkill: function() {
+		console.log("selectBroadeningAdvancedTrainingSkill");
 
 		var $sel = $(this);
 		var skill = $sel.val();
 		st.log("- skill[" + skill + "]");
-		st.dialog.checkAdvancedTrainingActionStatus();
+		st.dialog.checkBroadeningAdvancedTrainingActionStatus();
 	},
 	
-	actionAdvancedTrainingOk: function() {
-		console.log("actionAdvancedTrainingOk");
+	actionBroadeningAdvancedTrainingOk: function() {
+		console.log("actionBroadeningAdvancedTrainingOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -574,28 +574,26 @@ st.dialog = {
 			var key = "elective-" + i;
 			var $select = $("div select[data-key='" + key + "']");
 			var skillKey = $select.val();
-			var valueKey = "elective-value-" + i;
-			//var skillValue = $(".st-value[data-key='" + valueKey + "']").html();
 			var skillValue = st.math.dieN(10);
 			st.log(skillKey + ":" + skillValue);
 			specSkills[skillKey] += skillValue;
 		}
 
-		st.dialog.hideAdvancedTraining();
+		st.dialog.hideBroadeningAdvancedTraining();
 		st.render.renderChar();
 
 		st.dialog.dialogComingTogether();
 	},
 	
-	hideAdvancedTraining: function() {
-		console.log("hideAdvancedTraining");
+	hideBroadeningAdvancedTraining: function() {
+		console.log("hideBroadeningAdvancedTraining");
 
 		var $dialog = $(".st-advanced-training");
 		$dialog.remove();
 	},
 	
-	checkAdvancedTrainingActionStatus: function() {
-		console.log("checkAdvancedTrainingActionStatus");
+	checkBroadeningAdvancedTrainingActionStatus: function() {
+		console.log("checkBroadeningAdvancedTrainingActionStatus");
 		
 		var selCount = 0;
 		var $selects = $(".st-select");
@@ -713,7 +711,7 @@ st.dialog = {
 		st.dialog.hideComingTogether();
 		
 		st.render.renderChar();
-		//st.dialog.dialogTheBeginningElectives();
+		//st.dialog.dialogBeginningElectives();
 	},
 	hideComingTogether: function() {
 		console.log("hideComingTogether");
