@@ -630,6 +630,9 @@ st.dialog = {
 		$beginning.append("<h2 class=\"st-coming-together-header\">" + title + "</h2>");
 		$beginning.append("<span class=\"st-coming-together-instructions\">Please select from the choices below:</span>");
 		_.each(skills, function(value, key) {
+			var dispKey = _.keyToLabel(key);
+			var $elm = $("<span class=\"st-focus-div\">" + dispKey + "</span>");
+			$beginning.append($elm);
 			_.each(value, function(value2, key2) {
 				var dispKey = _.keyToLabel(key2);
 				var $elm = $("<div class=\"st-skill-div\"></div>");

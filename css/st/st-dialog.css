@@ -233,7 +233,7 @@
 	position: relative;
 	top: 20%;
 	left: 10%;
-	height: 402px;
+	height: 470px;
 	width: 80%;
 	box-shadow: 2px 2px 2px 0px #228b22;
 }
@@ -245,6 +245,11 @@
 .st-coming-together-instructions {
 	display: block;
 	margin-bottom: 10px;
+}
+
+.st-coming-together .st-focus-div {
+	display: block;
+	height: 22px;
 }
 
 .st-coming-together .st-skill-div {
