@@ -695,14 +695,12 @@ st.dialog = {
 		var specSkills = spec.skills;
 
 		var skills = st.skills.romulanComingTogetherSkills;
-	
 		_.each(skills, function(value, key) {
 			_.each(value, function(value2, key2) {
 				var $valueElem = $(".st-coming-together .st-value[data-key='" + key2 + "']");
 				var value = parseInt($valueElem.html(),10);
 				var astIndex = key2.indexOf("*");
 				if (astIndex > -1) {
-					debugger;
 					var prefix = key2.substring(0, astIndex);
 					var $sel = $(".st-coming-together .st-key[data-key-prefix='" + prefix + "']");
 					key2 = $sel.val();
