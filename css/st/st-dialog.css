@@ -172,3 +172,52 @@
 	float:right;
 	margin-right: 30%;
 }
+
+/* advanced training */
+
+.st-advanced-training {
+	background-color: #fff;
+	border: 1px solid #228b22;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 10%;
+	left: 10%;
+	height: 182px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #228b22;
+}
+
+.st-advanced-training-header {
+	margin-top: 0px;
+}
+
+.st-advanced-training-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-advanced-training .st-specialty-span {
+	margin-left: 10px;
+	position: relative;
+	text-decoration: underline;
+}
+
+.st-advanced-training .st-key-select {
+	display: inline-block;
+	margin-left: 23px;
+}
+
+.st-advanced-training .st-skill-div {
+	height: 22px;
+}
+
+.st-advanced-training .st-skill-span {
+	margin-left: 23px;
+}
+
+.st-advanced-training .st-value {
+	float:right;
+	margin-right: 30%;
+}

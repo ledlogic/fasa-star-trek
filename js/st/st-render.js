@@ -136,14 +136,18 @@ st.render = {
 		st.log("rendering skills");
 
 		var spec = st.character.spec;
-		var skills = spec.skills;
-		var valuedSkills = st.skills.withValue(skills);
+		var skills = st.skills.withValue(spec.skills);
+		var skillMap = {};
+		_.each(skills, function(key) {
+			var value = spec.skills[key];
+			skillMap[key] = value; 
+		});
 			
 		st.character.$pageft.append("<h2 class=\"st-skill-list-header\">Skill List</h2>");
 		
 		// there are three sets of skills, to match the display
 		var columns = 3;
-		var skillsI = st.render.chunkObj(valuedSkills, columns);
+		var skillsI = st.render.chunkObj(skillMap, columns);
 		st.logObj("skillsI", skillsI);
 		
 		for (var i=0;i<columns;i++) {

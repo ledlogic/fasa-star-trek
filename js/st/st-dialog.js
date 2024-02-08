@@ -507,7 +507,7 @@ st.dialog = {
 		st.dialog.hideBroadeningElectives();
 		st.render.renderChar();
 
-		//st.dialog.dialogBroadeningElectives();
+		st.dialog.dialogAdvancedTraining();
 	},
 	
 	hideBroadeningElectives: function() {
@@ -515,6 +515,106 @@ st.dialog = {
 
 		var $dialog = $(".st-broadening-electives");
 		$dialog.remove();
-	}
+	},
+	
+	/* DIALOG ADVANCED TRAINING */
 
+	dialogAdvancedTraining: function() {
+		console.log("dialogAdvancedTraining");
+
+		var title = "Advanced Training";
+		st.render.renderStatus(title);
+		//st.character.setAge("5-10 years");
+		
+		var electiveValue = "1d10";
+			
+		var skills = st.skills.withValue(st.character.spec.skills);
+		var $electives = $("<div class=\"st-advanced-training\"></div>");
+		$electives.append("<h2 class=\"st-advanced-training-header\">" + title + "</h2>");
+		$electives.append("<span class=\"st-advanced-training-instructions\">Please select three skills that you have:</span>");
+		
+		for (var i=0; i<3; i++) {
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var $select = $("<select class=\"st-key st-select\" data-key=\"elective-" + i + "\"></select>");
+			$select.on("change", st.dialog.selectAdvancedTrainingSkill);
+			$select.append("<option value=\"\">Choose a skill</option>");
+			_.each(skills, function(key) {
+				var dispKey = _.keyToLabel(key);
+				$select.append("<option value=\"" + key + "\">" + dispKey + "</option>");
+			});
+			$elm.append($select);
+			$elm.append("<span class=\"st-value\" data-key=\"elective-value-" + i + "\">" + electiveValue + "</span>");
+			$electives.append($elm);
+		}
+		
+		$electives.append("<div class=\"st-actions\"><button id=\"st-advanced-training-ok\" disabled=\"disabled\">OK</button></div>");
+
+		st.character.$pageft.append($electives);
+		st.render.renderAge();
+		
+		$("#st-advanced-training-ok").on("click", st.dialog.actionAdvancedTrainingOk);
+	},
+	
+	selectAdvancedTrainingSkill: function() {
+		console.log("selectAdvancedTrainingSkill");
+
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkAdvancedTrainingActionStatus();
+	},
+	
+	actionAdvancedTrainingOk: function() {
+		console.log("actionAdvancedTrainingOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+
+		for (var i=0; i<3; i++) {
+			var key = "elective-" + i;
+			var $select = $("div select[data-key='" + key + "']");
+			var skillKey = $select.val();
+			var valueKey = "elective-value-" + i;
+			//var skillValue = $(".st-value[data-key='" + valueKey + "']").html();
+			var skillValue = st.math.dieN(10);
+			st.log(skillKey + ":" + skillValue);
+			specSkills[skillKey] += skillValue;
+		}
+
+		st.dialog.hideAdvancedTraining();
+		st.render.renderChar();
+
+		//st.dialog.dialogAdvancedTraining();
+	},
+	
+	hideAdvancedTraining: function() {
+		console.log("hideAdvancedTraining");
+
+		var $dialog = $(".st-advanced-training");
+		$dialog.remove();
+	},
+	
+	checkAdvancedTrainingActionStatus: function() {
+		console.log("checkAdvancedTrainingActionStatus");
+		
+		var selCount = 0;
+		var $selects = $(".st-select");
+		_.each($selects, function(sel) {
+			var skill = $(sel).val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		st.log("selCount[" + selCount + "]");
+		
+		var qty = 3;
+		//if (cbsCount === qty && cbsCount === selCount) {
+		if (selCount === qty) {
+			st.log("- ok");
+			$("#st-advanced-training-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-advanced-training-ok").attr("disabled", "disabled");
+		}
+	}
 };

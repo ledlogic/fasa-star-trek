@@ -295,12 +295,13 @@ st.skills = {
 	
 	withValue: function(skills) {
 		st.log("withValue");
-		var ret = {};
+		var ret = [];
 		_.each(skills, function(value, key) {
 			if (value != 0) {
-				ret[key] = value;
+				ret.push(key);
 			}
 		});
+		//console.log(ret);
 		return ret;
 	},
 	withoutValue: function(skills) {
