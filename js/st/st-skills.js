@@ -290,6 +290,27 @@ st.skills = {
 			}
 		}
 	},
+	romulanComingTogetherSkills: {
+		"starship-skills": {
+			"damage-control-procedures": 10,
+			"environmental-suit-operation": 10,
+			"zero-g-operations": 10
+		},
+		"socialization-skills": {
+			"administration": 10,
+			"gaming:-*": 10,
+			"instruction": 10,
+			"leadership": 10,
+			"negotiation/diplomacy": 10,
+			"social-sciences:-romulan-history": 10,
+			"social-sciences:-romulan-law": 10,
+			"sports:-*": 10
+		},
+		"combat-skills": {
+			"marksmanship-modern": 10,
+			"personal-combat-unarmed": 10
+		}
+	},
 	
 	/* METHODS */
 	

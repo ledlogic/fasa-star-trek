@@ -221,3 +221,43 @@
 	float:right;
 	margin-right: 30%;
 }
+
+/* coming together */
+
+.st-coming-together {
+	background-color: #fff;
+	border: 1px solid #228b22;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 20%;
+	left: 10%;
+	height: 402px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #228b22;
+}
+
+.st-coming-together-header {
+	margin-top: 0px;
+}
+
+.st-coming-together-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-coming-together .st-skill-div {
+	height: 22px;
+}
+
+.st-coming-together .st-key,
+.st-coming-together .st-key-select {
+	margin-left: 10px;
+	position: relative;
+}
+
+.st-coming-together .st-value {
+	float:right;
+	margin-right: 30%;
+}

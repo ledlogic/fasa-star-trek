@@ -584,7 +584,7 @@ st.dialog = {
 		st.dialog.hideAdvancedTraining();
 		st.render.renderChar();
 
-		//st.dialog.dialogAdvancedTraining();
+		st.dialog.dialogComingTogether();
 	},
 	
 	hideAdvancedTraining: function() {
@@ -616,5 +616,112 @@ st.dialog = {
 			st.log("- ng");
 			$("#st-advanced-training-ok").attr("disabled", "disabled");
 		}
+	},
+	
+	/* COMING TOGETHER */
+
+	dialogComingTogether: function() {
+		console.log("dialogComingTogether");
+
+		var title = "The Coming Together of Knowledge";
+		st.render.renderStatus(title);
+		st.character.setAge("15-20 years");
+			
+		var skills = st.skills.romulanComingTogetherSkills;
+		var $beginning = $("<div class=\"st-coming-together\"></div>");
+		$beginning.append("<h2 class=\"st-coming-together-header\">" + title + "</h2>");
+		$beginning.append("<span class=\"st-coming-together-instructions\">Please select from the choices below:</span>");
+		_.each(skills, function(value, key) {
+			_.each(value, function(value2, key2) {
+				var dispKey = _.keyToLabel(key2);
+				var $elm = $("<div class=\"st-skill-div\"></div>");
+				var $choice = $("<span class=\"st-key\" data-key=\"" + key2 + "\">" + dispKey + "</span>");
+				var astIndex = key2.indexOf("*");
+				if (astIndex > -1) {
+					var prefix = key2.substring(0, astIndex);
+					var choices = st.gen.getChoices(key2);				
+					var $choice = $("<select class=\"st-key\" data-key-prefix=\"" + prefix + "\"></select>");
+					$choice.on("change", st.dialog.selectComingTogetherSkill);
+					$choice.append("<option value=\"\">Choose a skill</option>");
+					_.each(choices, function(choice) {
+						var choiceLabel = _.keyToLabel(choice);
+						$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+					});		
+				}
+				$elm.append($choice);
+				$elm.append("<span class=\"st-value\" data-key=\"" + key2 + "\">" + value2 + "</span>");
+				$beginning.append($elm);
+			});
+		});
+		$beginning.append("<div class=\"st-actions\"><button id=\"st-coming-together-ok\" disabled=\"disabled\">OK</button></div>");
+
+		st.character.$pageft.append($beginning);
+		st.render.renderAge();
+		
+		$("#st-coming-together-ok").on("click", st.dialog.actionComingTogetherOk);
+	},
+	selectComingTogetherSkill: function(skill) {
+		console.log("selectComingTogetherSkill");
+		
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkComingTogetherActionStatus();
+	},
+	checkComingTogetherActionStatus: function() {
+		console.log("checkComingTogetherActionStatus");
+
+		var sels = $(".st-coming-together select");
+		var selCount = 0;
+		_.each(sels, function(sel) {
+			var $sel = $(sel);
+			var skill = $sel.val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		if (sels.length === selCount) {
+			st.log("- ok");
+			$("#st-coming-together-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-coming-together-ok").attr("disabled", "disabled");
+		}
+	},
+	actionComingTogetherOk: function() {
+		console.log("actionComingTogetherOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+
+		var skills = st.skills.romulanComingTogetherSkills;
+	
+		_.each(skills, function(value, key) {
+			_.each(value, function(value2, key2) {
+				var $valueElem = $(".st-coming-together .st-value[data-key='" + key2 + "']");
+				var value = parseInt($valueElem.html(),10);
+				var astIndex = key2.indexOf("*");
+				if (astIndex > -1) {
+					debugger;
+					var prefix = key2.substring(0, astIndex);
+					var $sel = $(".st-coming-together .st-key[data-key-prefix='" + prefix + "']");
+					key2 = $sel.val();
+				}
+				st.log(key2 + ":" + value);
+				specSkills[key2] += value;
+			});
+		});
+		
+		st.dialog.hideComingTogether();
+		
+		st.render.renderChar();
+		//st.dialog.dialogTheBeginningElectives();
+	},
+	hideComingTogether: function() {
+		console.log("hideComingTogether");
+		
+		var $dialog = $(".st-coming-together");
+		$dialog.remove();
 	}
+
 };
