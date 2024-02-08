@@ -182,7 +182,7 @@ st.dialog = {
 			}, 10);
 						
 			$selects.removeAttr("disabled");
-			var $sel = $cbs.parent().find(".st-select");
+			var $sel = $cbs.parent().find(".st-key-select");
 			if ($sel.length == 0) {
 				selCount++;
 			} else {
@@ -381,7 +381,7 @@ st.dialog = {
 				$selects.removeAttr("disabled");
 			}, 10);
 
-			var $sel = $cbs.parent().find(".st-select");
+			var $sel = $cbs.parent().find(".st-key-select");
 			if ($sel.length == 0) {
 				selCount++;
 			} else {
@@ -535,7 +535,7 @@ st.dialog = {
 		
 		for (var i=0; i<3; i++) {
 			var $elm = $("<div class=\"st-skill-div\"></div>");
-			var $select = $("<select class=\"st-key st-select\" data-key=\"elective-" + i + "\"></select>");
+			var $select = $("<select class=\"st-key st-key-select\" data-key=\"elective-" + i + "\"></select>");
 			$select.on("change", st.dialog.selectBroadeningAdvancedTrainingSkill);
 			$select.append("<option value=\"\">Choose a skill</option>");
 			_.each(skills, function(key) {
@@ -596,7 +596,7 @@ st.dialog = {
 		console.log("checkBroadeningAdvancedTrainingActionStatus");
 		
 		var selCount = 0;
-		var $selects = $(".st-select");
+		var $selects = $(".st-key-select");
 		_.each($selects, function(sel) {
 			var skill = $(sel).val();
 			if (skill) {
