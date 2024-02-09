@@ -72,7 +72,7 @@ st.gen = {
 		//setTimeout(st.dialog.dialogBeginning, 10);				
 		//setTimeout(st.dialog.dialogBeginningElectives, 10);
 		setTimeout(st.dialog.dialogTheBroadening, 10);
-		//setTimeout(st.dialog.dialogComingTogether, 10);
+		//setTimeout(st.dialog.dialogComingTogether, 10);		
 	},
 	
 	genDemographics: function(race) {

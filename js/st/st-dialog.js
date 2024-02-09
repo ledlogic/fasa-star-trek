@@ -266,6 +266,7 @@ st.dialog = {
 		$scrollDiv = $("<div class=\"st-scrolldiv\"></div>");
 		_.each(categories, function(value, key) {
 			var category = value;
+			var mainSpecialty = key;
 			var dispCategory = _.keyToLabel(key);
 			var $elm = $("<div class=\"st-key-div\" data-key=\"" + key + "\"></div>");
 			
@@ -274,7 +275,7 @@ st.dialog = {
 				
 				var dispSpecialty = _.keyToLabel(specialty);
 				var $specialtyElm = $("<div class=\"st-specialty-div\" data-key=\"" + specialty + "\"></div>");
-				var $checkbox = $("<input type=\"checkbox\" class=\"st-checkbox\" data-key=\"" + specialty + "\" />")
+				var $checkbox = $("<input type=\"checkbox\" class=\"st-checkbox\" data-main-specialty=\"" + mainSpecialty + "\" data-sub-specialty=\"" + specialty + "\" data-key=\"" + specialty + "\" />")
 				$checkbox.on("click", st.dialog.actionBroadeningCheckbox);
 				$specialtyElm.append($checkbox);
 				var $choice = $("<span class=\"st-specialty-span st-disabled\" data-key=\"" + specialty + "\">" + dispCategory + ":" + dispSpecialty + "</span>");
@@ -321,7 +322,16 @@ st.dialog = {
 		st.log("cbsCount[" + cbsCount + "]");
 
 		_.each($cbs, function(cb) {
+			var main = $(cb).data("main-specialty");
+			var sub = $(cb).data("sub-specialty");
 			var key = $(cb).data("key");
+			var specialties = {
+				main: main,
+				sub: sub 
+			};
+			st.character.spec.specialties = specialties; 
+			st.logObj("specialties", specialties);
+			
 			var $specialtyDiv = $("div.st-specialty-div[data-key='" + key + "']");
 			var $skillDivs = $specialtyDiv.find(".st-skill-div"); 
 		
