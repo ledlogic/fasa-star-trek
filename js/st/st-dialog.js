@@ -747,16 +747,16 @@ st.dialog = {
 		var sub = specialties.sub;
 		var skills = st.skills.romulanBroadeningSkills[main][sub];
 		skills = st.skills.removeDuplicates(skills);
-		st.log("skills[" + skills + "]");
+		//st.log("skills[" + skills + "]");
 		
 		var $electives = $("<div class=\"st-coming-together-advanced-training\"></div>");
 		$electives.append("<h2 class=\"st-coming-together-advanced-training-header\">" + title + "</h2>");
-		$electives.append("<span class=\"st-coming-together-advanced-training-instructions\">Please select three skills that you have:</span>");
+		$electives.append("<span class=\"st-coming-together-advanced-training-instructions\">Please select skills in your specialty for advanced training:</span>");
 		
 		var int = st.character.spec.attributes.int;
-		st.log("int[" + int + "]");
+		//st.log("int[" + int + "]");
 		var chances = 10 + Math.floor(Math.max(0, int - 50) / 10);
-		st.log("chances[" + chances + "]");
+		//st.log("chances[" + chances + "]");
 		st.character.spec.chances = chances;
 		
 		for (var i=0; i<chances; i++) {
@@ -817,7 +817,7 @@ st.dialog = {
 		st.skills.maxCheck();
 		st.dialog.hideComingTogetherAdvancedTraining();
 		st.render.renderChar();
-		//st.dialog.dialogComingTogether();
+		st.dialog.dialogComingTogetherOutside();
 	},
 	
 	hideComingTogetherAdvancedTraining: function() {
@@ -847,6 +847,123 @@ st.dialog = {
 		} else {
 			st.log("- ng");
 			$("#st-coming-together-advanced-training-ok").attr("disabled", "disabled");
+		}
+	},
+	
+	/* ADVANCED TRAINING OUTSIDE SPECIALTY */
+	
+	dialogComingTogetherOutside: function() {
+		console.log("dialogComingTogetherOutside");
+
+		var title = "Coming Together: Outside Specialty";
+		st.render.renderStatus(title);
+		st.character.setAge("15-20 years");
+		
+		var electiveValue = "1d10";
+			
+		var specialties = st.character.spec.specialties;
+		var main = specialties.main;
+		var sub = specialties.sub;
+		var specialtySkills = st.skills.romulanBroadeningSkills[main][sub];
+		st.log("specialtySkills[" + specialtySkills + "]");
+		var skills = st.character.spec.skills;
+		st.log("skills0[" + skills + "]");
+		skills = st.skills.remove(skills, specialtySkills);
+		st.log("skills1[" + skills + "]");
+		
+		var $electives = $("<div class=\"st-coming-together-outside\"></div>");
+		$electives.append("<h2 class=\"st-coming-together-outside-header\">" + title + "</h2>");
+		$electives.append("<span class=\"st-coming-together-outside-instructions\">Please select skills outside your specialty for advanced training:</span>");
+		
+		var chances = 10;
+		for (var i=0; i<chances; i++) {
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var $select = $("<select class=\"st-key st-key-select\" data-key=\"elective-" + i + "\"></select>");
+			$select.on("change", st.dialog.selectComingTogetherOutsideSkill);
+			$select.append("<option value=\"\">Choose a skill</option>");
+			_.each(skills, function(key) {
+				var dispKey = _.keyToLabel(key);
+				var astIndex = key.indexOf("*");
+				if (astIndex > -1) {
+					var choices = st.gen.getChoices(key);				
+					_.each(choices, function(choice) {
+						var choiceLabel = _.keyToLabel(choice);
+						$select.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+					});
+				} else {
+					$select.append("<option value=\"" + key + "\">" + dispKey + "</option>");
+				}
+			});
+			$elm.append($select);
+			$elm.append("<span class=\"st-value\" data-key=\"elective-value-" + i + "\">" + electiveValue + "</span>");
+			$electives.append($elm);
+		}
+		
+		$electives.append("<div class=\"st-actions\"><button id=\"st-coming-together-outside-ok\" disabled=\"disabled\">OK</button></div>");
+
+		st.character.$pageft.append($electives);
+		st.render.renderAge();
+		
+		$("#st-coming-together-outside-ok").on("click", st.dialog.actionComingTogetherOutsideOk);
+	},
+	
+	selectComingTogetherOutsideSkill: function() {
+		console.log("selectComingTogetherOutsideSkill");
+
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkComingTogetherOutsideActionStatus();
+	},
+	
+	actionComingTogetherOutsideOk: function() {
+		console.log("actionComingTogetherOutsideOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+
+		var chances = 10;
+		for (var i=0; i<chances; i++) {
+			var key = "elective-" + i;
+			var $select = $("div select[data-key='" + key + "']");
+			var skillKey = $select.val();
+			var skillValue = st.math.dieN(10);
+			st.log(skillKey + ":" + skillValue);
+			specSkills[skillKey] += skillValue;
+		}
+		st.skills.maxCheck();
+		st.dialog.hideComingTogetherOutside();
+		st.render.renderChar();
+		//st.dialog.dialogComingTogether();
+	},
+	
+	hideComingTogetherOutside: function() {
+		console.log("hideComingTogetherOutside");
+
+		var $dialog = $(".st-coming-together-outside");
+		$dialog.remove();
+	},
+	
+	checkComingTogetherOutsideActionStatus: function() {
+		console.log("checkComingTogetherOutsideActionStatus");
+		
+		var selCount = 0;
+		var $selects = $(".st-key-select");
+		_.each($selects, function(sel) {
+			var skill = $(sel).val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		st.log("selCount[" + selCount + "]");
+		
+		var chances = 10;
+		if (selCount === chances) {
+			st.log("- ok");
+			$("#st-coming-together-outside-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-coming-together-outside-ok").attr("disabled", "disabled");
 		}
 	}
 

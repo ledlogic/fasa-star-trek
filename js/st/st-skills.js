@@ -350,7 +350,7 @@ st.skills = {
 		st.log("removeDuplicates");
 		var ret = [];
 		_.each(skills, function(value, skill) {
-			st.log("skill0[" + skill + "]");
+			//st.log("skill0[" + skill + "]");
 			if (skill.indexOf("-*1") > -1) {
 				skill = skill.substring(0,skill.length-1);
 			}
@@ -360,12 +360,28 @@ st.skills = {
 			if (skill.indexOf("-*3") > -1) {
 				skill = skill.substring(0,skill.length-1);
 			}
-			st.log("skill1[" + skill + "]");
+			//st.log("skill1[" + skill + "]");
 			if (ret.indexOf(skill) === -1) {
+				ret.push(skill);
+			}
+		});
+		//st.log("ret[" + ret + "]");
+		return ret;	
+	},
+	remove : function(skills, specialtySkills) {
+		st.log("remove");
+		var ret = [];
+		_.each(skills, function(value, skill) {
+			var found = false;
+			_.each(specialtySkills, function(specialtyValue, specialtySkill) {
+				found |= skill == specialtySkill;
+			});
+			if (!found) {
 				ret.push(skill);
 			}
 		});
 		st.log("ret[" + ret + "]");
 		return ret;	
+
 	}
 };

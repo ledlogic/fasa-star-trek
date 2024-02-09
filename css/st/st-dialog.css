@@ -315,3 +315,52 @@
 	float:right;
 	margin-right: 30%;
 }
+
+/* coming together outside */
+
+.st-coming-together-outside {
+	background-color: #fff;
+	border: 1px solid #228b22;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 10%;
+	left: 10%;
+	height: 358px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #228b22;
+}
+
+.st-coming-together-outside-header {
+	margin-top: 0px;
+}
+
+.st-coming-together-outside-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-coming-together-outside .st-specialty-span {
+	margin-left: 10px;
+	position: relative;
+	text-decoration: underline;
+}
+
+.st-coming-together-outside .st-key-select {
+	display: inline-block;
+	margin-left: 23px;
+}
+
+.st-coming-together-outside .st-skill-div {
+	height: 22px;
+}
+
+.st-coming-together-outside .st-skill-span {
+	margin-left: 23px;
+}
+
+.st-coming-together-outside .st-value {
+	float:right;
+	margin-right: 30%;
+}

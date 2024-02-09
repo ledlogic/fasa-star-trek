@@ -12,7 +12,8 @@ st.character = {
 		demographics: {
 			age: "0 years"
 		},
-		endurance: {}
+		endurance: {},
+		skills: {}
 	},
 	
 	mod: {},
