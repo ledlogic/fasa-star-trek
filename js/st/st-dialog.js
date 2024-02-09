@@ -3,7 +3,7 @@ st.dialog = {
 	/* BEGINNING */
 
 	dialogBeginning: function() {
-		console.log("dialogBeginning");
+		st.log("dialogBeginning");
 
 		var title = "The Beginning";
 		st.render.renderStatus(title);
@@ -41,7 +41,7 @@ st.dialog = {
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningOk);
 	},
 	selectBeginningSkill: function(skill) {
-		console.log("selectBeginningSkill");
+		st.log("selectBeginningSkill");
 		
 		var $sel = $(this);
 		var skill = $sel.val();
@@ -49,7 +49,7 @@ st.dialog = {
 		st.dialog.checkBeginningActionStatus();
 	},
 	checkBeginningActionStatus: function() {
-		console.log("checkBeginningActionStatus");
+		st.log("checkBeginningActionStatus");
 
 		var sels = $(".st-beginning select");
 		var selCount = 0;
@@ -69,7 +69,7 @@ st.dialog = {
 		}
 	},
 	actionBeginningOk: function() {
-		console.log("actionBeginningOk");
+		st.log("actionBeginningOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -90,10 +90,10 @@ st.dialog = {
 		st.skills.maxCheck();
 		st.dialog.hideBeginning();
 		st.render.renderChar();
-		st.dialog.dialogBeginningElectives();
+		st.gen.nextStep();
 	},
 	hideBeginning: function() {
-		console.log("hideBeginning");
+		st.log("hideBeginning");
 		
 		var $dialog = $(".st-beginning");
 		$dialog.remove();
@@ -102,7 +102,7 @@ st.dialog = {
 	/* BEGINNING ELECTIVES */
 
 	dialogBeginningElectives: function() {
-		console.log("dialogBeginningElectives");
+		st.log("dialogBeginningElectives");
 
 		var title = "The Beginning Electives";
 		st.render.renderStatus(title);
@@ -149,7 +149,7 @@ st.dialog = {
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningElectivesOk);
 	},
 	selectBeginningElectivesSkill: function(skill) {
-		console.log("selectBeginningElectivesSkill");
+		st.log("selectBeginningElectivesSkill");
 
 		var $sel = $(this);
 		var skill = $sel.val();
@@ -157,7 +157,7 @@ st.dialog = {
 		st.dialog.checkBeginningElectivesActionStatus();
 	},
 	checkBeginningElectivesActionStatus: function() {
-		console.log("checkBeginningElectivesActionStatus");
+		st.log("checkBeginningElectivesActionStatus");
 		
 		$(".st-key-span, .st-key-select, .st-value").not(".st-disabled").addClass("st-disabled");
 		$(".st-key-select").attr("disabled", "disabled");
@@ -204,7 +204,7 @@ st.dialog = {
 		}
 	},
 	actionBeginningElectivesOk: function() {
-		console.log("actionBeginningElectivesOk");
+		st.log("actionBeginningElectivesOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -231,16 +231,16 @@ st.dialog = {
 		st.dialog.hideBeginningElectives();
 		st.character.setAge("10 years");
 		st.render.renderChar();
-		st.dialog.dialogTheBroadening();
+		st.gen.nextStep();
 	},
 	hideBeginningElectives: function() {
-		console.log("hideBeginningElectives");
+		st.log("hideBeginningElectives");
 
 		var $dialog = $(".st-beginning-electives");
 		$dialog.remove();
 	},
 	actionBeginningElectivesCheckbox: function() {
-		console.log("actionBeginningElectivesCheckbox");
+		st.log("actionBeginningElectivesCheckbox");
 
 		setTimeout(st.dialog.checkBeginningElectivesActionStatus, 10);
 	},
@@ -248,7 +248,7 @@ st.dialog = {
 	/* THE BROADENING */
 
 	dialogTheBroadening: function() {
-		console.log("dialogTheBroadening");
+		st.log("dialogTheBroadening");
 
 		var title = "The Broadening";
 		st.render.renderStatus(title);
@@ -269,7 +269,7 @@ st.dialog = {
 			var $elm = $("<div class=\"st-key-div\" data-key=\"" + key + "\"></div>");
 			
 			_.each(category, function(skills, specialty) {
-				//console.log([category, specialty, skills]);
+				//st.log([category, specialty, skills]);
 				
 				var dispSpecialty = _.keyToLabel(specialty);
 				var $specialtyElm = $("<div class=\"st-specialty-div\" data-key=\"" + specialty + "\"></div>");
@@ -309,7 +309,7 @@ st.dialog = {
 		$("#st-broadening-ok").on("click", st.dialog.actionBroadeningOk);
 	},
 	actionBroadeningOk: function() {
-		console.log("actionBroadeningOk");
+		st.log("actionBroadeningOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -356,16 +356,16 @@ st.dialog = {
 		st.skills.maxCheck();
 		st.dialog.hideBroadening();
 		st.render.renderChar();
-		st.dialog.dialogBroadeningElectives();
+		st.gen.nextStep();
 	},
 	hideBroadening: function() {
-		console.log("hideBroadening");
+		st.log("hideBroadening");
 
 		var $dialog = $(".st-broadening");
 		$dialog.remove();
 	},
 	checkBroadeningActionStatus: function() {
-		console.log("checkBroadeningActionStatus");
+		st.log("checkBroadeningActionStatus");
 		
 		$(".st-specialty-span, .st-specialty-div, .st-skill-span, .st-value, .st-key-select").not(".st-disabled").addClass("st-disabled");
 		$(".st-key-select").attr("disabled", "disabled");
@@ -414,12 +414,12 @@ st.dialog = {
 		}
 	},
 	actionBroadeningCheckbox: function() {
-		console.log("actionBroadeningCheckbox");
+		st.log("actionBroadeningCheckbox");
 
 		setTimeout(st.dialog.checkBroadeningActionStatus(), 10);
 	},
 	selectBroadeningSkill: function(skill) {
-		console.log("selectBroadeningSkill");
+		st.log("selectBroadeningSkill");
 
 		var $sel = $(this);
 		var skill = $sel.val();
@@ -430,7 +430,7 @@ st.dialog = {
 	/* BROADENING ELECTIVES */
 
 	dialogBroadeningElectives: function() {
-		console.log("dialogBroadeningElectives");
+		st.log("dialogBroadeningElectives");
 
 		var title = "Broadening Electives";
 		st.render.renderStatus(title);
@@ -466,7 +466,7 @@ st.dialog = {
 	},
 	
 	selectBroadeningElectivesSkill: function() {
-		console.log("selectBroadeningElectivesSkill");
+		st.log("selectBroadeningElectivesSkill");
 
 		var $sel = $(this);
 		var skill = $sel.val();
@@ -475,7 +475,7 @@ st.dialog = {
 	},
 	
 	checkBroadeningElectivesActionStatus:function() {
-		console.log("checkBroadeningActionStatus");
+		st.log("checkBroadeningActionStatus");
 
 		var selCount = 0;		
 		for (var i=0; i<2; i++) {
@@ -499,7 +499,7 @@ st.dialog = {
 	},
 	
 	actionBroadeningElectivesOk: function() {
-		console.log("actionBroadeningElectivesOk");
+		st.log("actionBroadeningElectivesOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -516,11 +516,11 @@ st.dialog = {
 		st.skills.maxCheck();
 		st.dialog.hideBroadeningElectives();
 		st.render.renderChar();
-		st.dialog.dialogBroadeningAdvancedTraining();
+		st.gen.nextStep();
 	},
 	
 	hideBroadeningElectives: function() {
-		console.log("hideBroadeningElectives");
+		st.log("hideBroadeningElectives");
 
 		var $dialog = $(".st-broadening-electives");
 		$dialog.remove();
@@ -529,7 +529,7 @@ st.dialog = {
 	/* BROADENING ADVANCED TRAINING */
 
 	dialogBroadeningAdvancedTraining: function() {
-		console.log("dialogBroadeningAdvancedTraining");
+		st.log("dialogBroadeningAdvancedTraining");
 
 		var title = "Broadening: Advanced Training";
 		st.render.renderStatus(title);
@@ -565,7 +565,7 @@ st.dialog = {
 	},
 	
 	selectBroadeningAdvancedTrainingSkill: function() {
-		console.log("selectBroadeningAdvancedTrainingSkill");
+		st.log("selectBroadeningAdvancedTrainingSkill");
 
 		var $sel = $(this);
 		var skill = $sel.val();
@@ -574,7 +574,7 @@ st.dialog = {
 	},
 	
 	actionBroadeningAdvancedTrainingOk: function() {
-		console.log("actionBroadeningAdvancedTrainingOk");
+		st.log("actionBroadeningAdvancedTrainingOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -591,18 +591,18 @@ st.dialog = {
 		st.dialog.hideBroadeningAdvancedTraining();
 		st.character.setAge("15 years");
 		st.render.renderChar();
-		st.dialog.dialogComingTogether();
+		st.gen.nextStep();
 	},
 	
 	hideBroadeningAdvancedTraining: function() {
-		console.log("hideBroadeningAdvancedTraining");
+		st.log("hideBroadeningAdvancedTraining");
 
 		var $dialog = $(".st-advanced-training");
 		$dialog.remove();
 	},
 	
 	checkBroadeningAdvancedTrainingActionStatus: function() {
-		console.log("checkBroadeningAdvancedTrainingActionStatus");
+		st.log("checkBroadeningAdvancedTrainingActionStatus");
 		
 		var selCount = 0;
 		var $selects = $(".st-key-select");
@@ -628,7 +628,7 @@ st.dialog = {
 	/* COMING TOGETHER */
 
 	dialogComingTogether: function() {
-		console.log("dialogComingTogether");
+		st.log("dialogComingTogether");
 
 		var title = "The Coming Together of Knowledge";
 		st.render.renderStatus(title);
@@ -671,7 +671,7 @@ st.dialog = {
 		$("#st-coming-together-ok").on("click", st.dialog.actionComingTogetherOk);
 	},
 	selectComingTogetherSkill: function(skill) {
-		console.log("selectComingTogetherSkill");
+		st.log("selectComingTogetherSkill");
 		
 		var $sel = $(this);
 		var skill = $sel.val();
@@ -679,7 +679,7 @@ st.dialog = {
 		st.dialog.checkComingTogetherActionStatus();
 	},
 	checkComingTogetherActionStatus: function() {
-		console.log("checkComingTogetherActionStatus");
+		st.log("checkComingTogetherActionStatus");
 
 		var sels = $(".st-coming-together select");
 		var selCount = 0;
@@ -699,7 +699,7 @@ st.dialog = {
 		}
 	},
 	actionComingTogetherOk: function() {
-		console.log("actionComingTogetherOk");
+		st.log("actionComingTogetherOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -722,10 +722,10 @@ st.dialog = {
 		st.skills.maxCheck();
 		st.dialog.hideComingTogether();
 		st.render.renderChar();
-		st.dialog.dialogComingTogetherAdvancedTraining();
+		st.gen.nextStep();
 	},
 	hideComingTogether: function() {
-		console.log("hideComingTogether");
+		st.log("hideComingTogether");
 		
 		var $dialog = $(".st-coming-together");
 		$dialog.remove();
@@ -734,7 +734,7 @@ st.dialog = {
 	/* ADVANCED TRAINING IN SPECIALTY */
 	
 	dialogComingTogetherAdvancedTraining: function() {
-		console.log("dialogComingTogetherAdvancedTraining");
+		st.log("dialogComingTogetherAdvancedTraining");
 
 		var title = "Coming Together: Advanced Training";
 		st.render.renderStatus(title);
@@ -791,7 +791,7 @@ st.dialog = {
 	},
 	
 	selectComingTogetherAdvancedTrainingSkill: function() {
-		console.log("selectComingTogetherAdvancedTrainingSkill");
+		st.log("selectComingTogetherAdvancedTrainingSkill");
 
 		var $sel = $(this);
 		var skill = $sel.val();
@@ -800,7 +800,7 @@ st.dialog = {
 	},
 	
 	actionComingTogetherAdvancedTrainingOk: function() {
-		console.log("actionComingTogetherAdvancedTrainingOk");
+		st.log("actionComingTogetherAdvancedTrainingOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -817,18 +817,18 @@ st.dialog = {
 		st.skills.maxCheck();
 		st.dialog.hideComingTogetherAdvancedTraining();
 		st.render.renderChar();
-		st.dialog.dialogComingTogetherOutside();
+		st.gen.nextStep();
 	},
 	
 	hideComingTogetherAdvancedTraining: function() {
-		console.log("hideComingTogetherAdvancedTraining");
+		st.log("hideComingTogetherAdvancedTraining");
 
 		var $dialog = $(".st-coming-together-advanced-training");
 		$dialog.remove();
 	},
 	
 	checkComingTogetherAdvancedTrainingActionStatus: function() {
-		console.log("checkComingTogetherAdvancedTrainingActionStatus");
+		st.log("checkComingTogetherAdvancedTrainingActionStatus");
 		
 		var selCount = 0;
 		var $selects = $(".st-key-select");
@@ -853,7 +853,7 @@ st.dialog = {
 	/* ADVANCED TRAINING OUTSIDE SPECIALTY */
 	
 	dialogComingTogetherOutside: function() {
-		console.log("dialogComingTogetherOutside");
+		st.log("dialogComingTogetherOutside");
 
 		var title = "Coming Together: Outside Specialty";
 		st.render.renderStatus(title);
@@ -908,7 +908,7 @@ st.dialog = {
 	},
 	
 	selectComingTogetherOutsideSkill: function() {
-		console.log("selectComingTogetherOutsideSkill");
+		st.log("selectComingTogetherOutsideSkill");
 
 		var $sel = $(this);
 		var skill = $sel.val();
@@ -917,7 +917,7 @@ st.dialog = {
 	},
 	
 	actionComingTogetherOutsideOk: function() {
-		console.log("actionComingTogetherOutsideOk");
+		st.log("actionComingTogetherOutsideOk");
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
@@ -934,18 +934,18 @@ st.dialog = {
 		st.skills.maxCheck();
 		st.dialog.hideComingTogetherOutside();
 		st.render.renderChar();
-		//st.dialog.dialogComingTogether();
+		st.gen.nextStep();
 	},
 	
 	hideComingTogetherOutside: function() {
-		console.log("hideComingTogetherOutside");
+		st.log("hideComingTogetherOutside");
 
 		var $dialog = $(".st-coming-together-outside");
 		$dialog.remove();
 	},
 	
 	checkComingTogetherOutsideActionStatus: function() {
-		console.log("checkComingTogetherOutsideActionStatus");
+		st.log("checkComingTogetherOutsideActionStatus");
 		
 		var selCount = 0;
 		var $selects = $(".st-key-select");

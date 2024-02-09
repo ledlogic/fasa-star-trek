@@ -4,6 +4,9 @@
  * Utility methods for character generation 
  */
 st.gen = {
+	step: -1,
+	steps: [],
+	
 	init: function() {
 		st.log("init gen");
 	},
@@ -69,17 +72,42 @@ st.gen = {
 		setTimeout(st.render.hideNav, 10);
 		setTimeout(st.render.renderChar, 10);
 		
-		//setTimeout(st.dialog.dialogBeginning, 10);				
-		//setTimeout(st.dialog.dialogBeginningElectives, 10);
-		setTimeout(st.dialog.dialogTheBroadening, 10);
-		//setTimeout(st.dialog.dialogComingTogether, 10);		
+		st.gen.step = -1;
+		st.gen.steps = [
+			"dialogBeginning",
+			"dialogBeginningElectives",
+			"dialogTheBroadening",
+			"dialogBroadeningElectives",
+			"dialogBroadeningAdvancedTraining",
+			"dialogComingTogether",
+			"dialogComingTogetherAdvancedTraining",
+			"dialogComingTogetherOutside",
+		];
+		st.gen.nextStep();
+	},
+	
+	nextStep: function() {
+		st.log("nextStep");
+		
+		st.gen.step++;
+		var step = st.gen.step; 
+		st.log("step[" + step + "]");
+		var max = st.gen.steps.length;
+		if (step > max) {
+			//renderComplete();
+		} else { 
+			var method = "st.dialog." + st.gen.steps[step] + "()";
+			st.log("method[" + method + "]");
+			setTimeout(method, 10);
+		}
 	},
 	
 	genDemographics: function(race) {
+		st.log("genDemographics");
 		var spec = st.character.spec;
 		var demographics = spec.demographics;
 
-		demographics["age"] = 18;
+		demographics["age"] = "0 years";
 		
 		var sex = st.math.die(1,2,-1) == 0 ? "male" : "female";
 		demographics.sex = sex;
@@ -88,6 +116,7 @@ st.gen = {
 	},
 	
 	genAttributes: function() {
+		st.log("genAttributes");
 		var spec = st.character.spec;
 		spec.attributes = {};
 				
