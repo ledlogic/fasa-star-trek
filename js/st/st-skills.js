@@ -312,6 +312,26 @@ st.skills = {
 		}
 	},
 	
+	romulanGreatDutySkills: {
+		"military-division": {
+			"marksmanship-modern": 10,
+			"personal-combat-unarmed": 10,
+		},
+		"colonization-division": {
+			"physical-sciences:-*": 10,
+			"planetary-survival:-*": 10,
+		}, 
+		"outpost-division": {
+			"damage-control-procedures": 10,
+			"environmental-suit-operation": 10,
+		},
+		"exploration-division": {
+			"planetary-sciences:-*": 5,
+			"space-sciences:-*": 5,
+			"zero-g-operations": 10
+		}
+	},
+	
 	/* METHODS */
 	
 	withValue: function(skills) {

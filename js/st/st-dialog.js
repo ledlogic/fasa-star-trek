@@ -31,13 +31,13 @@ st.dialog = {
 			}
 			$elm.append($choice);
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
-			$beginning.append($elm);
+			$beginning.append($elm)
 		});
 		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
 
 		st.character.$pageft.append($beginning);
+		$beginning.hide().fadeIn();
 		st.render.renderAge();
-		
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningOk);
 	},
 	selectBeginningSkill: function(skill) {
@@ -143,9 +143,8 @@ st.dialog = {
 			$beginning.append($elm);
 		});
 		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
-
 		st.character.$pageft.append($beginning);
-		
+		$beginning.hide().fadeIn();
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningElectivesOk);
 	},
 	selectBeginningElectivesSkill: function(skill) {
@@ -306,6 +305,7 @@ st.dialog = {
 		$broadening.append($scrollDiv);
 		$broadening.append("<div class=\"st-actions\"><button id=\"st-broadening-ok\" disabled=\"disabled\">OK</button></div>");
 		st.character.$pageft.append($broadening);
+		$broadening.hide().fadeIn();
 		$("#st-broadening-ok").on("click", st.dialog.actionBroadeningOk);
 	},
 	actionBroadeningOk: function() {
@@ -460,8 +460,8 @@ st.dialog = {
 		$electives.append("<div class=\"st-actions\"><button id=\"st-broadening-electives-ok\" disabled=\"disabled\">OK</button></div>");
 
 		st.character.$pageft.append($electives);
+		$electives.hide().fadeIn();
 		st.render.renderAge();
-		
 		$("#st-broadening-electives-ok").on("click", st.dialog.actionBroadeningElectivesOk);
 	},
 	
@@ -559,8 +559,8 @@ st.dialog = {
 		$electives.append("<div class=\"st-actions\"><button id=\"st-advanced-training-ok\" disabled=\"disabled\">OK</button></div>");
 
 		st.character.$pageft.append($electives);
+		$electives.hide().fadeIn();
 		st.render.renderAge();
-		
 		$("#st-advanced-training-ok").on("click", st.dialog.actionBroadeningAdvancedTrainingOk);
 	},
 	
@@ -666,8 +666,8 @@ st.dialog = {
 		$beginning.append("<div class=\"st-actions\"><button id=\"st-coming-together-ok\" disabled=\"disabled\">OK</button></div>");
 
 		st.character.$pageft.append($beginning);
+		$beginning.hide().fadeIn();
 		st.render.renderAge();
-		
 		$("#st-coming-together-ok").on("click", st.dialog.actionComingTogetherOk);
 	},
 	selectComingTogetherSkill: function(skill) {
@@ -785,8 +785,8 @@ st.dialog = {
 		$electives.append("<div class=\"st-actions\"><button id=\"st-coming-together-advanced-training-ok\" disabled=\"disabled\">OK</button></div>");
 
 		st.character.$pageft.append($electives);
+		$electives.hide().fadeIn();
 		st.render.renderAge();
-		
 		$("#st-coming-together-advanced-training-ok").on("click", st.dialog.actionComingTogetherAdvancedTrainingOk);
 	},
 	
@@ -902,8 +902,8 @@ st.dialog = {
 		$electives.append("<div class=\"st-actions\"><button id=\"st-coming-together-outside-ok\" disabled=\"disabled\">OK</button></div>");
 
 		st.character.$pageft.append($electives);
+		$electives.hide().fadeIn();
 		st.render.renderAge();
-		
 		$("#st-coming-together-outside-ok").on("click", st.dialog.actionComingTogetherOutsideOk);
 	},
 	
@@ -965,6 +965,14 @@ st.dialog = {
 			st.log("- ng");
 			$("#st-coming-together-outside-ok").attr("disabled", "disabled");
 		}
+	},
+	
+	/* GREAT DUTY */
+	
+	dialogGreatDuty1: function() {
+		st.log("dialogGreatDuty1");
+		
+		st.character.spec.overview.rank = "Equatoriam";
 	}
 
 };

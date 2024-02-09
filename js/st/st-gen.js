@@ -55,11 +55,11 @@ st.gen = {
 		var spec = st.character.spec;
 		
 		spec.overview = {
-			"name": 0,
-			"rank": 0,
-			"assignment": 0,
-			"ship": 0,
-			"position": 0
+			"name": "",
+			"rank": "",
+			"assignment": "",
+			"ship": "",
+			"position": ""
 		};
 	
 		st.gen.genDemographics(race);
@@ -82,6 +82,7 @@ st.gen = {
 			"dialogComingTogether",
 			"dialogComingTogetherAdvancedTraining",
 			"dialogComingTogetherOutside",
+			"dialogGreatDuty1",
 		];
 		st.gen.nextStep();
 	},
@@ -98,7 +99,7 @@ st.gen = {
 		} else { 
 			var method = "st.dialog." + st.gen.steps[step] + "()";
 			st.log("method[" + method + "]");
-			setTimeout(method, 10);
+			setTimeout(method, 1500);
 		}
 	},
 	
