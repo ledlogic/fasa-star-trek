@@ -74,6 +74,7 @@ st.gen = {
 		
 		st.gen.step = -1;
 		st.gen.steps = [
+			/* 
 			"dialogBeginning",
 			"dialogBeginningElectives",
 			"dialogTheBroadening",
@@ -82,7 +83,12 @@ st.gen = {
 			"dialogComingTogether",
 			"dialogComingTogetherAdvancedTraining",
 			"dialogComingTogetherOutside",
+			*/
 			"dialogGreatDuty1",
+			"dialogGreatDuty2",
+			"dialogGreatDuty2",
+			"dialogGreatDuty4",
+			"dialogGreatDuty5",
 		];
 		st.gen.nextStep();
 	},

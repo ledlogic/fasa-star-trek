@@ -312,25 +312,33 @@ st.skills = {
 		}
 	},
 	
-	romulanGreatDutySkills: {
-		"military-division": {
-			"marksmanship-modern": 10,
-			"personal-combat-unarmed": 10,
+	romulanGreatDutyTerms: [
+		{	"title": "military-division",
+			"skills": {
+				"marksmanship-modern": 10,
+				"personal-combat-unarmed": 10,
+			}
 		},
-		"colonization-division": {
-			"physical-sciences:-*": 10,
-			"planetary-survival:-*": 10,
+		{	"title": "colonization-division",
+			"skills": {
+				"physical-sciences:-*": 10,
+				"planetary-survival:-*": 10,
+			}
 		}, 
-		"outpost-division": {
-			"damage-control-procedures": 10,
-			"environmental-suit-operation": 10,
+		{	"title": "outpost-division",
+			"skills": {
+				"damage-control-procedures": 10,
+				"environmental-suit-operation": 10,
+			}
 		},
-		"exploration-division": {
-			"planetary-sciences:-*": 5,
-			"space-sciences:-*": 5,
-			"zero-g-operations": 10
+		{	"title": "exploration-division",
+			"skills": {
+				"planetary-sciences:-*": 5,
+				"space-sciences:-*": 5,
+				"zero-g-operations": 10
+			}
 		}
-	},
+	],
 	
 	/* METHODS */
 	

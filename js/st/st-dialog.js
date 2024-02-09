@@ -971,8 +971,163 @@ st.dialog = {
 	
 	dialogGreatDuty1: function() {
 		st.log("dialogGreatDuty1");
-		
 		st.character.spec.overview.rank = "Equatoriam";
-	}
+		st.character.duty = 0;
+		
+		st.dialog.dialogGreatDuty();
+	},
+	dialogGreatDuty2: function() {
+		st.log("dialogGreatDuty2");
+		st.character.duty = 1;
+		
+		st.dialog.dialogGreatDuty();
+	},
+	dialogGreatDuty3: function() {
+		st.log("dialogGreatDuty2");
+		st.character.duty = 2;
+		
+		st.dialog.dialogGreatDuty();
+	},
+	dialogGreatDuty4: function() {
+		st.log("dialogGreatDuty4");
+		st.character.duty = 3;
+		
+		st.dialog.dialogGreatDuty();
+	},
+	dialogGreatDuty5: function() {
+		st.log("dialogGreatDuty5");
+		st.character.duty = 4;
+		
+		st.dialog.dialogGreatDuty();
+	},
+	dialogGreatDuty: function() {
+		st.log("dialogGreatDuty");
 
+		var title = "The Great Duty - Year " + (st.character.duty+1);
+		st.render.renderStatus(title);
+		st.character.setAge((19 + st.character.duty) + "-" + (20 + st.character.duty) + " years");
+		
+		var terms = st.skills.romulanGreatDutyTerms;
+		var term = terms[st.character.spec.duty];
+		var title = _.keyToLabel(term.title);
+		var skills = term.skills;
+		var oer = st.math.dieN(99);
+		st.character.spec.terms[st.character.spec.duty] = {
+			title: title,
+			oer: oer
+		};
+		
+		var $beginning = $("<div class=\"st-great-duty\"></div>");
+		$beginning.append("<h2 class=\"st-great-duty-header\">" + title + "</h2>");
+		$beginning.append("<span class=\"st-great-duty-instructions\">Please select from the choices below:</span>");
+		_.each(skills, function(value, key) {
+			var dispKey = _.keyToLabel(key);
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var $choice = $("<span class=\"st-key\" data-key=\"" + key + "\">" + dispKey + "</span>");
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
+				var choices = st.gen.getChoices(key);				
+				var $choice = $("<select class=\"st-key\" data-key-prefix=\"" + prefix + "\"></select>");
+				$choice.on("change", st.dialog.selectGreatDutySkill);
+				$choice.append("<option value=\"\">Choose a skill</option>");
+				_.each(choices, function(choice) {
+					var choiceLabel = _.keyToLabel(choice);
+					$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+				});		
+			}
+			$elm.append($choice);
+			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
+			$beginning.append($elm)
+		});
+
+		$beginning.append("<div class=\"st-oer\">OER:<span class=\"st-oer-value\">" + oer + "</span></div>");
+
+		$beginning.append("<div class=\"st-actions\">"
+		 + "<button id=\"st-great-duty-add-oer\">Add 20</button>"
+		 + "<button id=\"st-great-duty-ok\" disabled=\"disabled\">OK</button>"
+		 + "</div>");
+
+		st.character.$pageft.append($beginning);
+		$beginning.hide().fadeIn();
+		st.render.renderAge();
+		st.dialog.checkAddOsrStatus();
+		$("#st-great-duty-add-oer").on("click", st.dialog.actionGreatDutyAddOer);
+		$("#st-great-duty-ok").on("click", st.dialog.actionGreatDutyOk);
+		setTimeout(st.dialog.checkGreatDutyActionStatus, 10)
+	},
+	actionGreatDutyAddOer: function() {
+		st.log("actionGreatDutyAddOer");
+		st.character.spec.termOerBonusUsed = true;
+		var oer = st.character.spec.terms[st.character.spec.duty].oer + 20;
+		oer = Math.min(99, oer);
+		st.character.spec.terms[st.character.spec.duty].oer = oer;
+		$(".st-oer-value").html(oer);
+		st.dialog.checkAddOsrStatus();
+	},
+	checkAddOsrStatus: function() {
+		if (st.character.spec.termOerBonusUsed) {
+			$("#st-great-duty-add-oer").hide()
+		}
+	},
+	selectGreatDutySkill: function(skill) {
+		st.log("selectGreatDutySkill");
+		
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkGreatDutyActionStatus();
+	},
+	checkGreatDutyActionStatus: function() {
+		st.log("checkGreatDutyActionStatus");
+
+		var sels = $(".st-great-duty select");
+		var selCount = 0;
+		_.each(sels, function(sel) {
+			var $sel = $(sel);
+			var skill = $sel.val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		st.log("sels.length[" + sels.length + "]");
+		st.log("selCount[" + selCount + "]");		
+		if (sels.length === selCount) {
+			st.log("- ok");
+			$("#st-great-duty-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-great-duty-ok").attr("disabled", "disabled");
+		}
+	},
+	actionGreatDutyOk: function() {
+		st.log("actionGreatDutyOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+		
+		var skills = st.skills.romulanGreatDutySkills;
+		_.each(skills, function(value, key) {
+			var $valueElem = $(".st-great-duty .st-value[data-key='" + key + "']");
+			var value = parseInt($valueElem.html(),10);
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
+				var $sel = $(".st-great-duty .st-key[data-key-prefix='" + prefix + "']");
+				key = $sel.val();
+			}
+			st.log(key + ":" + value);
+			specSkills[key] += value;
+		});
+		st.skills.maxCheck();
+		st.dialog.hideGreatDuty();
+		st.render.renderChar();
+		st.gen.nextStep();
+	},
+	hideGreatDuty: function() {
+		st.log("hideGreatDuty");
+		
+		var $dialog = $(".st-great-duty");
+		$dialog.remove();
+	}
 };

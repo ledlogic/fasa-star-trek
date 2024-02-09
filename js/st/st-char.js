@@ -13,7 +13,11 @@ st.character = {
 			age: "0 years"
 		},
 		endurance: {},
-		skills: {}
+		skills: {},
+		termOerBonusUsed: false,
+		duty: 0,
+		terms: [],
+		tours: []
 	},
 	
 	mod: {},

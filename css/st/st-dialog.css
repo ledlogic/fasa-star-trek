@@ -364,3 +364,43 @@
 	float:right;
 	margin-right: 30%;
 }
+
+/* great-duty */
+
+.st-great-duty {
+	background-color: #fff;
+	border: 1px solid #228b22;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 20%;
+	left: 10%;
+	height: 294px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #228b22;
+}
+
+.st-great-duty-header {
+	margin-top: 0px;
+}
+
+.st-great-duty-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-great-duty .st-skill-div {
+	height: 22px;
+}
+
+.st-great-duty .st-key,
+.st-great-duty .st-key-select {
+	margin-left: 10px;
+	position: relative;
+}
+
+.st-great-duty .st-value {
+	float:right;
+	margin-right: 30%;
+}
