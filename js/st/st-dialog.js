@@ -87,7 +87,7 @@ st.dialog = {
 			st.log(key + ":" + value);
 			specSkills[key] += value;
 		});
-		st.char.skillMaxCheck();
+		st.skills.maxCheck();
 		st.dialog.hideBeginning();
 		st.render.renderChar();
 		st.dialog.dialogBeginningElectives();
@@ -227,7 +227,7 @@ st.dialog = {
 			st.log(key + ":" + value);
 			specSkills[key] += value;
 		});
-		st.char.skillMaxCheck();
+		st.skills.maxCheck();
 		st.dialog.hideBeginningElectives();
 		st.character.setAge("10 years");
 		st.render.renderChar();
@@ -353,7 +353,7 @@ st.dialog = {
 				}
 			});	
 		});
-		st.char.skillMaxCheck();
+		st.skills.maxCheck();
 		st.dialog.hideBroadening();
 		st.render.renderChar();
 		st.dialog.dialogBroadeningElectives();
@@ -513,7 +513,7 @@ st.dialog = {
 			st.log(skillKey + ":" + skillValue);
 			specSkills[skillKey] += skillValue;
 		}
-		st.char.skillMaxCheck();
+		st.skills.maxCheck();
 		st.dialog.hideBroadeningElectives();
 		st.render.renderChar();
 		st.dialog.dialogBroadeningAdvancedTraining();
@@ -587,7 +587,7 @@ st.dialog = {
 			st.log(skillKey + ":" + skillValue);
 			specSkills[skillKey] += skillValue;
 		}
-		st.char.skillMaxCheck();
+		st.skills.maxCheck();
 		st.dialog.hideBroadeningAdvancedTraining();
 		st.character.setAge("15 years");
 		st.render.renderChar();
@@ -719,7 +719,7 @@ st.dialog = {
 				specSkills[key2] += value;
 			});
 		});
-		st.char.skillMaxCheck();
+		st.skills.maxCheck();
 		st.dialog.hideComingTogether();
 		st.render.renderChar();
 		st.dialog.dialogComingTogetherAdvancedTraining();
@@ -742,7 +742,13 @@ st.dialog = {
 		
 		var electiveValue = "1d10";
 			
-		var skills = st.skills.withValue(st.character.spec.skills);
+		var specialties = st.character.spec.specialties;
+		var main = specialties.main;
+		var sub = specialties.sub;
+		var skills = st.skills.romulanBroadeningSkills[main][sub];
+		skills = st.skills.removeDuplicates(skills);
+		st.log("skills[" + skills + "]");
+		
 		var $electives = $("<div class=\"st-coming-together-advanced-training\"></div>");
 		$electives.append("<h2 class=\"st-coming-together-advanced-training-header\">" + title + "</h2>");
 		$electives.append("<span class=\"st-coming-together-advanced-training-instructions\">Please select three skills that you have:</span>");
@@ -760,7 +766,16 @@ st.dialog = {
 			$select.append("<option value=\"\">Choose a skill</option>");
 			_.each(skills, function(key) {
 				var dispKey = _.keyToLabel(key);
-				$select.append("<option value=\"" + key + "\">" + dispKey + "</option>");
+				var astIndex = key.indexOf("*");
+				if (astIndex > -1) {
+					var choices = st.gen.getChoices(key);				
+					_.each(choices, function(choice) {
+						var choiceLabel = _.keyToLabel(choice);
+						$select.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+					});
+				} else {
+					$select.append("<option value=\"" + key + "\">" + dispKey + "</option>");
+				}
 			});
 			$elm.append($select);
 			$elm.append("<span class=\"st-value\" data-key=\"elective-value-" + i + "\">" + electiveValue + "</span>");
@@ -799,7 +814,7 @@ st.dialog = {
 			st.log(skillKey + ":" + skillValue);
 			specSkills[skillKey] += skillValue;
 		}
-		st.char.skillMaxCheck();
+		st.skills.maxCheck();
 		st.dialog.hideComingTogetherAdvancedTraining();
 		st.render.renderChar();
 		//st.dialog.dialogComingTogether();

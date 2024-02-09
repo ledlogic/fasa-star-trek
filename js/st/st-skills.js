@@ -329,11 +329,43 @@ st.skills = {
 		st.log("withoutValue");
 		var ret = [];
 		_.each(st.skills.baseSkills, function(value, key) {
-			if (!skills[value]) {
+			if (!skills[key]) {
 				ret.push(key);
 			}
 		});
 		//console.log(ret);
 		return ret;
+	},
+	maxCheck: function() {
+		st.log("maxCheck");
+		var skills = st.skills.withValue(st.character.skills);
+		_.each(skills, function(value, skill) {
+			if (value > 99) {
+				st.log("lowering skill[" + skill + "]");
+				skills[skill] = 99;
+			}
+		});
+	},
+	removeDuplicates: function(skills) {
+		st.log("removeDuplicates");
+		var ret = [];
+		_.each(skills, function(value, skill) {
+			st.log("skill0[" + skill + "]");
+			if (skill.indexOf("-*1") > -1) {
+				skill = skill.substring(0,skill.length-1);
+			}
+			if (skill.indexOf("-*2") > -1) {
+				skill = skill.substring(0,skill.length-1);
+			}
+			if (skill.indexOf("-*3") > -1) {
+				skill = skill.substring(0,skill.length-1);
+			}
+			st.log("skill1[" + skill + "]");
+			if (ret.indexOf(skill) === -1) {
+				ret.push(skill);
+			}
+		});
+		st.log("ret[" + ret + "]");
+		return ret;	
 	}
 };
