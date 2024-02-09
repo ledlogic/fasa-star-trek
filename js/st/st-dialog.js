@@ -163,6 +163,7 @@ st.dialog = {
 		$(".st-key-span, .st-key-select, .st-value").not(".st-disabled").addClass("st-disabled");
 		$(".st-key-select").attr("disabled", "disabled");
 		
+		// checked checkboxes
 		var $cbs = $(".st-beginning-electives .st-key-div .st-checkbox:checked");
 		var cbsCount = $cbs.length;
 		st.logObj("cbsCount", cbsCount);
@@ -209,6 +210,7 @@ st.dialog = {
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
 		
+		// checked checkboxes
 		var $cbs = $(".st-beginning-electives .st-checkbox:checked");
 		var cbsCount = $cbs.length;
 		st.log("cbsCount[" + cbsCount + "]");
@@ -228,6 +230,7 @@ st.dialog = {
 		});
 
 		st.dialog.hideBeginningElectives();
+		st.character.setAge("10 years");
 		st.render.renderChar();
 
 		st.dialog.dialogTheBroadening();
@@ -302,7 +305,7 @@ st.dialog = {
 			$scrollDiv.append($elm);
 		});
 		$broadening.append($scrollDiv);
-		$broadening.append("<div class=\"st-actions\"><button id=\"st-broadening-ok\" disabled>OK</button></div>");
+		$broadening.append("<div class=\"st-actions\"><button id=\"st-broadening-ok\" disabled=\"disabled\">OK</button></div>");
 		st.character.$pageft.append($broadening);
 		$("#st-broadening-ok").on("click", st.dialog.actionBroadeningOk);
 	},
@@ -312,6 +315,7 @@ st.dialog = {
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
 		
+		// checked checkboxes
 		var $cbs = $(".st-broadening .st-checkbox:checked");
 		var cbsCount = $cbs.length;
 		st.log("cbsCount[" + cbsCount + "]");
@@ -356,9 +360,10 @@ st.dialog = {
 	checkBroadeningActionStatus: function() {
 		console.log("checkBroadeningActionStatus");
 		
-		$(".st-specialty-span, .st-specialty-skill, .st-value, .st-key-select").not(".st-disabled").addClass("st-disabled");
+		$(".st-specialty-span, .st-specialty-div, .st-skill-span, .st-value, .st-key-select").not(".st-disabled").addClass("st-disabled");
 		$(".st-key-select").attr("disabled", "disabled");
 		
+		// checked checkboxes
 		var $cbs = $(".st-specialty-div .st-checkbox:checked");
 		var cbsCount = $cbs.length;
 		st.log("cbsCount[" + cbsCount + "]");
@@ -381,21 +386,19 @@ st.dialog = {
 				$selects.removeAttr("disabled");
 			}, 10);
 
-			var $sel = $cbs.parent().find(".st-key-select");
-			if ($sel.length == 0) {
-				selCount++;
-			} else {
+			_.each($selects, function(sel) {
+				var $sel = $(sel);
 				var skill = $sel.val();
-				if (skill) {
-					selCount++;
+				st.log("skill[" + skill + "]");
+				if (!skill) {
+					selCount--;
 				}
-			}
+			});
 		});
 		st.log("selCount[" + selCount + "]");
 		
 		var qty = 1;
-		//if (cbsCount === qty && cbsCount === selCount) {
-		if (cbsCount === qty) {
+		if (cbsCount === qty && selCount >= 0) {
 			st.log("- ok");
 			$("#st-broadening-ok").removeAttr("disabled");
 		} else {
@@ -580,6 +583,7 @@ st.dialog = {
 		}
 
 		st.dialog.hideBroadeningAdvancedTraining();
+		st.character.setAge("15 years");
 		st.render.renderChar();
 
 		st.dialog.dialogComingTogether();
@@ -712,9 +716,9 @@ st.dialog = {
 		});
 		
 		st.dialog.hideComingTogether();
-		
+		st.character.setAge("20 years");
 		st.render.renderChar();
-		//st.dialog.dialogBeginningElectives();
+		//st.dialog.dialogComingTogetherAdvancedTraining();
 	},
 	hideComingTogether: function() {
 		console.log("hideComingTogether");
