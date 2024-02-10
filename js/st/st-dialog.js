@@ -1114,6 +1114,44 @@ st.dialog = {
 			$elm.append("<span class=\"st-value\" data-key=\"inspecialty-value-" + i + "\">" + inspecialtyValue + "</span>");
 			$beginning.append($elm);
 		}
+		
+		// other skills
+		var outsideValue = "1d10";
+		var specialties = st.character.spec.specialties;
+		var main = specialties.main;
+		var sub = specialties.sub;
+		var specialtySkills = st.skills.romulanBroadeningSkills[main][sub];
+		st.log("specialtySkills[" + specialtySkills + "]");
+		var skills = st.character.spec.skills;
+		st.log("skills0[" + skills + "]");
+		skills = st.skills.remove(skills, specialtySkills);
+		st.log("skills1[" + skills + "]");
+		
+		var title = "Other Skills";
+		$beginning.append("<h3>" + title + "</h3>");
+		
+		for (var i=0; i<chances; i++) {
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var $select = $("<select class=\"st-key st-key-select\" data-key=\"otherskills-" + i + "\"></select>");
+			$select.on("change", st.dialog.checkGreatDutyActionStatus);
+			$select.append("<option value=\"\">Choose a skill</option>");
+			_.each(skills, function(key) {
+				var dispKey = _.keyToLabel(key);
+				var astIndex = key.indexOf("*");
+				if (astIndex > -1) {
+					var choices = st.gen.getChoices(key);				
+					_.each(choices, function(choice) {
+						var choiceLabel = _.keyToLabel(choice);
+						$select.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+					});
+				} else {
+					$select.append("<option value=\"" + key + "\">" + dispKey + "</option>");
+				}
+			});
+			$elm.append($select);
+			$elm.append("<span class=\"st-value\" data-key=\"elective-value-" + i + "\">" + outsideValue + "</span>");
+			$beginning.append($elm);
+		}		
 
 		$beginning.append("<div class=\"st-oer\">OER:<span class=\"st-oer-value\">" + oer + "</span></div>");
 
@@ -1200,6 +1238,27 @@ st.dialog = {
 			specSkills[key] = (specSkills[key] ? specSkills[key] : 0) + value;
 			st.log("specSkills[" + key + "] = [" + specSkills[key] + "]");
 		});
+		
+		var chances = 3;
+		for (var i=0; i<chances; i++) {
+			var key = "inspecialty-" + i;
+			var $select = $("div select[data-key='" + key + "']");
+			var skillKey = $select.val();
+			var skillValue = st.math.dieN(10);
+			st.log(skillKey + ":" + skillValue);
+			specSkills[skillKey] += skillValue;
+		}
+
+		for (var i=0; i<chances; i++) {
+			var key = "otherskills-" + i;
+			var $select = $("div select[data-key='" + key + "']");
+			var skillKey = $select.val();
+			var skillValue = st.math.dieN(10);
+			st.log(skillKey + ":" + skillValue);
+			specSkills[skillKey] += skillValue;
+		}
+		
+		
 		st.skills.maxCheck();
 		
 		st.character.setAge((20 + st.character.spec.duty) + " years");
