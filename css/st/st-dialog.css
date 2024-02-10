@@ -369,16 +369,16 @@
 
 .st-great-duty {
 	background-color: #fff;
-	border: 1px solid #228b22;
+	border: 1px solid rgb(0, 128, 192);
 	display: block;
 	font-size: 12px;
 	padding: 10px;
 	position: relative;
 	top: 20%;
 	left: 10%;
-	height: 294px;
+	height: 412px;
 	width: 80%;
-	box-shadow: 2px 2px 2px 0px #228b22;
+	box-shadow: 2px 2px 2px 0px rgb(0, 128, 192);
 }
 
 .st-great-duty-header {
@@ -404,3 +404,14 @@
 	float:right;
 	margin-right: 30%;
 }
+
+.st-oer {
+	margin-top: 10px;
+
+}
+
+.st-great-duty button {
+	color: rgb(0, 128, 192);
+	font-weight: bold;
+}
+

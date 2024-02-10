@@ -1054,6 +1054,10 @@ st.dialog = {
 		var $beginning = $("<div class=\"st-great-duty\"></div>");
 		$beginning.append("<h2 class=\"st-great-duty-header\">" + title + "</h2>");
 		$beginning.append("<span class=\"st-great-duty-instructions\">Please select from the choices below:</span>");
+
+		var title = "Duty Skills";
+		$beginning.append("<h3>" + title + "</h3>");
+
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
 			var $elm = $("<div class=\"st-skill-div\"></div>");
@@ -1074,6 +1078,42 @@ st.dialog = {
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
 			$beginning.append($elm)
 		});
+		
+		// in-specialty
+		var specialties = st.character.spec.specialties;
+		var main = specialties.main;
+		var sub = specialties.sub;
+		var skills = st.skills.romulanBroadeningSkills[main][sub];
+		skills = st.skills.removeDuplicates(skills);
+		//st.log("skills[" + skills + "]");
+		
+		var chances = 3;
+		//st.log("chances[" + chances + "]");
+		var inspecialtyValue = "1d10";
+		var title = "In Specialty";
+		$beginning.append("<h3>" + title + "</h3>");
+		for (var i=0; i<chances; i++) {
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var $select = $("<select class=\"st-key st-key-select\" data-key=\"inspecialty-" + i + "\"></select>");
+			$select.on("change", st.dialog.checkGreatDutyActionStatus);
+			$select.append("<option value=\"\">Choose a skill</option>");
+			_.each(skills, function(key) {
+				var dispKey = _.keyToLabel(key);
+				var astIndex = key.indexOf("*");
+				if (astIndex > -1) {
+					var choices = st.gen.getChoices(key);				
+					_.each(choices, function(choice) {
+						var choiceLabel = _.keyToLabel(choice);
+						$select.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+					});
+				} else {
+					$select.append("<option value=\"" + key + "\">" + dispKey + "</option>");
+				}
+			});
+			$elm.append($select);
+			$elm.append("<span class=\"st-value\" data-key=\"inspecialty-value-" + i + "\">" + inspecialtyValue + "</span>");
+			$beginning.append($elm);
+		}
 
 		$beginning.append("<div class=\"st-oer\">OER:<span class=\"st-oer-value\">" + oer + "</span></div>");
 

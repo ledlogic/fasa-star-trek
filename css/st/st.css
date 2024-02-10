@@ -1,11 +1,11 @@
 /* st.css */
 
 * {
-	font-family: 'Helvetica', "Arial", sans-serif; /* eclipse phase table font is lato */
+	font-family: 'Helvetica', "Arial", sans-serif;
 }
 
 p {
-	font-family: 'Sabon LT Std', 'Palatino', serif; /* eclipse phase body font is sabon */
+	font-family: 'Sabon LT Std', 'Palatino', serif;
 }
 
 body {
@@ -13,12 +13,19 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Helvetica', "Arial", sans-serif; /* eclipse phase table font is lato */
+	font-family: 'Helvetica', "Arial", sans-serif;
 }
 
 h2 {
 	font-size: 1.2em;
 	font-weight: bold;
+	margin-top: 10px;
+}
+
+h3 {
+	font-size: 1.1em;
+	font-weight: bold;
+	margin-top: 10px;
 }
 
 h4 {
