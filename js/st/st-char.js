@@ -48,7 +48,6 @@ st.character = {
 		// romulans tend to be somewhat stronger, more hardy, and more agile than humans, but they are not very lucky.
 		// they tend to have a somewhat lower Psionic Potential than do the Vulcans.
 		var r = {};
-		st.character.mod["romulan"] = r;
 		r["str"] = 10;
 		r["end"] = 10;
 		r["int"] = 0;
@@ -56,6 +55,7 @@ st.character = {
 		r["cha"] = 0;
 		r["luc"] = -10;
 		r["psi"] = -20;
+		st.character.mod["romulan"] = r;
 	},
 	
 	setAge: function(age) {

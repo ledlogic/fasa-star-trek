@@ -76,7 +76,7 @@ st.render = {
 			if (!h) {
 				h = "&nbsp;"
 			}
-			$elm = $("<span class=\"st-item st-demographics-item st-demographics-item-" + key + "\"><label>" + key + "</label>" + h + "</span>");
+			$elm = $("<span class=\"st-item st-demographics-item st-demographics-item-" + key + "\"><label>" + key + "</label><span class=\"st-value\">" + h + "</span></span>");
 			$demographics.append($elm);
 		});
 		st.character.$pageft.append($demographics);
@@ -224,6 +224,8 @@ st.render = {
 		$(".st-nav.row").hide();		
 	},
 	renderAge: function() {
-		st.log("render age");		
+		st.log("render age");
+		var age = st.character.spec.demographics.age;
+		$(".st-item.st-demographics-item.st-demographics-item-age .st-value").html(age);		
 	}
 };

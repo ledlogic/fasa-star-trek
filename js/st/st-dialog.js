@@ -972,49 +972,83 @@ st.dialog = {
 	dialogGreatDuty1: function() {
 		st.log("dialogGreatDuty1");
 		st.character.spec.overview.rank = "Equatoriam";
-		st.character.duty = 0;
+		st.character.spec.duty = 0;
 		
 		st.dialog.dialogGreatDuty();
 	},
 	dialogGreatDuty2: function() {
 		st.log("dialogGreatDuty2");
-		st.character.duty = 1;
+		st.character.spec.duty = 1;
 		
 		st.dialog.dialogGreatDuty();
 	},
 	dialogGreatDuty3: function() {
 		st.log("dialogGreatDuty2");
-		st.character.duty = 2;
+		st.character.spec.duty = 2;
 		
 		st.dialog.dialogGreatDuty();
 	},
 	dialogGreatDuty4: function() {
 		st.log("dialogGreatDuty4");
-		st.character.duty = 3;
+		st.character.spec.duty = 3;
 		
 		st.dialog.dialogGreatDuty();
 	},
 	dialogGreatDuty5: function() {
 		st.log("dialogGreatDuty5");
-		st.character.duty = 4;
+		st.character.spec.duty = 4;
 		
 		st.dialog.dialogGreatDuty();
 	},
 	dialogGreatDuty: function() {
 		st.log("dialogGreatDuty");
 
-		var title = "The Great Duty - Year " + (st.character.duty+1);
+		var title = "The Great Duty - Year " + (st.character.spec.duty+1);
 		st.render.renderStatus(title);
-		st.character.setAge((19 + st.character.duty) + "-" + (20 + st.character.duty) + " years");
+		st.character.setAge((19 + st.character.spec.duty) + "-" + (20 + st.character.spec.duty) + " years");
 		
+		var duty = st.character.spec.duty;
 		var terms = st.skills.romulanGreatDutyTerms;
-		var term = terms[st.character.spec.duty];
+		var oer = st.math.dieN(99);
+		var termDuty = duty;
+		st.log("oer[" + oer + "]");
+		st.log("duty[" + duty + "]");
+		st.log("termDuty[" + termDuty + "]");
+		
+		if (duty === 4) {
+			st.log("term 5 override");
+				
+			var highOer = 0;
+			for (var i=0; i<4; i++) {
+				var oer = st.character.spec.terms[i].oer;
+				if (oer > highOer) {
+					highOer = oer;
+					highDuty = i;
+					st.log("highOer[" + highOer + "]");
+					st.log("highDuty[" + highDuty + "]");
+				}
+			}
+			termDuty = highDuty;
+
+			// use bonus on term 5 if haven't
+			if (!st.character.spec.termOerBonusUsed) {
+				st.log("using bonus");
+				oer += 20;
+				oer = Math.min(99, oer);
+				st.character.spec.termOerBonusUsed = true;	
+			}
+		}
+		st.log("oer[" + oer + "]");
+		st.log("duty[" + duty + "]");
+		st.log("termDuty[" + termDuty + "]");
+		
+		var term = terms[termDuty];
 		var title = _.keyToLabel(term.title);
 		var skills = term.skills;
-		var oer = st.math.dieN(99);
-		st.character.spec.terms[st.character.spec.duty] = {
+		st.character.spec.terms[duty] = {
 			title: title,
-			oer: oer
+			oer: oer,
+			termDuty: termDuty
 		};
 		
 		var $beginning = $("<div class=\"st-great-duty\"></div>");
@@ -1105,9 +1139,13 @@ st.dialog = {
 		
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
+		var skills = st.skills.romulanGreatDutyTerms;
+		var termLength = st.character.spec.terms.length;
+		var term = st.character.spec.terms[termLength-1];
+		var termDuty = term.termDuty;
+		var termSkills = skills[termDuty].skills;
 		
-		var skills = st.skills.romulanGreatDutySkills;
-		_.each(skills, function(value, key) {
+		_.each(termSkills, function(value, key) {
 			var $valueElem = $(".st-great-duty .st-value[data-key='" + key + "']");
 			var value = parseInt($valueElem.html(),10);
 			var astIndex = key.indexOf("*");
@@ -1116,10 +1154,16 @@ st.dialog = {
 				var $sel = $(".st-great-duty .st-key[data-key-prefix='" + prefix + "']");
 				key = $sel.val();
 			}
-			st.log(key + ":" + value);
-			specSkills[key] += value;
+
+			st.log("key[" + key + "]");
+			st.log("value[" + value + "]");
+			specSkills[key] = (specSkills[key] ? specSkills[key] : 0) + value;
+			st.log("specSkills[" + key + "] = [" + specSkills[key] + "]");
 		});
 		st.skills.maxCheck();
+		
+		st.character.setAge((20 + st.character.spec.duty) + " years");
+		
 		st.dialog.hideGreatDuty();
 		st.render.renderChar();
 		st.gen.nextStep();

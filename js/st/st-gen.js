@@ -86,7 +86,7 @@ st.gen = {
 			*/
 			"dialogGreatDuty1",
 			"dialogGreatDuty2",
-			"dialogGreatDuty2",
+			"dialogGreatDuty3",
 			"dialogGreatDuty4",
 			"dialogGreatDuty5",
 		];
@@ -100,7 +100,7 @@ st.gen = {
 		var step = st.gen.step; 
 		st.log("step[" + step + "]");
 		var max = st.gen.steps.length;
-		if (step > max) {
+		if (step >= max) {
 			//renderComplete();
 		} else { 
 			var method = "st.dialog." + st.gen.steps[step] + "()";
