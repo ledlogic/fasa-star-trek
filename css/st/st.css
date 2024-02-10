@@ -117,3 +117,7 @@ button[disabled=disabled] {
 	font-weight: normal;
 	font-style: italic;
 }
+
+.st-actions button {
+	margin-left: 10px;
+}

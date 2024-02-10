@@ -408,7 +408,7 @@ st.skills = {
 				ret.push(skill);
 			}
 		});
-		st.log("ret[" + ret + "]");
+		//st.log("ret[" + ret + "]");
 		return ret;	
 
 	}

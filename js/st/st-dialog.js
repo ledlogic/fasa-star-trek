@@ -869,7 +869,7 @@ st.dialog = {
 		var skills = st.character.spec.skills;
 		st.log("skills0[" + skills + "]");
 		skills = st.skills.remove(skills, specialtySkills);
-		st.log("skills1[" + skills + "]");
+		//st.log("skills1[" + skills + "]");
 		
 		var $electives = $("<div class=\"st-coming-together-outside\"></div>");
 		$electives.append("<h2 class=\"st-coming-together-outside-header\">" + title + "</h2>");
@@ -1125,7 +1125,7 @@ st.dialog = {
 		var skills = st.character.spec.skills;
 		st.log("skills0[" + skills + "]");
 		skills = st.skills.remove(skills, specialtySkills);
-		st.log("skills1[" + skills + "]");
+		//st.log("skills1[" + skills + "]");
 		
 		var title = "Other Skills";
 		$beginning.append("<h3>" + title + "</h3>");
@@ -1156,7 +1156,7 @@ st.dialog = {
 		$beginning.append("<div class=\"st-oer\">OER:<span class=\"st-oer-value\">" + oer + "</span></div>");
 
 		$beginning.append("<div class=\"st-actions\">"
-		 + "<button id=\"st-great-duty-add-oer\">Add 20</button>"
+		 + "<button id=\"st-great-duty-add-oer\">OER +20</button>"
 		 + "<button id=\"st-great-duty-ok\" disabled=\"disabled\">OK</button>"
 		 + "</div>");
 
