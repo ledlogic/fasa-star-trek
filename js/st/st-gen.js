@@ -134,6 +134,9 @@ st.gen = {
 			var attribute = allAttributes[i];
 			spec.attributes[attribute] = st.math.die(3, 10, baseAttributes[attribute]);
 		}
+		spec.attributes["luc"] = st.math.dieN(100);
+		spec.attributes["psi"] = st.math.dieN(100);
+		
 		console.log("base, attributes[" + JSON.stringify(baseAttributes) + "]");
 		console.log("initial, attributes[" + JSON.stringify(spec.attributes) + "]");
 		
