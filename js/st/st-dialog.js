@@ -11,7 +11,7 @@ st.dialog = {
 
 		var $dialog = $("<div class=\"st-attributes-dialog\"></div>");
 		$dialog.append("<h2 class=\"st-attributes-dialog-header\">" + title + "</h2>");
-		$dialog.append("<span class=\"st-attributes-dialog-instructions\">Here are your attributes provided by the gods:</span>");
+		$dialog.append("<span class=\"st-attributes-dialog-instructions\">Here are your attributes provided by the gods.  You can accept these or pray for better ones.</span>");
 				
 		var attrs = st.character.spec.attributes;
 		var total = 0;
@@ -30,18 +30,27 @@ st.dialog = {
 		var ave = Math.round(total / 7.0 * 10.0) / 10.0;
 		$dialog.append("<div class=\"st-comparison\">Your average attribute score is " + ave + "</div>");
 
-		$dialog.append("<div class=\"st-actions\"><button id=\"st-attributes-dialog-ok\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-attributes-dialog-pray\">Pray to the Gods</button>"
+			+ "<button id=\"st-attributes-dialog-ok\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($dialog);
 		$dialog.hide().fadeIn();
 
 		st.render.renderAge();
 		$("#st-attributes-dialog-ok").on("click", st.dialog.attributesOk);
+		$("#st-attributes-dialog-pray").on("click", st.dialog.attributesPray);
 	},
 	attributesOk: function() {		
 		st.dialog.hideAttributes();
 		st.render.renderChar();
 		st.gen.nextStep();
+	},
+	attributesPray: function() {		
+		st.gen.genAttributes();
+		st.dialog.hideAttributes();
+		st.dialog.dialogAttributes();
 	},
 	hideAttributes: function() {
 		st.log("hideAttributes");
