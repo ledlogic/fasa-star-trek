@@ -464,3 +464,54 @@
 	float:right;
 	margin-right: 30%;
 }
+
+/* tour-number */
+
+.st-tour-number {
+	background-color: #fff;
+	border: 1px solid #228b22;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 20%;
+	left: 10%;
+	height: 132px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #228b22;
+}
+
+.st-tour-number-header {
+	margin-top: 0px;
+}
+
+.st-tour-number-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-tour-number .st-focus-div {
+	display: block;
+	height: 22px;
+}
+
+.st-tour-number .st-skill-div {
+	height: 22px;
+}
+
+.st-tour-number .st-skill-span {
+	margin-left: 10px;
+	position: relative;
+}
+
+.st-tour-number .st-key,
+.st-tour-number .st-key-select {
+	margin-left: 10px;
+	position: relative;
+}
+
+.st-tour-number .st-value {
+	float:right;
+	margin-right: 30%;
+}
+

@@ -40,7 +40,7 @@ st.dialog = {
 		st.render.renderAge();
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningOk);
 	},
-	selectBeginningSkill: function(skill) {
+	selectBeginningSkill: function() {
 		st.log("selectBeginningSkill");
 		
 		var $sel = $(this);
@@ -147,7 +147,7 @@ st.dialog = {
 		$beginning.hide().fadeIn();
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningElectivesOk);
 	},
-	selectBeginningElectivesSkill: function(skill) {
+	selectBeginningElectivesSkill: function() {
 		st.log("selectBeginningElectivesSkill");
 
 		var $sel = $(this);
@@ -418,7 +418,7 @@ st.dialog = {
 
 		setTimeout(st.dialog.checkBroadeningActionStatus(), 10);
 	},
-	selectBroadeningSkill: function(skill) {
+	selectBroadeningSkill: function() {
 		st.log("selectBroadeningSkill");
 
 		var $sel = $(this);
@@ -670,7 +670,7 @@ st.dialog = {
 		st.render.renderAge();
 		$("#st-coming-together-ok").on("click", st.dialog.actionComingTogetherOk);
 	},
-	selectComingTogetherSkill: function(skill) {
+	selectComingTogetherSkill: function() {
 		st.log("selectComingTogetherSkill");
 		
 		var $sel = $(this);
@@ -1182,7 +1182,7 @@ st.dialog = {
 			$("#st-great-duty-add-oer").hide()
 		}
 	},
-	selectGreatDutySkill: function(skill) {
+	selectGreatDutySkill: function() {
 		st.log("selectGreatDutySkill");
 		
 		var $sel = $(this);
@@ -1355,7 +1355,7 @@ st.dialog = {
 		$("#st-advanced-officers-skip").on("click", st.dialog.actionAdvancedOfficersSkip);
 		$("#st-advanced-officers-ok").on("click", st.dialog.actionAdvancedOfficersOk);
 	},
-	selectAdvancedOfficersSkill: function(skill) {
+	selectAdvancedOfficersSkill: function() {
 		st.log("selectAdvancedOfficersSkill");
 		
 		var $sel = $(this);
@@ -1424,6 +1424,95 @@ st.dialog = {
 		st.log("hideAdvancedOfficers");
 		
 		var $dialog = $(".st-advanced-officers");
+		$dialog.remove();
+	},
+	
+	/* TOUR NUMBER */
+	
+	dialogTourNumber: function() {
+		st.log("dialogTourNumber");
+
+		var title = "Tour Number";
+		st.render.renderStatus(title);
+		var age = 25;
+		age += st.character.spec.advancedOfficers ? 1 : 0;
+
+		st.character.setAge(age + " years");
+			
+		var $beginning = $("<div class=\"st-tour-number\"></div>");
+		$beginning.append("<h2 class=\"st-tour-number-header\">" + title + "</h2>");
+		$beginning.append("<span class=\"st-tour-number-instructions\">Please select a destined rank rom the choices below:</span>");
+		
+		var ranks = st.ranks;
+		var $choice = $("<select class=\"st-key\" data-key=\"tour-number\"></select>");
+		$choice.on("change", st.dialog.selectTourNumber);
+		$choice.append("<option value=\"\">Choose a destined rank</option>");
+		_.each(ranks, function(value, key) {
+			var choiceLabel = _.keyToLabel(key) + ": +" + value.tourMod + " tours";
+			$choice.append("<option value=\"" + key + "\">" + choiceLabel + "</option>");
+		});
+		$beginning.append($choice)
+		
+		$beginning.append("<div class=\"st-actions\"><button id=\"st-tour-number-ok\" disabled=\"disabled\">OK</button></div>");
+
+		st.character.$pageft.append($beginning);
+		$beginning.hide().fadeIn();
+		
+		st.render.renderAge();
+		$("#st-tour-number-ok").on("click", st.dialog.actionTourNumberOk);
+	},
+	selectTourNumber: function() {
+		st.log("selectTourNumber");
+		
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkTourNumberActionStatus();
+	},
+	checkTourNumberActionStatus: function() {
+		st.log("checkTourNumberActionStatus");
+
+		var sels = $(".st-tour-number select[data-key='tour-number']");
+		var selCount = 0;
+		_.each(sels, function(sel) {
+			var $sel = $(sel);
+			var skill = $sel.val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		if (sels.length === selCount) {
+			st.log("- ok");
+			$("#st-tour-number-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-tour-number-ok").attr("disabled", "disabled");
+		}
+	},
+	actionTourNumberOk: function() {
+		st.log("actionTourNumberOk");
+		
+		var spec = st.character.spec;
+		var $skills = $("select[data-key='tour-number']");
+		var rankKey = $skills.val();
+		var tourMod = st.ranks[rankKey].tourMod;
+		st.log("tourMod[" + tourMod + "]");
+		var tourRoll = Math.ceil(st.math.dieN(10) / 3.0);
+		st.log("tourRoll[" + tourRoll + "]");
+		var tourNumber = tourRoll + tourMod;
+		st.log("tourNumber[" + tourNumber + "]");
+		
+		spec.destinedRankKey = rankKey;
+		spec.tourNumber = tourNumber;
+
+		st.dialog.hideTourNumber();
+		st.render.renderChar();
+		st.gen.nextStep();
+	},
+	hideTourNumber: function() {
+		st.log("hideTourNumber");
+		
+		var $dialog = $(".st-tour-number");
 		$dialog.remove();
 	}
 };
