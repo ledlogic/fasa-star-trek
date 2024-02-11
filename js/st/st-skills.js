@@ -316,19 +316,19 @@ st.skills = {
 		{	"title": "military-division",
 			"skills": {
 				"marksmanship-modern": 10,
-				"personal-combat-unarmed": 10,
+				"personal-combat-unarmed": 10
 			}
 		},
 		{	"title": "colonization-division",
 			"skills": {
 				"physical-sciences:-*": 10,
-				"planetary-survival:-*": 10,
+				"planetary-survival:-*": 10
 			}
 		}, 
 		{	"title": "outpost-division",
 			"skills": {
 				"damage-control-procedures": 10,
-				"environmental-suit-operation": 10,
+				"environmental-suit-operation": 10
 			}
 		},
 		{	"title": "exploration-division",
@@ -339,6 +339,85 @@ st.skills = {
 			}
 		}
 	],
+	romulanAdvancedOfficersSkills: {
+		"administration": 10,
+		"instruction": 10,
+		"leadership": 10
+	},
+	
+	romulanAdvancedOfficerBroadeningSkills: {
+		"starship-operations-specialties": {
+			"helm/navigation": {
+				"starship-combat-strategy-tactics": 20
+			},
+			"communications": {
+				"starship-combat-strategy-tactics": 20
+			},
+			"weapon": {
+				"starship-combat-strategy-tactics": 20
+			}
+		},
+		"starship-support-specialties": {
+			"propulsion/power": {
+				"space-sciences:-astronautics": 20
+			},
+			"support": {
+				"space-sciences:-astronautics": 20
+			},
+			"small-equipment": {
+				"space-sciences:-astronautics": 20
+			}
+		},
+		"science-specialties": {
+			"computer-sciences": {
+				"computer-operation": 10,
+				"life-sciences:-*": 10,
+				"physical-sciences:-*": 10,
+				"planetary-sciences:-*": 10,
+				"space-sciences:-*": 10,
+				"starship-sensors": 10
+			},
+			"medical-sciences": {
+				"life-sciences:-pathology": 20,
+				"medical-sciences:-surgery": 20,
+				"medical-sciences:-romulan": 20,
+				"medical-sciences:-psychology": 10
+			},
+			"specific-sciences": {
+				"computer-operation": 10,
+				"life-sciences:-*": 10,
+				"physical-sciences:-*": 10,
+				"planetary-sciences:-*": 10,
+				"space-sciences:-*": 10,
+				"starship-sensors": 10
+			}
+		},
+		"military-operations-specialties": {
+			"security": {
+				"small-unit-tactics": 20
+			},
+			"ground-forces": {
+				"small-unit-tactics": 20
+			}
+		},
+		"administration-specialties": {
+			"business-administration": {
+				"administration": 10,
+				"computer-operation": 10
+			},
+			"law": {
+				"administration": 10,
+				"computer-operation": 10,
+				"negotiation/diplomacy": 10,
+				"social-sciences:-romulan-history": 20,
+				"social-sciences:-romulan-law": 20
+			},
+			"diplomacy": {
+				"administration": 10,
+				"computer-operation": 10
+			}
+		}
+	},
 	
 	/* METHODS */
 	

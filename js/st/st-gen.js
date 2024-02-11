@@ -82,11 +82,12 @@ st.gen = {
 			//"dialogComingTogether",
 			//"dialogComingTogetherAdvancedTraining",
 			//"dialogComingTogetherOutside",
-			"dialogGreatDuty1",
-			"dialogGreatDuty2",
-			"dialogGreatDuty3",
-			"dialogGreatDuty4",
-			"dialogGreatDuty5",
+			//"dialogGreatDuty1",
+			//"dialogGreatDuty2",
+			//"dialogGreatDuty3",
+			//"dialogGreatDuty4",
+			//"dialogGreatDuty5",
+			"dialogAdvancedOfficersTraining",
 		];
 		st.gen.nextStep();
 	},

@@ -1272,5 +1272,158 @@ st.dialog = {
 		
 		var $dialog = $(".st-great-duty");
 		$dialog.remove();
+	},	
+	
+	/* ADVANCED OFFICERS TRAINING */
+	
+	dialogAdvancedOfficersTraining: function() {
+		st.log("dialogAdvancedOfficersTraining");
+
+		var title = "Advanced Officers Training";
+		st.render.renderStatus(title);
+		st.character.setAge("25-26 years");
+			
+		var skills = st.skills.romulanAdvancedOfficersSkills;
+		var $beginning = $("<div class=\"st-advanced-officers\"></div>");
+		$beginning.append("<h2 class=\"st-advanced-officers-header\">" + title + "</h2>");
+		$beginning.append("<span class=\"st-advanced-officers-instructions\">Please select from the choices below:</span>");
+		
+		var title = "Core Curriculum";
+		$beginning.append("<h3>" + title + "</h3>");
+
+		_.each(skills, function(value, key) {
+			var dispKey = _.keyToLabel(key);
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var $choice = $("<span class=\"st-key\" data-key=\"" + key + "\">" + dispKey + "</span>");
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
+				var choices = st.gen.getChoices(key);				
+				var $choice = $("<select class=\"st-key\" data-key-prefix=\"" + prefix + "\"></select>");
+				$choice.on("change", st.dialog.selectAdvancedOfficersSkill);
+				$choice.append("<option value=\"\">Choose a skill</option>");
+				_.each(choices, function(choice) {
+					var choiceLabel = _.keyToLabel(choice);
+					$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+				});		
+			}
+			$elm.append($choice);
+			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
+			$beginning.append($elm);
+		});
+
+		// specialty skills
+	
+		var title = "Specialty Skills";
+		$beginning.append("<h3>" + title + "</h3>");
+
+		var specialties = st.character.spec.specialties;
+		var main = specialties.main;
+		var sub = specialties.sub;
+		var skills = st.skills.romulanAdvancedOfficerBroadeningSkills[main][sub];
+		
+		_.each(skills, function(value, skillKey) {
+			var dispKey = _.keyToLabel(skillKey);
+			var $skillElm = $("<div class=\"st-skill-div\" data-key=\"" + skillKey + "\"></div>");
+			var $choice = $("<span class=\"st-skill-span\" data-key=\"" + skillKey + "\">" + dispKey + "</span>");
+			var astIndex = skillKey.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = skillKey.substring(0, astIndex);
+				var choices = st.gen.getChoices(skillKey);				
+				var $choice = $("<select class=\"st-skill st-key-select data-key=\"" + skillKey + "\" data-key-prefix=\"" + prefix + "\"></select>");
+				$choice.on("change", st.dialog.selectBroadeningSkill);
+				$choice.append("<option value=\"\">Choose a skill</option>");
+				_.each(choices, function(choice) {
+					var choiceLabel = _.keyToLabel(choice);
+					$choice.append("<option value=\"" + choice + "\">" + choiceLabel + "</option>");
+				});
+			}
+			$skillElm.append($choice);
+			$skillElm.append("<span class=\"st-value\" data-key=\"" + skillKey + "\">" + value + "</span>");
+			$beginning.append($skillElm);
+		});
+
+		$beginning.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-advanced-officers-skip\">Skip Officer's Training</button>"
+			+ "<button id=\"st-advanced-officers-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
+
+		st.character.$pageft.append($beginning);
+		$beginning.hide().fadeIn();
+		st.render.renderAge();
+		st.dialog.checkAdvancedOfficersActionStatus();
+		$("#st-advanced-officers-skip").on("click", st.dialog.actionAdvancedOfficersSkip);
+		$("#st-advanced-officers-ok").on("click", st.dialog.actionAdvancedOfficersOk);
+	},
+	selectAdvancedOfficersSkill: function(skill) {
+		st.log("selectAdvancedOfficersSkill");
+		
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkAdvancedOfficersActionStatus();
+	},
+	checkAdvancedOfficersActionStatus: function() {
+		st.log("checkAdvancedOfficersActionStatus");
+
+		var sels = $(".st-advanced-officers select");
+		var selCount = 0;
+		_.each(sels, function(sel) {
+			var $sel = $(sel);
+			var skill = $sel.val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		if (sels.length === selCount) {
+			st.log("- ok");
+			$("#st-advanced-officers-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-advanced-officers-ok").attr("disabled", "disabled");
+		}
+	},
+	actionAdvancedOfficersSkip: function() {
+		st.log("actionAdvancedOfficersSkip");
+		
+		st.character.spec.advancedOfficers = false;
+	
+		st.dialog.hideAdvancedOfficers();
+		st.render.renderChar();
+		st.gen.nextStep();
+	},
+	actionAdvancedOfficersOk: function() {
+		st.log("actionAdvancedOfficersOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+		
+		st.character.spec.advancedOfficers = true;
+
+		var skills = st.skills.romulanAdvancedOfficersSkills;
+		_.each(skills, function(value, key) {
+			_.each(value, function(value2, key2) {
+				var $valueElem = $(".st-advanced-officers .st-value[data-key='" + key2 + "']");
+				var value = parseInt($valueElem.html(),10);
+				var astIndex = key2.indexOf("*");
+				if (astIndex > -1) {
+					var prefix = key2.substring(0, astIndex);
+					var $sel = $(".st-advanced-officers .st-key[data-key-prefix='" + prefix + "']");
+					key2 = $sel.val();
+				}
+				st.log(key2 + ":" + value);
+				specSkills[key2] += value;
+			});
+		});
+		st.skills.maxCheck();
+		st.dialog.hideAdvancedOfficers();
+		st.render.renderChar();
+		st.gen.nextStep();
+	},
+	hideAdvancedOfficers: function() {
+		st.log("hideAdvancedOfficers");
+		
+		var $dialog = $(".st-advanced-officers");
+		$dialog.remove();
 	}
 };

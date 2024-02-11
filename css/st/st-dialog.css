@@ -414,3 +414,53 @@
 	color: rgb(0, 128, 192);
 	font-weight: bold;
 }
+
+/* advanced-officers */
+
+.st-advanced-officers {
+	background-color: #fff;
+	border: 1px solid #228b22;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 20%;
+	left: 10%;
+	height: 374px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #228b22;
+}
+
+.st-advanced-officers-header {
+	margin-top: 0px;
+}
+
+.st-advanced-officers-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-advanced-officers .st-focus-div {
+	display: block;
+	height: 22px;
+}
+
+.st-advanced-officers .st-skill-div {
+	height: 22px;
+}
+
+.st-advanced-officers .st-skill-span {
+	margin-left: 10px;
+	position: relative;
+}
+
+.st-advanced-officers .st-key,
+.st-advanced-officers .st-key-select {
+	margin-left: 10px;
+	position: relative;
+}
+
+.st-advanced-officers .st-value {
+	float:right;
+	margin-right: 30%;
+}
