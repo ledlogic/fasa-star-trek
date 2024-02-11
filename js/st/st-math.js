@@ -16,5 +16,11 @@ st.math = {
 	},
 	dieArray : function(array) {
 		return Math.floor(Math.random() * array.length);
+	},
+	ensureRange: function(value, min, max) {
+		var ret = value;
+		ret = Math.max(min, ret);
+		ret = Math.min(max, ret);
+		return ret;
 	}
 };

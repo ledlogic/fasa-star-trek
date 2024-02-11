@@ -64,30 +64,31 @@ st.gen = {
 	
 		st.gen.genDemographics(race);
 		st.gen.genAttributes();
-		//st.gen.genSkills();
-		//st.gen.genWeapons();
+		st.gen.genSkills();
+		st.gen.genWeapons();
 		
 		setTimeout(st.render.hideNav, 10);
 		setTimeout(st.render.renderChar, 10);
 		
 		st.gen.step = -1;
 		st.gen.steps = [
-			"dialogAttributes",
+			//"dialogAttributes",
 			//"dialogBeginning",
 			//"dialogBeginningElectives",
-			//"dialogTheBroadening",
+			"dialogTheBroadening",
 			//"dialogBroadeningElectives",
 			//"dialogBroadeningAdvancedTraining",
 			//"dialogComingTogether",
 			//"dialogComingTogetherAdvancedTraining",
 			//"dialogComingTogetherOutside",
-			//"dialogGreatDuty1",
-			//"dialogGreatDuty2",
-			//"dialogGreatDuty3",
-			//"dialogGreatDuty4",
-			//"dialogGreatDuty5",
-			//"dialogAdvancedOfficersTraining",
-			//"dialogTourNumber",
+			"dialogGreatDuty1",
+			"dialogGreatDuty2",
+			"dialogGreatDuty3",
+			"dialogGreatDuty4",
+			"dialogGreatDuty5",
+			"dialogAdvancedOfficersTraining",
+			"dialogTourNumber",
+			"dialogTours",
 		];
 		
 		setTimeout(st.gen.nextStep(),50);
@@ -186,11 +187,15 @@ st.gen = {
 	},
 	
 	genSkills: function() {
+		st.log("genSkills");
+		
 		var spec = st.character.spec;
 		spec.skills = JSON.parse(JSON.stringify(st.skills.baseSkills));
 	},
 	
 	getChoices: function(key) {
+		st.log("genChoices");
+		
 		var ret = [];
 		var trimmedKey = key.split("*")[0];
 		st.log("key[" + key + "]");
@@ -215,5 +220,68 @@ st.gen = {
 			});
 		}
 		return ret;
+	},
+	
+	genTourOer: function() {
+		st.log("genTourOer");
+
+		var oer = st.math.dieN(100) + 10;
+		st.log("oer0[" + oer + "]");
+
+		// adjustments
+		oer += st.gen.genTourOemIntMod();
+		oer += st.gen.genTourOemLucMod();
+		
+		st.log("oer1[" + oer + "]");
+
+		oer = st.math.ensureRange(oer, 0, 99);
+		
+		st.log("oer2[" + oer + "]");
+	
+		return oer;
+	},
+	
+	genTourOemIntMod: function() {
+		var attributes = st.character.spec.attributes;
+		var int = attributes.int;
+		var ret = 0;
+		if (int >= 70) {
+			ret = 10;
+		} else if (int >= 60) {
+			ret = 5;
+		} else if (int <= 40) {
+			ret = -5;
+		}
+		return ret;
+	},
+	
+	genTourOemLucMod: function() {
+		var attributes = st.character.spec.attributes;
+		var luc = attributes.luc;
+		var ret = 0;
+		if (luc >= 60) {
+			ret = 10;
+		} else if (luc >= 50) {
+			ret = 5;
+		} else if (luc <= 30) {
+			ret = -5;
+		}
+		return ret;
+	},
+	
+	genPostTrainingAge: function() {
+		var age = 25;
+		age += st.character.spec.advancedOfficers ? 1 : 0;
+		return age;
+	},
+	
+	genLastTermDuty: function() {
+		st.log("genLastTermDuty");
+		var terms = st.character.spec.terms;
+		var term = terms[terms.length - 1];
+		st.logObj("term", term);
+		var termDuty = term.termDuty;
+		st.log("termDuty[" + termDuty + "]");
+		return termDuty;
 	}
 };

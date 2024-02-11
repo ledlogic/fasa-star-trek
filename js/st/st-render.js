@@ -44,8 +44,8 @@ st.render = {
 		var $attr = $("<div class=\"st-section st-action-points\"></div>");
 		var y = (18 - ap) * 42.5;
 		$elm = $("<span class=\"st-item st-action-point\""
-				 + " style=\"top: " + y + "px\""
-				 + "></span>");
+			+ " style=\"top: " + y + "px\""
+			+ "></span>");
 		$attr.append($elm);
 		st.character.$pageft.append($attr);
 	},
@@ -286,12 +286,22 @@ st.render = {
 		var terms = st.skills.romulanGreatDutyTerms;
 		var termCount = 0;
 		_.each(terms, function(value, key) {
+			st.log("key[" + key + "]");
+			st.log("value[" + value + "]");
+			
 			var term = value.title;
 			var check = [];
 			for (var i=0; i<6; i++) {
 				check[i] = "";	
 			}
 			check[termCount] = "✓";
+			
+			var lastDuty = st.gen.genLastTermDuty();
+			st.log("lastDuty[" + lastDuty + "]");
+			if (key == lastDuty) {
+				check[4] = "✓";
+			}
+			
 			var dispTerm = _.keyToLabel(term);
 			t.push("<tr>");
 				st.render.renderTd(t, dispTerm, "st-division-name");

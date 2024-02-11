@@ -49,6 +49,7 @@ st.dialog = {
 	},
 	attributesPray: function() {		
 		st.gen.genAttributes();
+		st.render.renderChar();
 		st.dialog.hideAttributes();
 		st.dialog.dialogAttributes();
 	},
@@ -1062,7 +1063,8 @@ st.dialog = {
 	dialogGreatDuty: function() {
 		st.log("dialogGreatDuty");
 
-		var title = "The Great Duty - Year " + (st.character.spec.duty+1);
+		var year = st.character.spec.duty + 1;
+		var title = "The Great Duty - Year " + year;
 		st.render.renderStatus(title);
 		st.character.setAge((19 + st.character.spec.duty) + "-" + (20 + st.character.spec.duty) + " years");
 		
@@ -1074,14 +1076,15 @@ st.dialog = {
 		st.log("duty[" + duty + "]");
 		st.log("termDuty[" + termDuty + "]");
 		
-		if (duty === 4) {
+		if (termDuty === 4) {
 			st.log("term 5 override");
 				
 			var highOer = 0;
 			for (var i=0; i<4; i++) {
-				var oer = st.character.spec.terms[i].oer;
-				if (oer > highOer) {
-					highOer = oer;
+				var termOer = st.character.spec.terms[i].oer;
+				st.log("termOer[" + termOer + "]");
+				if (termOer > highOer) {
+					highOer = termOer;
 					highDuty = i;
 					st.log("highOer[" + highOer + "]");
 					st.log("highDuty[" + highDuty + "]");
@@ -1093,7 +1096,7 @@ st.dialog = {
 			if (!st.character.spec.termOerBonusUsed) {
 				st.log("using bonus");
 				oer += 20;
-				oer = Math.min(99, oer);
+				oer = st.math.ensureRange(oer, 0, 99);
 				st.character.spec.termOerBonusUsed = true;	
 			}
 		}
@@ -1231,7 +1234,7 @@ st.dialog = {
 		st.log("actionGreatDutyAddOer");
 		st.character.spec.termOerBonusUsed = true;
 		var oer = st.character.spec.terms[st.character.spec.duty].oer + 20;
-		oer = Math.min(99, oer);
+		oer = st.math.ensureRange(oer, 0, 99);
 		st.character.spec.terms[st.character.spec.duty].oer = oer;
 		$(".st-oer-value").html(oer);
 		st.dialog.checkAddOsrStatus();
@@ -1318,8 +1321,7 @@ st.dialog = {
 			var skillValue = st.math.dieN(10);
 			st.log(skillKey + ":" + skillValue);
 			specSkills[skillKey] += skillValue;
-		}
-		
+		}		
 		
 		st.skills.maxCheck();
 		
@@ -1496,9 +1498,8 @@ st.dialog = {
 
 		var title = "Tour Number";
 		st.render.renderStatus(title);
-		var age = 25;
-		age += st.character.spec.advancedOfficers ? 1 : 0;
-
+		
+		var age = st.gen.genPostTrainingAge();
 		st.character.setAge(age + " years");
 			
 		var $dialog = $("<div class=\"st-tour-number\"></div>");
@@ -1560,10 +1561,10 @@ st.dialog = {
 		var attrMod = 0;
 		var int = st.character.spec.attributes.int;
 		var luc = st.character.spec.attributes.luc;
-		if (spec.int >= 60) {
+		if (int >= 60) {
 			attrMod -= 1;
 		}
-		if (spec.luc <= 30) {
+		if (luc <= 30) {
 			attrMod += 1;
 		}
 		st.log("attrMod[" + attrMod + "]");
@@ -1571,11 +1572,12 @@ st.dialog = {
 		st.log("tourMod[" + tourMod + "]");
 		var tourRoll = Math.ceil(st.math.dieN(10) / 3.0);
 		st.log("tourRoll[" + tourRoll + "]");
-		var tourNumber = tourRoll + tourMod + attrMod;
-		st.log("tourNumber[" + tourNumber + "]");
+		var tourCount = tourRoll + tourMod + attrMod;
+		st.log("tourCount[" + tourCount + "]");
 		
 		spec.destinedRankKey = rankKey;
-		spec.tourNumber = tourNumber;
+		spec.tourCount = tourCount;
+		spec.tourIndex = 0;
 
 		st.dialog.hideTourNumber();
 		st.render.renderChar();
@@ -1586,5 +1588,71 @@ st.dialog = {
 		
 		var $dialog = $(".st-tour-number");
 		$dialog.remove();
+	},
+	
+	/* TOURS */
+		
+	dialogTours: function() {
+		st.log("dialogTours");
+		
+		var spec = st.character.spec;
+		spec.tourIndex = -1;
+		
+		st.dialog.dialogTourNextTour();
+	},
+	
+	dialogTourNextTour: function() {
+		st.log("dialogTourNextTour");
+
+		var spec = st.character.spec;
+
+		// incr tour
+		spec.tourIndex++;
+		
+		// check tour done
+		var tourIndex = spec.tourIndex;
+		st.log("tourIndex[" + tourIndex + "]");
+		var tourCount = spec.tourCount;
+		st.log("tourCount[" + tourCount + "]");
+		if (tourIndex > tourCount) {
+			st.log("done touring!");
+			return;
+		}
+
+		// store everything about this tour on tour object
+		if (tourIndex < tourCount) {
+			spec.tours[tourIndex] = {};
+		}
+		var tour = spec.tours[tourIndex];
+		st.logObj("tour", tour);
+
+		// start age
+		var startAge = st.gen.genPostTrainingAge();
+		tour.startAge = startAge;
+		st.log("startAge[" + startAge + "]");
+		
+		// tour length
+		var tourLength = st.math.dieN(10);
+		tour.tourLength = tourLength;
+		st.log("tourLength[" + tourLength + "]");
+		
+		// end age
+		var endAge = startAge + tourLength;
+		st.log("tourLength[" + tourLength + "]");
+		tour.endAge = tourLength;
+		
+		st.character.setAge(startAge + "-" + endAge + " years");
+				
+		// determine tour division
+		var duty = "";
+		if (tourIndex === 0) {
+			duty = st.gen.genLastTermDuty();
+			st.log("duty[" + duty + "]");
+		}
+
+		// compute oer
+		var oer = st.gen.genTourOer();
+		st.log("oer[" + oer + "]");
+		tour.oer = oer;
 	}
 };
