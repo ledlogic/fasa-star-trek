@@ -1495,11 +1495,21 @@ st.dialog = {
 		var spec = st.character.spec;
 		var $skills = $("select[data-key='tour-number']");
 		var rankKey = $skills.val();
+		var attrMod = 0;
+		var int = st.character.spec.attributes.int;
+		var luc = st.character.spec.attributes.luc;
+		if (spec.int >= 60) {
+			attrMod -= 1;
+		}
+		if (spec.luc <= 30) {
+			attrMod += 1;
+		}
+		st.log("attrMod[" + attrMod + "]");
 		var tourMod = st.ranks[rankKey].tourMod;
 		st.log("tourMod[" + tourMod + "]");
 		var tourRoll = Math.ceil(st.math.dieN(10) / 3.0);
 		st.log("tourRoll[" + tourRoll + "]");
-		var tourNumber = tourRoll + tourMod;
+		var tourNumber = tourRoll + tourMod + attrMod;
 		st.log("tourNumber[" + tourNumber + "]");
 		
 		spec.destinedRankKey = rankKey;
