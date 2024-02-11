@@ -12,6 +12,7 @@ st.character = {
 		demographics: {
 			age: "0 years"
 		},
+		attributes: {},
 		endurance: {},
 		skills: {},
 		termOerBonusUsed: false,

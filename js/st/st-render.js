@@ -92,6 +92,10 @@ st.render = {
 				
 		var attr = spec.attributes;
 		
+		if (!attr.end) {
+			return;
+		}
+		
 		var endurance = spec.endurance;
 		var race = spec.demographics["race"];
 		var inactsave = st.character.inactsave[race];

@@ -1,5 +1,51 @@
 /* st-dialogs.css */
 
+/* attributes */
+
+.st-attributes-dialog {
+	background-color: #fff;
+	border: 1px solid purple;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 20%;
+	left: 10%;
+	height: 294px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px purple;
+}
+
+.st-attributes-dialog-header {
+	margin-top: 0px;
+}
+
+.st-attributes-dialog-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-attributes-dialog .st-skill-div {
+	height: 22px;
+}
+
+.st-attributes-dialog .st-key,
+.st-attributes-dialog .st-key-select {
+	margin-left: 10px;
+	position: relative;
+	text-transform: uppercase;
+}
+
+.st-attributes-dialog .st-value {
+	float:right;
+	margin-right: 58%;
+}
+
+.st-attributes-dialog button {
+	color: purple;
+	font-weight: bold;
+}
+
 /* beginning */
 
 .st-beginning {

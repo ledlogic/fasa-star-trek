@@ -64,25 +64,24 @@ st.gen = {
 	
 		st.gen.genDemographics(race);
 		st.gen.genAttributes();
-		st.gen.genSkills();
-		st.gen.genWeapons();
-		
-		//console.log(st.character.spec);
+		//st.gen.genSkills();
+		//st.gen.genWeapons();
 		
 		setTimeout(st.render.hideNav, 10);
 		setTimeout(st.render.renderChar, 10);
 		
 		st.gen.step = -1;
 		st.gen.steps = [
+			"dialogAttributes",
 			//"dialogBeginning",
 			//"dialogBeginningElectives",
-			"dialogTheBroadening",
+			//"dialogTheBroadening",
 			//"dialogBroadeningElectives",
 			//"dialogBroadeningAdvancedTraining",
 			//"dialogComingTogether",
 			//"dialogComingTogetherAdvancedTraining",
 			//"dialogComingTogetherOutside",
-			"dialogGreatDuty1",
+			//"dialogGreatDuty1",
 			//"dialogGreatDuty2",
 			//"dialogGreatDuty3",
 			//"dialogGreatDuty4",
@@ -90,7 +89,8 @@ st.gen = {
 			//"dialogAdvancedOfficersTraining",
 			//"dialogTourNumber",
 		];
-		st.gen.nextStep();
+		
+		setTimeout(st.gen.nextStep(),50);
 	},
 	
 	nextStep: function() {

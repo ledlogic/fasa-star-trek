@@ -1,5 +1,55 @@
 st.dialog = {
 
+	/* ATTRIBUTES */
+	
+	dialogAttributes: function() {
+		st.log("dialogAttributes");
+
+		var title = "Attributes";
+		st.render.renderStatus(title);
+		st.character.setAge("0 years");
+
+		var $dialog = $("<div class=\"st-attributes-dialog\"></div>");
+		$dialog.append("<h2 class=\"st-attributes-dialog-header\">" + title + "</h2>");
+		$dialog.append("<span class=\"st-attributes-dialog-instructions\">Here are your attributes provided by the gods:</span>");
+				
+		var attrs = st.character.spec.attributes;
+		var total = 0;
+		_.each(attrs, function(value, key) {
+			var dispKey = _.keyToLabel(key);
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var label = st.attributes[key].name;
+			var $choice = $("<span class=\"st-key\" data-key=\"" + key + "\">" + dispKey + " (" + label + ")</span>");
+			$elm.append($choice);
+			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
+			$dialog.append($elm);
+
+			total += value;
+		});
+
+		var ave = Math.round(total / 7.0 * 10.0) / 10.0;
+		$dialog.append("<div class=\"st-comparison\">Your average attribute score is " + ave + "</div>");
+
+		$dialog.append("<div class=\"st-actions\"><button id=\"st-attributes-dialog-ok\">OK</button></div>");
+
+		st.character.$pageft.append($dialog);
+		$dialog.hide().fadeIn();
+
+		st.render.renderAge();
+		$("#st-attributes-dialog-ok").on("click", st.dialog.attributesOk);
+	},
+	attributesOk: function() {		
+		st.dialog.hideAttributes();
+		st.render.renderChar();
+		st.gen.nextStep();
+	},
+	hideAttributes: function() {
+		st.log("hideAttributes");
+		
+		var $dialog = $(".st-attributes-dialog");
+		$dialog.remove();
+	},
+
 	/* BEGINNING */
 
 	dialogBeginning: function() {
@@ -10,9 +60,9 @@ st.dialog = {
 		st.character.setAge("5-10 years");
 			
 		var skills = st.skills.romulanBeginningSkills;
-		var $beginning = $("<div class=\"st-beginning\"></div>");
-		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>");
-		$beginning.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>");
+		var $dialog = $("<div class=\"st-beginning\"></div>");
+		$dialog.append("<h2 class=\"st-beginning-header\">" + title + "</h2>");
+		$dialog.append("<span class=\"st-beginning-instructions\">Please select from the choices below:</span>");
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
 			var $elm = $("<div class=\"st-skill-div\"></div>");
@@ -31,12 +81,12 @@ st.dialog = {
 			}
 			$elm.append($choice);
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
-			$beginning.append($elm)
+			$dialog.append($elm)
 		});
-		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
 
-		st.character.$pageft.append($beginning);
-		$beginning.hide().fadeIn();
+		st.character.$pageft.append($dialog);
+		$dialog.hide().fadeIn();
 		st.render.renderAge();
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningOk);
 	},
@@ -112,10 +162,10 @@ st.dialog = {
 		var specSkills = spec.skills;
 			
 		var skills = st.skills.romulanBeginningElectivesSkills;
-		var $beginning = $("<div class=\"st-beginning-electives\"></div>");
-		$beginning.append("<h2 class=\"st-beginning-header\">" + title + "</h2>");
+		var $dialog = $("<div class=\"st-beginning-electives\"></div>");
+		$dialog.append("<h2 class=\"st-beginning-header\">" + title + "</h2>");
 		var qty = st.skills.romulanBeginningElectivesSkillsQty;
-		$beginning.append("<span class=\"st-beginning-instructions\">Please select " + qty + " from the choices below:</span>");
+		$dialog.append("<span class=\"st-beginning-instructions\">Please select " + qty + " from the choices below:</span>");
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
 			var $elm = $("<div class=\"st-key-div\" data-key=\"" + key + "\"></div>");
@@ -140,11 +190,11 @@ st.dialog = {
 			}
 			$elm.append($choice);
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
-			$beginning.append($elm);
+			$dialog.append($elm);
 		});
-		$beginning.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
-		st.character.$pageft.append($beginning);
-		$beginning.hide().fadeIn();
+		$dialog.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
+		st.character.$pageft.append($dialog);
+		$dialog.hide().fadeIn();
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningElectivesOk);
 	},
 	selectBeginningElectivesSkill: function() {
@@ -635,13 +685,13 @@ st.dialog = {
 		st.character.setAge("15-20 years");
 			
 		var skills = st.skills.romulanComingTogetherSkills;
-		var $beginning = $("<div class=\"st-coming-together\"></div>");
-		$beginning.append("<h2 class=\"st-coming-together-header\">" + title + "</h2>");
-		$beginning.append("<span class=\"st-coming-together-instructions\">Please select from the choices below:</span>");
+		var $dialog = $("<div class=\"st-coming-together\"></div>");
+		$dialog.append("<h2 class=\"st-coming-together-header\">" + title + "</h2>");
+		$dialog.append("<span class=\"st-coming-together-instructions\">Please select from the choices below:</span>");
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
 			var $elm = $("<span class=\"st-focus-div\">" + dispKey + "</span>");
-			$beginning.append($elm);
+			$dialog.append($elm);
 			_.each(value, function(value2, key2) {
 				var dispKey = _.keyToLabel(key2);
 				var $elm = $("<div class=\"st-skill-div\"></div>");
@@ -660,13 +710,13 @@ st.dialog = {
 				}
 				$elm.append($choice);
 				$elm.append("<span class=\"st-value\" data-key=\"" + key2 + "\">" + value2 + "</span>");
-				$beginning.append($elm);
+				$dialog.append($elm);
 			});
 		});
-		$beginning.append("<div class=\"st-actions\"><button id=\"st-coming-together-ok\" disabled=\"disabled\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\"><button id=\"st-coming-together-ok\" disabled=\"disabled\">OK</button></div>");
 
-		st.character.$pageft.append($beginning);
-		$beginning.hide().fadeIn();
+		st.character.$pageft.append($dialog);
+		$dialog.hide().fadeIn();
 		st.render.renderAge();
 		$("#st-coming-together-ok").on("click", st.dialog.actionComingTogetherOk);
 	},
@@ -1051,12 +1101,12 @@ st.dialog = {
 			termDuty: termDuty
 		};
 		
-		var $beginning = $("<div class=\"st-great-duty\"></div>");
-		$beginning.append("<h2 class=\"st-great-duty-header\">" + title + "</h2>");
-		$beginning.append("<span class=\"st-great-duty-instructions\">Please select from the choices below:</span>");
+		var $dialog = $("<div class=\"st-great-duty\"></div>");
+		$dialog.append("<h2 class=\"st-great-duty-header\">" + title + "</h2>");
+		$dialog.append("<span class=\"st-great-duty-instructions\">Please select from the choices below:</span>");
 
 		var title = "Duty Skills";
-		$beginning.append("<h3>" + title + "</h3>");
+		$dialog.append("<h3>" + title + "</h3>");
 
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
@@ -1076,7 +1126,7 @@ st.dialog = {
 			}
 			$elm.append($choice);
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
-			$beginning.append($elm)
+			$dialog.append($elm)
 		});
 		
 		// in-specialty
@@ -1091,7 +1141,7 @@ st.dialog = {
 		//st.log("chances[" + chances + "]");
 		var inspecialtyValue = "1d10";
 		var title = "In Specialty";
-		$beginning.append("<h3>" + title + "</h3>");
+		$dialog.append("<h3>" + title + "</h3>");
 		for (var i=0; i<chances; i++) {
 			var $elm = $("<div class=\"st-skill-div\"></div>");
 			var $select = $("<select class=\"st-key st-key-select\" data-key=\"inspecialty-" + i + "\"></select>");
@@ -1112,7 +1162,7 @@ st.dialog = {
 			});
 			$elm.append($select);
 			$elm.append("<span class=\"st-value\" data-key=\"inspecialty-value-" + i + "\">" + inspecialtyValue + "</span>");
-			$beginning.append($elm);
+			$dialog.append($elm);
 		}
 		
 		// other skills
@@ -1128,7 +1178,7 @@ st.dialog = {
 		//st.log("skills1[" + skills + "]");
 		
 		var title = "Other Skills";
-		$beginning.append("<h3>" + title + "</h3>");
+		$dialog.append("<h3>" + title + "</h3>");
 		
 		for (var i=0; i<chances; i++) {
 			var $elm = $("<div class=\"st-skill-div\"></div>");
@@ -1150,18 +1200,18 @@ st.dialog = {
 			});
 			$elm.append($select);
 			$elm.append("<span class=\"st-value\" data-key=\"elective-value-" + i + "\">" + outsideValue + "</span>");
-			$beginning.append($elm);
+			$dialog.append($elm);
 		}		
 
-		$beginning.append("<div class=\"st-oer\">OER:<span class=\"st-oer-value\">" + oer + "</span></div>");
+		$dialog.append("<div class=\"st-oer\">OER:<span class=\"st-oer-value\">" + oer + "</span></div>");
 
-		$beginning.append("<div class=\"st-actions\">"
+		$dialog.append("<div class=\"st-actions\">"
 		 + "<button id=\"st-great-duty-add-oer\">OER +20</button>"
 		 + "<button id=\"st-great-duty-ok\" disabled=\"disabled\">OK</button>"
 		 + "</div>");
 
-		st.character.$pageft.append($beginning);
-		$beginning.hide().fadeIn();
+		st.character.$pageft.append($dialog);
+		$dialog.hide().fadeIn();
 		st.render.renderAge();
 		st.dialog.checkAddOsrStatus();
 		$("#st-great-duty-add-oer").on("click", st.dialog.actionGreatDutyAddOer);
@@ -1287,12 +1337,12 @@ st.dialog = {
 		st.character.setAge("25-26 years");
 			
 		var skills = st.skills.romulanAdvancedOfficersSkills;
-		var $beginning = $("<div class=\"st-advanced-officers\"></div>");
-		$beginning.append("<h2 class=\"st-advanced-officers-header\">" + title + "</h2>");
-		$beginning.append("<span class=\"st-advanced-officers-instructions\">Please select from the choices below:</span>");
+		var $dialog = $("<div class=\"st-advanced-officers\"></div>");
+		$dialog.append("<h2 class=\"st-advanced-officers-header\">" + title + "</h2>");
+		$dialog.append("<span class=\"st-advanced-officers-instructions\">Please select from the choices below:</span>");
 		
 		var title = "Core Curriculum";
-		$beginning.append("<h3>" + title + "</h3>");
+		$dialog.append("<h3>" + title + "</h3>");
 
 		_.each(skills, function(value, key) {
 			var dispKey = _.keyToLabel(key);
@@ -1312,13 +1362,13 @@ st.dialog = {
 			}
 			$elm.append($choice);
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
-			$beginning.append($elm);
+			$dialog.append($elm);
 		});
 
 		// specialty skills
 	
 		var title = "Specialty Skills";
-		$beginning.append("<h3>" + title + "</h3>");
+		$dialog.append("<h3>" + title + "</h3>");
 
 		var specialties = st.character.spec.specialties;
 		var main = specialties.main;
@@ -1343,16 +1393,16 @@ st.dialog = {
 			}
 			$skillElm.append($choice);
 			$skillElm.append("<span class=\"st-value\" data-key=\"" + skillKey + "\">" + value + "</span>");
-			$beginning.append($skillElm);
+			$dialog.append($skillElm);
 		});
 
-		$beginning.append("<div class=\"st-actions\">"
+		$dialog.append("<div class=\"st-actions\">"
 			+ "<button id=\"st-advanced-officers-skip\">Skip Officer's Training</button>"
 			+ "<button id=\"st-advanced-officers-ok\" disabled=\"disabled\">OK</button>"
 			+ "</div>");
 
-		st.character.$pageft.append($beginning);
-		$beginning.hide().fadeIn();
+		st.character.$pageft.append($dialog);
+		$dialog.hide().fadeIn();
 		st.render.renderAge();
 		st.dialog.checkAdvancedOfficersActionStatus();
 		$("#st-advanced-officers-skip").on("click", st.dialog.actionAdvancedOfficersSkip);
@@ -1442,9 +1492,9 @@ st.dialog = {
 
 		st.character.setAge(age + " years");
 			
-		var $beginning = $("<div class=\"st-tour-number\"></div>");
-		$beginning.append("<h2 class=\"st-tour-number-header\">" + title + "</h2>");
-		$beginning.append("<span class=\"st-tour-number-instructions\">Please select a destined rank rom the choices below:</span>");
+		var $dialog = $("<div class=\"st-tour-number\"></div>");
+		$dialog.append("<h2 class=\"st-tour-number-header\">" + title + "</h2>");
+		$dialog.append("<span class=\"st-tour-number-instructions\">Please select a destined rank rom the choices below:</span>");
 		
 		var ranks = st.ranks;
 		var $choice = $("<select class=\"st-key\" data-key=\"tour-number\"></select>");
@@ -1454,12 +1504,12 @@ st.dialog = {
 			var choiceLabel = _.keyToLabel(key) + ": +" + value.tourMod + " tours";
 			$choice.append("<option value=\"" + key + "\">" + choiceLabel + "</option>");
 		});
-		$beginning.append($choice)
+		$dialog.append($choice)
 		
-		$beginning.append("<div class=\"st-actions\"><button id=\"st-tour-number-ok\" disabled=\"disabled\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\"><button id=\"st-tour-number-ok\" disabled=\"disabled\">OK</button></div>");
 
-		st.character.$pageft.append($beginning);
-		$beginning.hide().fadeIn();
+		st.character.$pageft.append($dialog);
+		$dialog.hide().fadeIn();
 		
 		st.render.renderAge();
 		$("#st-tour-number-ok").on("click", st.dialog.actionTourNumberOk);
