@@ -189,12 +189,27 @@ st.gen = {
 	getChoices: function(key) {
 		var ret = [];
 		var trimmedKey = key.split("*")[0];
-		var skillKeys = _.keys(st.skills.baseSkills);
-		_.each(skillKeys, function(skill) {
-			if (skill.indexOf(trimmedKey) === 0) {
-				ret.push(skill);
-			}
-		});
+		st.log("key[" + key + "]");
+		st.log("trimmedKey[" + trimmedKey + "]");
+		
+		if (!trimmedKey) {
+			var two = key.split("*")[1];
+			st.log("two[" + two + "]");
+			
+			var skillKeys = _.keys(st.skills.baseSkills);
+			_.each(skillKeys, function(skill) {
+				if (skill.indexOf(two) > -1 && skill.indexOf("medical") === -1) {
+					ret.push(skill);
+				}				
+			});
+		} else {
+			var skillKeys = _.keys(st.skills.baseSkills);
+			_.each(skillKeys, function(skill) {
+				if (skill.indexOf(trimmedKey) === 0) {
+					ret.push(skill);
+				}
+			});
+		}
 		return ret;
 	}
 };
