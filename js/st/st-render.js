@@ -278,7 +278,7 @@ st.render = {
 			t.push("</th>");	
 		t.push("</tr>");
 		
-		// data
+		// checkboxes
 		var terms = st.skills.romulanGreatDutyTerms;
 		var termCount = 0;
 		_.each(terms, function(value, key) {
@@ -304,6 +304,7 @@ st.render = {
 			termCount++;
 		});
 		
+		// tour length
 		var dispTerm = "Tour Length (years)"
 		var advancedYears = spec.advancedOfficers ? 1 : 0;
 		t.push("<tr>");
@@ -318,9 +319,20 @@ st.render = {
 				st.render.renderTd(t, advancedYears, "st-value");
 		t.push("</tr>");
 
+		// efficiency reports
 		var dispTerm = "Efficiency Report (%)"
 		t.push("<tr>");
 			st.render.renderTd(t, dispTerm, "st-division-name");
+			st.render.renderTd(t, "", "st-value");
+			st.render.renderTd(t, "", "st-value");
+			
+			var terms = st.character.spec.terms;
+			_.each(terms, function(term) {
+				var oer = term.oer;
+				st.render.renderTd(t, oer, "st-value");	
+			});
+
+			st.render.renderTd(t, "", "st-value");
 		t.push("</tr>");
 		
 		t.push("</table>");

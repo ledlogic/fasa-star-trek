@@ -16,7 +16,13 @@ st.character = {
 		skills: {},
 		termOerBonusUsed: false,
 		duty: 0,
-		terms: [],
+		terms: [
+			{},
+			{},
+			{},
+			{},
+			{}
+		],
 		tours: [],
 		advancedOfficers: false
 	},

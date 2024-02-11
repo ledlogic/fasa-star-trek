@@ -1218,9 +1218,12 @@ st.dialog = {
 		var spec = st.character.spec;
 		var specSkills = spec.skills;
 		var skills = st.skills.romulanGreatDutyTerms;
-		var termLength = st.character.spec.terms.length;
-		var term = st.character.spec.terms[termLength-1];
+		var duty = st.character.spec.duty;
+		st.log("duty[" + duty + "]");
+		var term = st.character.spec.terms[duty];
+		st.logObj("term", term);
 		var termDuty = term.termDuty;
+		st.log("termDuty[" + termDuty + "]");
 		var termSkills = skills[termDuty].skills;
 		
 		_.each(termSkills, function(value, key) {
