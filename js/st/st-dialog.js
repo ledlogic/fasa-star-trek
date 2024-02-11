@@ -1330,8 +1330,8 @@ st.dialog = {
 			if (astIndex > -1) {
 				var prefix = skillKey.substring(0, astIndex);
 				var choices = st.gen.getChoices(skillKey);				
-				var $choice = $("<select class=\"st-skill st-key-select data-key=\"" + skillKey + "\" data-key-prefix=\"" + prefix + "\"></select>");
-				$choice.on("change", st.dialog.selectBroadeningSkill);
+				var $choice = $("<select class=\"st-skill st-key-select\" data-key=\"" + skillKey + "\" data-key-prefix=\"" + prefix + "\"></select>");
+				$choice.on("change", st.dialog.selectAdvancedOfficersSkill);
 				$choice.append("<option value=\"\">Choose a skill</option>");
 				_.each(choices, function(choice) {
 					var choiceLabel = _.keyToLabel(choice);
@@ -1400,21 +1400,21 @@ st.dialog = {
 		
 		st.character.spec.advancedOfficers = true;
 
-		var skills = st.skills.romulanAdvancedOfficersSkills;
-		_.each(skills, function(value, key) {
-			_.each(value, function(value2, key2) {
-				var $valueElem = $(".st-advanced-officers .st-value[data-key='" + key2 + "']");
-				var value = parseInt($valueElem.html(),10);
-				var astIndex = key2.indexOf("*");
-				if (astIndex > -1) {
-					var prefix = key2.substring(0, astIndex);
-					var $sel = $(".st-advanced-officers .st-key[data-key-prefix='" + prefix + "']");
-					key2 = $sel.val();
-				}
-				st.log(key2 + ":" + value);
-				specSkills[key2] += value;
-			});
-		});
+		var skills = $(".st-skill-span, select.st-key-select");
+		for (var i=0; i<skills.length; i++) {
+			var $skill = $(skills[i]);
+			var key = $skill.data("key");
+			var $valueElem = $(".st-advanced-officers .st-value[data-key='" + key + "']");
+			var value = parseInt($valueElem.html(),10);
+			var astIndex = key.indexOf("*");
+			if (astIndex > -1) {
+				var prefix = key.substring(0, astIndex);
+				key = $skill.val();
+			}
+			st.log(key + ":" + value);
+			specSkills[key] += value;
+		}
+
 		st.skills.maxCheck();
 		st.dialog.hideAdvancedOfficers();
 		st.render.renderChar();
