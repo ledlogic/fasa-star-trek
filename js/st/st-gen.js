@@ -81,12 +81,12 @@ st.gen = {
 			//"dialogComingTogether",
 			//"dialogComingTogetherAdvancedTraining",
 			//"dialogComingTogetherOutside",
-			"dialogGreatDuty1",
-			"dialogGreatDuty2",
-			"dialogGreatDuty3",
-			"dialogGreatDuty4",
-			"dialogGreatDuty5",
-			"dialogAdvancedOfficersTraining",
+			//"dialogGreatDuty1",
+			//"dialogGreatDuty2",
+			//"dialogGreatDuty3",
+			//"dialogGreatDuty4",
+			//"dialogGreatDuty5",
+			//"dialogAdvancedOfficersTraining",
 			"dialogTourNumber",
 			"dialogTours",
 		];
@@ -278,6 +278,12 @@ st.gen = {
 	genLastTermDuty: function() {
 		st.log("genLastTermDuty");
 		var terms = st.character.spec.terms;
+		
+		// fault-tolerance for jump-testing
+		if (!terms || terms.length) {
+			return 0;
+		}
+		
 		var term = terms[terms.length - 1];
 		st.logObj("term", term);
 		var termDuty = term.termDuty;
