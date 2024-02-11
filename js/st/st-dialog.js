@@ -1614,10 +1614,15 @@ st.dialog = {
 		st.log("tourIndex[" + tourIndex + "]");
 		var tourCount = spec.tourCount;
 		st.log("tourCount[" + tourCount + "]");
-		if (tourIndex > tourCount) {
+		if (tourIndex >= tourCount) {
 			st.log("done touring!");
+			st.gen.nextStep();
 			return;
 		}
+
+		// update status		
+		var title = "Tour " + (tourIndex + 1);
+		st.render.renderStatus(title);
 
 		// store everything about this tour on tour object
 		if (tourIndex < tourCount) {
@@ -1654,5 +1659,118 @@ st.dialog = {
 		var oer = st.gen.genTourOer();
 		st.log("oer[" + oer + "]");
 		tour.oer = oer;
+		
+		// compute rolls
+		var lengthRolls = Math.floor(tourLength / 2.0);
+		st.log("lengthRolls[" + oer + "]");
+		var intRolls = st.gen.genTourSkillRollsIntMod();
+		st.log("intRolls[" + oer + "]");
+		var lucRolls = st.gen.genTourSkillRollsLucMod();
+		st.log("lucRolls[" + oer + "]");
+		var rolls = lengthRolls + intRolls + lucRolls;
+		st.log("rolls0[" + rolls + "]");
+		rolls = Math.max(1, rolls);
+		
+		// special - debugging
+		rolls = 1;
+		
+		st.log("rolls1[" + rolls + "]");
+		tour.rolls = rolls;
+			
+		var skills = st.skills.baseSkills;
+		var $dialog = $("<div class=\"st-tour\"></div>");
+		$dialog.append("<h2 class=\"st-tour-header\">" + title + "</h2>");
+		
+		$dialog.append("<span class=\"st-tour-instructions\">Please select from the choices below:</span>");
+	
+		var outsideValue = "1d10";
+		for (var i=0; i<rolls; i++) {
+			var $elm = $("<div class=\"st-skill-div\"></div>");
+			var $select = $("<select class=\"st-key st-key-select\" data-key=\"otherskills-" + i + "\"></select>");
+			$select.on("change", st.dialog.checkTourActionStatus);
+			$select.append("<option value=\"\">Choose a skill</option>");
+			_.each(skills, function(value, key) {
+				var choiceLabel = _.keyToLabel(key);
+				$select.append("<option value=\"" + key + "\">" + choiceLabel + "</option>");
+			});
+			$elm.append($select);
+			$elm.append("<span class=\"st-value\" data-key=\"elective-value-" + i + "\">" + outsideValue + "</span>");
+			$dialog.append($elm);
+		}
+		
+		$dialog.append("<div class=\"st-actions\"><button id=\"st-tour-ok\" disabled=\"disabled\">OK</button></div>");
+
+		st.character.$pageft.append($dialog);
+		$dialog.hide().fadeIn();
+		st.render.renderAge();
+		st.dialog.checkTourActionStatus();
+		$("#st-tour-ok").on("click", st.dialog.actionTourOk);
+	},
+	actionTourOk: function() {
+		st.log("actionTourOk");
+		
+		var spec = st.character.spec;
+		var specSkills = spec.skills;
+
+		var skills = $(".st-skill-span, select.st-key-select");
+		for (var i=0; i<skills.length; i++) {
+			var $skill = $(skills[i]);
+			var key = $skill.val();
+			var value = st.math.dieN(10);
+			st.log(key + ":" + value);
+			specSkills[key] += value;
+		}
+
+		st.skills.maxCheck();
+		st.dialog.hideTour();
+		st.render.renderChar();
+		
+		// special - stay in tours mode
+		st.dialog.dialogTourNextTour();
+	},
+	selectTourSkill: function() {
+		st.log("selectTourSkill");
+		
+		var $sel = $(this);
+		var skill = $sel.val();
+		st.log("- skill[" + skill + "]");
+		st.dialog.checkTourActionStatus();		
+	},
+	checkTourActionStatus: function() {
+		st.log("checkTourActionStatus");
+
+		var sels = $(".st-tour select");
+		var selCount = 0;
+		_.each(sels, function(sel) {
+			var $sel = $(sel);
+			var skill = $sel.val();
+			if (skill) {
+				selCount++;
+			}
+		});
+		st.log("sels.length[" + sels.length + "]");
+		st.log("selCount[" + selCount + "]");
+		
+		if (sels.length === selCount) {
+			st.log("- ok");
+			$("#st-tour-ok").removeAttr("disabled");
+		} else {
+			st.log("- ng");
+			$("#st-tour-ok").attr("disabled", "disabled");
+		}
+	},
+	hideTour: function() {
+		st.log("hideTour");
+		
+		var $dialog = $(".st-tour");
+		$dialog.remove();
+	},
+	
+	/* CLEANUP */
+	
+	dialogCleanup: function() {
+		st.log("dialogCleanup");
+		
+		$(".st-status").hide();
 	}
 };

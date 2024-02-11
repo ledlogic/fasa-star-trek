@@ -561,3 +561,42 @@
 	margin-right: 30%;
 }
 
+/* tour */
+
+.st-tour {
+	background-color: #fff;
+	border: 1px solid #228b22;
+	display: block;
+	font-size: 12px;
+	padding: 10px;
+	position: relative;
+	top: 20%;
+	left: 10%;
+	height: 294px;
+	width: 80%;
+	box-shadow: 2px 2px 2px 0px #228b22;
+}
+
+.st-tour-header {
+	margin-top: 0px;
+}
+
+.st-tour-instructions {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.st-tour .st-skill-div {
+	height: 22px;
+}
+
+.st-tour .st-key,
+.st-tour .st-key-select {
+	margin-left: 10px;
+	position: relative;
+}
+
+.st-tour .st-value {
+	float:right;
+	margin-right: 30%;
+}

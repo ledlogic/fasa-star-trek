@@ -89,6 +89,7 @@ st.gen = {
 			//"dialogAdvancedOfficersTraining",
 			"dialogTourNumber",
 			"dialogTours",
+			"dialogCleanup"
 		];
 		
 		setTimeout(st.gen.nextStep(),50);
@@ -270,14 +271,34 @@ st.gen = {
 	},
 	
 	genPostTrainingAge: function() {
+		st.log("genPostTrainingAge");
+		
+		var spec = st.character.spec;
+		
+		// if tours, max age is from tours.		
+		var tours = spec.tours;
+		var length = tours.length;
+		if (length) {
+			age = tours[length-1].endAge;
+		}
+		
+		// otherside, training age
 		var age = 25;
-		age += st.character.spec.advancedOfficers ? 1 : 0;
+		
+		// add advanced officers
+		var advancedOfficers = spec.advancedOfficers;
+		st.log("advancedOfficers[" + advancedOfficers + "]");
+		st.log("genLastTermDuty");
+		age += advancedOfficers ? 1 : 0;
+		
+		st.log("age[" + age + "]");
 		return age;
 	},
 	
 	genLastTermDuty: function() {
 		st.log("genLastTermDuty");
 		var terms = st.character.spec.terms;
+		st.logObj("terms", terms);
 		
 		// fault-tolerance for jump-testing
 		if (!terms || terms.length) {
@@ -289,5 +310,27 @@ st.gen = {
 		var termDuty = term.termDuty;
 		st.log("termDuty[" + termDuty + "]");
 		return termDuty;
-	}
+	},
+	
+	genTourSkillRollsIntMod: function() {
+		var attributes = st.character.spec.attributes;
+		var int = attributes.int;
+		var ret = 0;
+		if (int >= 70) {
+			ret = 2;
+		} else if (int >= 60) {
+			ret = 1;
+		}
+		return ret;
+	},
+	
+	genTourSkillRollsLucMod: function() {
+		var attributes = st.character.spec.attributes;
+		var luc = attributes.luc;
+		var ret = 0;
+		if (luc >= 60) {
+			ret = 1;
+		} 
+		return ret;
+	},
 };
