@@ -88,7 +88,7 @@ st.gen = {
 			//"dialogGreatDuty4",
 			//"dialogGreatDuty5",
 			//"dialogAdvancedOfficersTraining",
-			"dialogTourNumber",
+			//"dialogTourNumber",
 		];
 		st.gen.nextStep();
 	},

@@ -17,7 +17,8 @@ st.character = {
 		termOerBonusUsed: false,
 		duty: 0,
 		terms: [],
-		tours: []
+		tours: [],
+		advancedOfficers: false
 	},
 	
 	mod: {},

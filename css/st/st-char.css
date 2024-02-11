@@ -138,10 +138,11 @@
 /* endurance */
 
 .st-endurance {
+	border: 1px solid red;
 	position: absolute;
-	top: 154px;
+	top: 138px;
 	left: 78px;
-	width: 352px;
+	width: 614px;
 }
 
 .st-endurance-item {
@@ -200,7 +201,7 @@
 
 .st-skill-list-header {
 	position: absolute;	
-	top: 284px;
+	top: 366px;
 	left: 80px;
 	width: 400px;
 }
@@ -212,21 +213,22 @@
 	width: 100px;
 }
 
-.st-skills-0 {
+.st-skills-0, 
+.st-skills-1,
+.st-skills-2 {
 	position: absolute;
-	top: 330px;
+	top: 412px;
+}
+
+.st-skills-0 {
 	left: 80px;
 }
 
 .st-skills-1 {
-	position: absolute;
-	top: 330px;
 	left: 290px;
 }
 
 .st-skills-2 {
-	position: absolute;
-	top: 330px;
 	left: 498px;
 }
 
@@ -465,4 +467,71 @@
 .st-actions {
 	margin-top: 20px;
 	text-align: right;
+}
+
+/* service-experience */
+
+.st-service-experience {
+	border: 1px solid lightblue;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top:178px;
+	left: 78px;
+	width: 614px;
+	height: 200px;
+}
+
+.st-service-experience-header {
+	width: 260px;
+}
+
+.st-assignment-table {
+	margin-top: -20px;
+}
+
+.st-division-name,
+th.st-tour-name.st-division-name {
+	width: 200px;
+	transform: inherit;
+	writing-mode: inherit;
+}
+
+.st-division-name.st-tour-name {
+	border: none;
+}
+
+.st-service-experience th, 
+.st-service-experience td {
+	border: 1px solid black;
+	width: 20px;
+	height: 20px;
+	font-weight: normal;
+	font-size: 10px;
+}
+
+.st-service-experience th.st-assignment {
+	border: 1px solid transparent;
+	width: 222px;
+}
+
+.st-service-experience th.st-tour-names {
+	border: none;
+	overflow: visible; 	
+	text-wrap: nowrap;
+}
+
+.st-tour-name {
+	display: inline-block;
+	font-weight: normal;
+	font-size: 10px;
+	padding-left: 4px;
+	text-wrap: nowrap;
+	transform: rotate(-60deg);
+	width: 20px;
+	writing-mode: horizontal-tb;
+}
+
+.st-assignment-table .st-value {
+	text-align: center;
 }

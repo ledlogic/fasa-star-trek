@@ -22,6 +22,7 @@ st.render = {
 		that.renderDemographics();
 		that.renderAttributes();
 		that.renderEndurance();
+		that.renderServiceExperience();
 		that.renderSkills();
 		that.renderActionPoints();
 		that.renderToHits();
@@ -227,5 +228,104 @@ st.render = {
 		st.log("render age");
 		var age = st.character.spec.demographics.age;
 		$(".st-item.st-demographics-item.st-demographics-item-age .st-value").html(age);		
+	},
+	renderTh: function(arr, text, classname, col) {
+		var h = [];
+		h.push("<th class=\"" + classname + "\" " + (col ? " colspan=\"" + col + "\"" : "") + ">");
+		h.push(st.render.renderText(text));
+		h.push("</th>");
+		arr.push(h.join(""));
+	},
+	renderTd: function(arr, text, classname, col) {
+		var h = [];
+		h.push("<td class=\"" + classname + "\" " + (col ? " colspan=\"" + col + "\"" : "") + ">");
+		h.push(st.render.renderText(text));
+		h.push("</td>");
+		arr.push(h.join(""));
+	},
+	renderSpan: function(arr, text, classname, col) {
+		var h = [];
+		h.push("<span class=\"" + classname + "\" " + (col ? " colspan=\"" + col + "\"" : "") + ">");
+		h.push(st.render.renderText(text));
+		h.push("</span>");
+		arr.push(h.join(""));
+	},
+	renderText: function(text) {
+		return text ? text : "&nbsp;";
+	},
+	renderServiceExperience: function() {
+		st.log("rendering serviceExperience");
+
+		var spec = st.character.spec;
+		
+		var $h = $("<div class=\"st-section st-service-experience\"></div>");
+		$h.append("<h2 class=\"st-service-experience-header\">Service Experience Charts</h2>");
+		$h.append("<h3 class=\"st-assignment\">Assignment</h3>");
+		var t= [];
+		t.push("<table class=\"st-assignment-table\">");
+		
+		// titles
+		t.push("<tr>");
+			st.render.renderTh(t, "", "st-division-name st-tour-name", 2);
+			t.push("<th class=\"st-tour-names\" colspan=\"8\">");	
+			st.render.renderSpan(t, "Pre-Education", "st-tour-name");
+			st.render.renderSpan(t, "The Education", "st-tour-name");
+			for (var i=0; i<5; i++) {
+				var y = i+1;
+				st.render.renderSpan(t, "Service Year " + y, "st-tour-name");
+			}
+			st.render.renderSpan(t, "Adv. Off. Train.", "st-tour-name");
+			t.push("</th>");	
+		t.push("</tr>");
+		
+		// data
+		var terms = st.skills.romulanGreatDutyTerms;
+		var termCount = 0;
+		_.each(terms, function(value, key) {
+			var term = value.title;
+			var check = [];
+			for (var i=0; i<6; i++) {
+				check[i] = "";	
+			}
+			check[termCount] = "✓";
+			var dispTerm = _.keyToLabel(term);
+			t.push("<tr>");
+				st.render.renderTd(t, dispTerm, "st-division-name");
+				st.render.renderTd(t, "", "st-value");
+				st.render.renderTd(t, "", "st-value");
+				st.render.renderTd(t, check[0], "st-value");
+				st.render.renderTd(t, check[1], "st-value");
+				st.render.renderTd(t, check[2], "st-value");
+				st.render.renderTd(t, check[3], "st-value");
+				st.render.renderTd(t, check[4], "st-value");
+				st.render.renderTd(t, "", "st-value");
+				t.push("</th>");	
+			t.push("</tr>");
+			termCount++;
+		});
+		
+		var dispTerm = "Tour Length (years)"
+		var advancedYears = spec.advancedOfficers ? 1 : 0;
+		t.push("<tr>");
+			st.render.renderTd(t, dispTerm, "st-division-name");
+				st.render.renderTd(t, 5, "st-value");
+				st.render.renderTd(t, 15, "st-value");
+				st.render.renderTd(t, 1, "st-value");
+				st.render.renderTd(t, 1, "st-value");
+				st.render.renderTd(t, 1, "st-value");
+				st.render.renderTd(t, 1, "st-value");
+				st.render.renderTd(t, 1, "st-value");
+				st.render.renderTd(t, advancedYears, "st-value");
+		t.push("</tr>");
+
+		var dispTerm = "Efficiency Report (%)"
+		t.push("<tr>");
+			st.render.renderTd(t, dispTerm, "st-division-name");
+		t.push("</tr>");
+		
+		t.push("</table>");
+		$h.append(t.join(""));
+
+		st.character.$pageft.append($h);		
 	}
 };
