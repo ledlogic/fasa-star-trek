@@ -271,24 +271,24 @@ st.render = {
 		// titles
 		t.push("<tr>");
 			st.render.renderTh(t, "", "st-division-name st-tour-name", 2);
-			t.push("<th class=\"st-tour-names\" colspan=\"8\">");	
-			st.render.renderSpan(t, "Pre-Education", "st-tour-name");
-			st.render.renderSpan(t, "The Education", "st-tour-name");
-			for (var i=0; i<5; i++) {
-				var y = i+1;
-				st.render.renderSpan(t, "Service Year " + y, "st-tour-name");
-			}
-			st.render.renderSpan(t, "Adv. Off. Train.", "st-tour-name");
-			
-			/*
-			for (var i=0; i<10;i++) {
-				st.render.renderSpan(t, "Tour " + (i+1), "st-tour-name");
-			}
-			*/
-			
+			t.push("<th class=\"st-term-names\" colspan=\"8\">");	
+				st.render.renderSpan(t, "Pre-Education", "st-tour-name");
+				st.render.renderSpan(t, "The Education", "st-tour-name");
+				for (var i=0; i<5; i++) {
+					var y = i+1;
+					st.render.renderSpan(t, "Service Year " + y, "st-tour-name");
+				}
+				st.render.renderSpan(t, "Adv. Off. Train.", "st-tour-name");
 			t.push("</th>");	
-			st.render.renderTh(t, "", "st-tour-name-spacer");
-			st.render.renderTh(t, "", "st-tour-name-spacer");
+			st.render.renderTh(t, "", "st-term-name-spacer");
+			st.render.renderTh(t, "", "st-term-name-spacer");
+			
+			t.push("<th class=\"st-tour-names\" colspan=\"10\">");	
+				for (var i=0; i<10; i++) {
+					var y = i+1;
+					st.render.renderSpan(t, "Tour " + y, "st-tour-name");
+				}
+			t.push("</th>");
 		t.push("</tr>");
 		
 		// checkboxes
@@ -324,16 +324,12 @@ st.render = {
 				st.render.renderTd(t, "", "st-value");
 				st.render.renderTd(t, "", "st-value-spacer");
 				st.render.renderTd(t, "", "st-value-spacer");
-
-				/*
+				
 				for (var i=0; i<10;i++) {
 					var tourDuty = st.gen.genTourDuty(i);
-					if (key == tourDuty) {
-						check[i] = "✓";
-					}
-					st.render.renderTd(t, check[i], "st-value");
+					var check = "";
+					st.render.renderTd(t, check, "st-value");
 				}
-				*/
 
 				t.push("</th>");	
 			t.push("</tr>");
@@ -355,6 +351,13 @@ st.render = {
 				st.render.renderTd(t, advancedYears, "st-value");
 				st.render.renderTd(t, "", "st-value-spacer");
 				st.render.renderTd(t, "", "st-value-spacer");
+
+				for (var i=0; i<10;i++) {
+					var tourDuty = st.gen.genTourDuty(i);
+					var check = "";
+					st.render.renderTd(t, check, "st-value");
+				}
+
 		t.push("</tr>");
 
 		// efficiency reports
@@ -373,6 +376,13 @@ st.render = {
 			st.render.renderTd(t, "", "st-value");
 			st.render.renderTd(t, "", "st-value-spacer");
 			st.render.renderTd(t, "", "st-value-spacer");
+
+			for (var i=0; i<10;i++) {
+				var tourDuty = st.gen.genTourDuty(i);
+				var check = "";
+				st.render.renderTd(t, check, "st-value");
+			}
+
 		t.push("</tr>");
 		
 		t.push("</table>");

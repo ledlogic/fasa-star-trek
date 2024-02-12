@@ -514,6 +514,11 @@ th.st-tour-name.st-division-name {
 	padding-left: 40px;
 }
 
+.st-service-experience th.st-term-name-spacer {
+	border: 1px solid transparent;
+	border-bottom: none;
+}
+
 .st-service-experience th.st-tour-name-spacer {
 	border: 1px solid transparent;
 	border-bottom: none;
@@ -522,6 +527,23 @@ th.st-tour-name.st-division-name {
 .st-service-experience th.st-assignment {
 	border: 1px solid transparent;
 	width: 222px;
+}
+
+.st-service-experience th.st-term-names {
+	border: none;
+	overflow: visible; 	
+	text-wrap: nowrap;
+}
+
+.st-term-name {
+	display: inline-block;
+	font-weight: normal;
+	font-size: 10px;
+	padding-left: 4px;
+	text-wrap: nowrap;
+	transform: rotate(-60deg);
+	width: 20px;
+	writing-mode: horizontal-tb;
 }
 
 .st-service-experience th.st-tour-names {
