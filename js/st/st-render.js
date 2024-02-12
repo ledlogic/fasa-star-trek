@@ -120,6 +120,9 @@ st.render = {
 
 		var spec = st.character.spec;
 		var overview = spec.overview;
+		
+		var $img = $("<img class=\"st-logo\" src=\"img/st-romulan.png\" />");
+		st.character.$pageft.append($img);
 
 		// page
 		var $overview = $("<div class=\"st-section st-overview\"></div>");

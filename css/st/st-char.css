@@ -35,6 +35,13 @@
 	font-weight: bold;
 }
 
+.st-logo {
+	height: 100px;
+    top: 10px;
+    position: absolute;
+    left: 50px;
+}
+
 /* border */
 
 .st-item {
