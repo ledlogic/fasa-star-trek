@@ -356,7 +356,7 @@ st.render = {
 					st.logObj("tourDuty[" + i + "]", tourDuty);
 
 					var tourCheck = "";
-					if (tourDuty) {
+					if (termCount == tourDuty) {
 						tourCheck = "✓";						
 					}				
 					st.render.renderTd(t, tourCheck, "st-value");

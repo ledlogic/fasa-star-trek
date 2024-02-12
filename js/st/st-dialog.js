@@ -1653,8 +1653,11 @@ st.dialog = {
 		var duty = "";
 		if (tourIndex === 0) {
 			duty = st.gen.genLastTermDuty();
-			st.log("duty[" + duty + "]");
+		} else {
+			duty = st.gen.genNextBestTermDuty();
 		}
+		st.log("duty[" + duty + "]");
+		tour.duty = duty;
 
 		// compute oer
 		var oer = st.gen.genTourOer();

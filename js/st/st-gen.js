@@ -413,5 +413,75 @@ st.gen = {
 		ret = tourObj.oer;
 		st.log("ret[" + ret + "]");
 		return ret;
-	}
+	},
+	
+	genNextBestTermDuty: function() {
+		st.log("genNextBestTermDuty");
+		
+		var spec = st.character.spec;
+		var tours = spec.tours;
+		st.logObj("tours", tours);
+		
+		// fault-tolerance for jump-testing
+		if (!tours || tours.length) {
+			return 0;
+		}
+		
+		var tour = tours[tours.length - 1];
+		st.logObj("tour", tour);
+
+		var termDuty = term.termDuty;
+		st.log("termDuty[" + termDuty + "]");
+
+		if (tour.oem < 50) {
+			termDuty = st.gen.genTermDutyAssignment();
+		}
+
+		return termDuty;
+	},
+	
+	genTermDutyAssignment: function() {
+		st.log("genTermDutyAssignment");
+		
+		var roll = st.math.dieN(100);
+		st.log("roll0[ "+ roll + "]");
+
+		var mod = st.gen.genAssignmentLucMod();
+		roll += mod;
+		st.log("roll1[ "+ roll + "]");
+		
+		var duty = 0;
+		if (roll >= 61) {
+			duty = 0;
+		} else if (roll >= 36) {
+			duty = 1;
+		} else if (roll >= 16) {
+			duty = 2;
+		} else {
+			duty = 3;
+		}
+		
+		st.log("duty[ "+ duty + "]");
+		
+		return duty;
+	},
+	
+	genAssignmentLucMod: function() {
+		st.log("genAssignmentLucMod");
+		
+		var spec = st.character.spec;
+		var attributes = spec.attributes;
+		var luc = attributes.luc;
+		var ret = 0;
+		if (luc >= 60) {
+			ret = -10;
+		} else if (luc >= 50) {
+			ret = -5;
+		} else if (luc <= 30) {
+			ret = 5;
+		}
+		st.log("ret[" + ret + "]");
+		return ret;
+	},
+
 };
