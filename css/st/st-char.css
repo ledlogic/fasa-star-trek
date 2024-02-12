@@ -56,32 +56,28 @@
 
 .st-overview {
 	position: absolute;
+	font-size: 12px;
 	top: 0px;
-	left: 250px;
+	left: 208px;
 	width: 314px;
 	height: 100px;
 }
 
-.st-overview-item {
+.st-overview-item-row {
 	display: block;
+}
+
+.st-overview-item-label {
+	display: inline-block;
+	width:100px;
+}
+
+.st-overview-item {
+	border-bottom: 1px solid #000;
+	display: inline-block;
 	font-size: 12px;
 	margin-top: 0.6px;
-}
-
-.st-overview-item-rank {
-	margin-left: 64px;
-}
-
-.st-overview-item-assignment {
-	margin-left: 100px;
-}
-
-.st-overview-item-ship {
-	margin-left: 204px;
-}
-
-.st-overview-item-position {
-	margin-left: 188px;
+	width: 200px;
 }
 
 /* demographics */

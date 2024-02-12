@@ -1031,7 +1031,7 @@ st.dialog = {
 	
 	dialogGreatDuty1: function() {
 		st.log("dialogGreatDuty1");
-		st.character.spec.overview.rank = "Equatoriam";
+		st.character.spec.overview.rank = "equatoriam";
 		st.character.spec.duty = 0;
 		
 		st.dialog.dialogGreatDuty();
@@ -1043,7 +1043,7 @@ st.dialog = {
 		st.dialog.dialogGreatDuty();
 	},
 	dialogGreatDuty3: function() {
-		st.log("dialogGreatDuty2");
+		st.log("dialogGreatDuty3");
 		st.character.spec.duty = 2;
 		
 		st.dialog.dialogGreatDuty();
@@ -1576,6 +1576,7 @@ st.dialog = {
 		st.log("tourCount[" + tourCount + "]");
 		
 		spec.destinedRankKey = rankKey;
+		spec.overview.rank = rankKey;
 		spec.tourCount = tourCount;
 		spec.tourIndex = 0;
 
@@ -1720,7 +1721,7 @@ st.dialog = {
 			st.log(key + ":" + value);
 			specSkills[key] += value;
 		}
-
+		
 		st.skills.maxCheck();
 		st.dialog.hideTour();
 		st.render.renderChar();

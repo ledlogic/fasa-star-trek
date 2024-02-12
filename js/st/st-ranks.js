@@ -1,4 +1,7 @@
 st.ranks = {
+	"equatoriam": {
+		"tourMod": 0
+	},
 	"secundam": {
 		"tourMod": 0
 	},

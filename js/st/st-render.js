@@ -124,6 +124,13 @@ st.render = {
 		// page
 		var $overview = $("<div class=\"st-section st-overview\"></div>");
 		_.each(overview, function(value, key) {
+			var k = key + "";
+			if (!key) {
+				k = "&nbsp;";
+			} else {
+				k = _.keyToLabel(key);
+			}
+
 			var h = value + "";
 			if (h.indexOf(",") > -1) {
 				h = h.split(",");
@@ -131,9 +138,14 @@ st.render = {
 			}
 			if (!h) {
 				h = "&nbsp;";
+			} else {
+				h = _.keyToLabel(h);
 			}
-			$elm = $("<span class=\"st-item st-overview-item st-overview-item-" + key + "\">" + h + "</span>");
-			$overview.append($elm);
+			
+			var $div = $("<div class=\"st-overview-item-row st-overview-item-" + key + "\"></div>");
+			$div.append("<span class=\"st-overview-item-label st-overview-item-" + key + "\">" + k + "</span>");
+			$div.append("<span class=\"st-overview-item st-overview-item-" + key + "\">" + h + "</span>");
+			$overview.append($div);
 		});
 		st.character.$pageft.append($overview);
 	},
@@ -280,11 +292,16 @@ st.render = {
 				}
 				st.render.renderSpan(t, "Adv. Off. Train.", "st-tour-name");
 			t.push("</th>");	
-			st.render.renderTh(t, "", "st-term-name-spacer");
-			st.render.renderTh(t, "", "st-term-name-spacer");
+			st.render.renderTh(t, "", "st-tour-name-spacer");
+			st.render.renderTh(t, "", "st-tour-name-spacer");
 			
 			t.push("<th class=\"st-tour-names\" colspan=\"10\">");	
 				for (var i=0; i<10; i++) {
+					var oer = st.gen.genTourDutyOer(i);
+					if (!oer) {
+						break;
+					}
+
 					var label = "Tour " + (i+1);
 					st.render.renderSpan(t, label, "st-tour-name");
 				}
@@ -299,6 +316,9 @@ st.render = {
 			st.log("value[" + value + "]");
 			
 			var term = value.title;
+			st.logObj("term", term);
+			
+			// terms
 			var check = [];
 			for (var i=0; i<6; i++) {
 				check[i] = "";	
@@ -324,11 +344,22 @@ st.render = {
 				st.render.renderTd(t, "", "st-value");
 				st.render.renderTd(t, "", "st-value-spacer");
 				st.render.renderTd(t, "", "st-value-spacer");
-				
+
+				// tours				
 				for (var i=0; i<10;i++) {
+					var oer = st.gen.genTourDutyOer(i);
+					if (!oer) {
+						break;
+					}
+
 					var tourDuty = st.gen.genTourDuty(i);
-					var check = "";
-					st.render.renderTd(t, check, "st-value");
+					st.logObj("tourDuty[" + i + "]", tourDuty);
+
+					var tourCheck = "";
+					if (tourDuty) {
+						tourCheck = "✓";						
+					}				
+					st.render.renderTd(t, tourCheck, "st-value");
 				}
 
 				t.push("</th>");	
@@ -353,6 +384,11 @@ st.render = {
 			st.render.renderTd(t, "", "st-value-spacer");
 
 			for (var i=0; i<10;i++) {
+				var oer = st.gen.genTourDutyOer(i);
+				if (!oer) {
+					break;
+				}
+
 				var value = st.gen.genTourDutyLength(i);
 				if (!value) {
 					value = "";
@@ -379,6 +415,11 @@ st.render = {
 			st.render.renderTd(t, "", "st-value-spacer");
 
 			for (var i=0; i<10;i++) {
+				var oer = st.gen.genTourDutyOer(i);
+				if (!oer) {
+					break;
+				}
+
 				var value = st.gen.genTourDutyOer(i);
 				if (!value) {
 					value = "";
