@@ -1644,7 +1644,7 @@ st.dialog = {
 		// end age
 		var endAge = startAge + tourLength;
 		st.log("tourLength[" + tourLength + "]");
-		tour.endAge = tourLength;
+		tour.endAge = endAge;
 		
 		st.character.setAge(startAge + "-" + endAge + " years");
 				

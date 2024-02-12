@@ -508,6 +508,11 @@ th.st-tour-name.st-division-name {
 	font-size: 10px;
 }
 
+.st-service-experience th.st-tour-name-spacer {
+	border: 1px solid transparent;
+	border-bottom: none;
+}
+
 .st-service-experience th.st-assignment {
 	border: 1px solid transparent;
 	width: 222px;

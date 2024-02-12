@@ -75,7 +75,7 @@ st.gen = {
 			//"dialogAttributes",
 			//"dialogBeginning",
 			//"dialogBeginningElectives",
-			"dialogTheBroadening",
+			//"dialogTheBroadening",
 			//"dialogBroadeningElectives",
 			//"dialogBroadeningAdvancedTraining",
 			//"dialogComingTogether",
@@ -87,9 +87,9 @@ st.gen = {
 			//"dialogGreatDuty4",
 			//"dialogGreatDuty5",
 			//"dialogAdvancedOfficersTraining",
-			"dialogTourNumber",
-			"dialogTours",
-			"dialogCleanup"
+			//"dialogTourNumber",
+			//"dialogTours",
+			//"dialogCleanup"
 		];
 		
 		setTimeout(st.gen.nextStep(),50);
@@ -297,7 +297,8 @@ st.gen = {
 	
 	genLastTermDuty: function() {
 		st.log("genLastTermDuty");
-		var terms = st.character.spec.terms;
+		var spec = st.character.spec;
+		var terms = spec.terms;
 		st.logObj("terms", terms);
 		
 		// fault-tolerance for jump-testing
@@ -313,7 +314,8 @@ st.gen = {
 	},
 	
 	genTourSkillRollsIntMod: function() {
-		var attributes = st.character.spec.attributes;
+		var spec = st.character.spec;
+		var attributes = spec.attributes;
 		var int = attributes.int;
 		var ret = 0;
 		if (int >= 70) {
@@ -325,7 +327,8 @@ st.gen = {
 	},
 	
 	genTourSkillRollsLucMod: function() {
-		var attributes = st.character.spec.attributes;
+		var spec = st.character.spec;
+		var attributes = spec.attributes;
 		var luc = attributes.luc;
 		var ret = 0;
 		if (luc >= 60) {
@@ -333,4 +336,20 @@ st.gen = {
 		} 
 		return ret;
 	},
+	
+	genTourDuty: function(tour) {
+		var spec = st.character.spec;
+		var tours = spec.tours;
+		if (!tours) {
+			return -1;
+		}
+		if (tours.length<tour) {
+			return -1;
+		}
+		var tour = tours[tour];
+		if (!tour) {
+			return -1;
+		}
+		return tour.duty;
+	}
 };
