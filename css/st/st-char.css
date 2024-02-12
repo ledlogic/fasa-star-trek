@@ -490,6 +490,7 @@
 
 .st-division-name,
 th.st-tour-name.st-division-name {
+	border: none;
 	width: 200px;
 	transform: inherit;
 	writing-mode: inherit;
@@ -506,6 +507,11 @@ th.st-tour-name.st-division-name {
 	height: 20px;
 	font-weight: normal;
 	font-size: 10px;
+}
+
+.st-service-experience td.st-division-name {
+	border: none;
+	padding-left: 40px;
 }
 
 .st-service-experience th.st-tour-name-spacer {
@@ -537,4 +543,8 @@ th.st-tour-name.st-division-name {
 
 .st-assignment-table .st-value {
 	text-align: center;
+}
+
+.st-assignment-table .st-value-spacer {
+	border: none;
 }

@@ -314,16 +314,16 @@ st.render = {
 			var dispTerm = _.keyToLabel(term);
 			t.push("<tr>");
 				st.render.renderTd(t, dispTerm, "st-division-name");
-				st.render.renderTd(t, "", "st-value");
-				st.render.renderTd(t, "", "st-value");
+				st.render.renderTd(t, "", "st-value-spacer");
+				st.render.renderTd(t, "", "st-value-spacer");
 				st.render.renderTd(t, check[0], "st-value");
 				st.render.renderTd(t, check[1], "st-value");
 				st.render.renderTd(t, check[2], "st-value");
 				st.render.renderTd(t, check[3], "st-value");
 				st.render.renderTd(t, check[4], "st-value");
 				st.render.renderTd(t, "", "st-value");
-				st.render.renderTd(t, "", "st-value");
-				st.render.renderTd(t, "", "st-value");
+				st.render.renderTd(t, "", "st-value-spacer");
+				st.render.renderTd(t, "", "st-value-spacer");
 
 				/*
 				for (var i=0; i<10;i++) {
@@ -353,16 +353,16 @@ st.render = {
 				st.render.renderTd(t, 1, "st-value");
 				st.render.renderTd(t, 1, "st-value");
 				st.render.renderTd(t, advancedYears, "st-value");
-				st.render.renderTd(t, "", "st-value");
-				st.render.renderTd(t, "", "st-value");
+				st.render.renderTd(t, "", "st-value-spacer");
+				st.render.renderTd(t, "", "st-value-spacer");
 		t.push("</tr>");
 
 		// efficiency reports
 		var dispTerm = "Efficiency Report (%)"
 		t.push("<tr>");
 			st.render.renderTd(t, dispTerm, "st-division-name");
-			st.render.renderTd(t, "", "st-value");
-			st.render.renderTd(t, "", "st-value");
+			st.render.renderTd(t, "", "st-value-spacer");
+			st.render.renderTd(t, "", "st-value-spacer");
 			
 			var terms = st.character.spec.terms;
 			_.each(terms, function(term) {
@@ -371,8 +371,8 @@ st.render = {
 			});
 
 			st.render.renderTd(t, "", "st-value");
-			st.render.renderTd(t, "", "st-value");
-			st.render.renderTd(t, "", "st-value");
+			st.render.renderTd(t, "", "st-value-spacer");
+			st.render.renderTd(t, "", "st-value-spacer");
 		t.push("</tr>");
 		
 		t.push("</table>");
