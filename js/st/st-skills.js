@@ -445,7 +445,11 @@ st.skills = {
 	},
 	maxCheck: function() {
 		st.log("maxCheck");
-		var skills = st.skills.withValue(st.character.skills);
+		
+		var spec = st.character.spec;
+		var skills = spec.skills;
+		skills = st.skills.withValue(skills);
+		
 		_.each(skills, function(value, skill) {
 			if (value > 99) {
 				st.log("lowering skill[" + skill + "]");

@@ -1772,6 +1772,10 @@ st.dialog = {
 			specSkills[key] += value;
 		}
 		
+		var age = st.gen.genPostTrainingAge();
+		spec.demographics.age = age;
+		st.render.renderAge();
+		
 		st.skills.maxCheck();
 		st.dialog.hideTour();
 		st.render.renderChar();

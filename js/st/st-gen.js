@@ -286,24 +286,27 @@ st.gen = {
 		st.log("genPostTrainingAge");
 		
 		var spec = st.character.spec;
-		
-		// if tours, max age is from tours.		
-		var tours = spec.tours;
-		var length = tours.length;
-		if (length) {
-			age = tours[length-1].endAge;
-		}
-		
+
 		// otherside, training age
 		var age = 25;
 		
 		// add advanced officers
 		var advancedOfficers = spec.advancedOfficers;
 		st.log("advancedOfficers[" + advancedOfficers + "]");
-		st.log("genLastTermDuty");
 		age += advancedOfficers ? 1 : 0;
+		st.log("age0[" + age + "]");
+
+		// if tours, max age is from tours.		
+		var tours = spec.tours;
+		_.each(tours, function(tour) {
+			var len = tour.tourLength;
+			if (len) {
+				st.log("len[" + len + "]");
+				age += len;
+			}			
+		});
 		
-		st.log("age[" + age + "]");
+		st.log("age1[" + age + "]");
 		return age;
 	},
 	
