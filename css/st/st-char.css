@@ -24,7 +24,6 @@
 	position: absolute;
 	top:0;
 	left:0;
-    border: 1px solid #000;
     width: 748px;
     display: block;
     height: 810px;
@@ -138,9 +137,16 @@
 
 /* endurance */
 
-.st-endurance {
+.st-endurance-1 {
 	position: absolute;
 	top: 138px;
+	left: 78px;
+	width: 614px;
+}
+
+.st-endurance-2 {
+	position: absolute;
+	top: 148px;
 	left: 78px;
 	width: 614px;
 }
@@ -160,7 +166,7 @@
 .st-endurance-item label {
 	position: absolute;
 	font-size: 0.8em;
-	left: 8px;
+	left: 4px;
 	text-transform: uppercase; 
 }
 
@@ -456,28 +462,32 @@
 	height: 100px;
 	left: 428px;
 	position: absolute;
-	top: 244px;
+	top: 138px;
 	width: 264px;
 }
 
 .st-item.st-tohit {
 	display: inline-block;
 	font-size: 10px;
-	height: 26px;
-	margin: 1px;
-	padding: 8px 2px 0 0;
+	font-weight: bold;
+	height: 16px;
+	margin: 0 0 0 0;
+	padding: 0 0 0 72px;
+	position: relative;
+	text-align: center;
+	width: 87.4px;
+}
+
+.st-item.st-tohit label {
 	position: absolute;
-	text-align: right;
-	width: 86px;
+	font-size: 0.8em;
+	left: 4px;
+	text-align: left;
+	text-transform: uppercase; 
 }
 
-.st-tohit-hth {
-	left: 87px;
-}
-
-.st-tohit-bareDamage {
-	left: 90px;
-	top: 24px;
+.st-item.st-tohit.st-tohit-bare {
+	width: 174.8px;
 }
 
 .st-disabled {

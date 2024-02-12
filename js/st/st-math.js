@@ -22,5 +22,14 @@ st.math = {
 		ret = Math.max(min, ret);
 		ret = Math.min(max, ret);
 		return ret;
+	},
+	averageUp: function() {
+		var tot = 0;
+		var len = arguments.length;
+		for (var i=0; i<len; i++) {
+			tot += arguments[i] ? arguments[i] : 0;
+		}
+		var ret = Math.ceil(tot / len);
+		return ret;
 	}
 };

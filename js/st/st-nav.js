@@ -11,8 +11,8 @@ st.nav = {
 		var $sel = $(this);
 		var allegiance = $sel.val();
 		if ("romulan" == allegiance) {
-			st.gen.genRomulan(allegiance);
 			st.nav.hideNav();			
+			st.gen.genRomulan(allegiance);
 		} else {
 			alert("Allegiance not available yet: " + allegiance);
 		}		

@@ -452,6 +452,7 @@ st.skills = {
 				skills[skill] = 99;
 			}
 		});
+		st.gen.genWeapons();
 	},
 	removeDuplicates: function(skills) {
 		st.log("removeDuplicates");

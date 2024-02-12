@@ -62,14 +62,6 @@ st.render = {
 			$attr.append($elm);
 		}
 
-		/*
-		var y = (18 - ap) * 42.5;
-		$elm = $("<span class=\"st-item st-action-point\""
-			+ " style=\"top: " + y + "px\""
-			+ "></span>");
-		$attr.append($elm);
-		*/
-		
 		st.character.$pageft.append($attr);
 	},
 	renderAttributes: function() {
@@ -130,13 +122,29 @@ st.render = {
 		endurance.fathealrate = Math.floor(attr.end / 10);	
 		
 		// endurance
-		var $endurance = $("<div class=\"st-section st-endurance\"></div>");
+		var $endurance1 = $("<div class=\"st-section st-endurance-1\"></div>");
+		var cnt = 0;
 		_.each(endurance, function(value, key) {
-			var h = value;
-			$elm = $("<span class=\"st-item st-endurance-item st-endurance-item-" + key + "\"><label>" + key + "</label>" + h + "</span>");
-			$endurance.append($elm);
+			if (cnt < 4) {
+				var h = value;
+				$elm = $("<span class=\"st-item st-endurance-item st-endurance-item-" + key + "\"><label>" + key + "</label>" + h + "</span>");
+				$endurance1.append($elm);
+			}			
+			cnt++;
 		});
-		st.character.$pageft.append($endurance);
+		st.character.$pageft.append($endurance1);
+		
+		var $endurance2 = $("<div class=\"st-section st-endurance-2\"></div>");
+		var cnt = 0;
+		_.each(endurance, function(value, key) {
+			if (cnt >= 4) {
+				var h = value;
+				$elm = $("<span class=\"st-item st-endurance-item st-endurance-item-" + key + "\"><label>" + key + "</label>" + h + "</span>");
+				$endurance2.append($elm);
+			}
+			cnt++;
+		});
+		st.character.$pageft.append($endurance2);
 	},
 	renderOverview: function() {
 		st.log("rendering overview");
@@ -180,6 +188,9 @@ st.render = {
 
 		var spec = st.character.spec;
 		var skills = st.skills.withValue(spec.skills);
+		if (skills.length === 0) {
+			return;
+		}
 		var skillMap = {};
 		_.each(skills, function(key) {
 			var value = spec.skills[key];
@@ -245,7 +256,7 @@ st.render = {
 		return ret;
 	},
 	renderToHits: function() {
-		st.log("rendering to hits");
+		st.log("renderToHits");
 		
 		var spec = st.character.spec;
 
@@ -253,7 +264,8 @@ st.render = {
 		var $tohits = $("<div class=\"st-section st-tohits\"></div>");
 		_.each(tohits, function(value, key) {
 			var h = value;
-			var $elm = $("<span class=\"st-item st-tohit st-tohit-" + key + "\" title=\"" + key.toUpperCase() + "\"><label>" + key + "</label>" + h + "</span>");
+			var label = (key != "bare" ? "TO HIT, " : "") + _.keyToLabel(key) + (key == "bare" ? " HAND DAMAGE" : "");
+			var $elm = $("<span class=\"st-item st-tohit st-tohit-" + key + "\" title=\"" + key.toUpperCase() + "\"><label>" + label + "</label>" + h + "</span>");
 			$tohits.append($elm);
 		});
 		st.character.$pageft.append($tohits);
@@ -262,9 +274,6 @@ st.render = {
 		var $status = $(".st-status");
 		$status.removeClass("st-hidden");
 		$("#st-status-current").html(status);
-	},
-	hideNav: function() {
-		$(".st-nav.row").hide();		
 	},
 	renderAge: function() {
 		st.log("render age");

@@ -11,20 +11,33 @@ st.gen = {
 		st.log("init gen");
 	},
 	genWeapons: function() {
-		try {
-			var spec = st.character.spec;
-			
-			var str = spec.attributes["str"];
-			var dex = spec.attributes["dex"];
-			var unarmed = skills1["personal-combat-unarmed"];
-				
-			spec.tohits = {
-				"modern": st.gen.charAverageStat(dex, skills1["marksmanship-modern-weapon"]),
-				"hth": st.gen.charAverageStat(dex, unarmed),
-				"bareDamage": st.gen.genBareHandDamage(str, unarmed)
-			};
-		} catch (e) {
-		}
+		var spec = st.character.spec;
+		
+		var str = spec.attributes["str"];
+		var dex = spec.attributes["dex"];
+		var dsSkill = spec.skills["personal-combat-armed:-dueling-stick"];
+		var unarmedSkill = spec.skills["personal-combat-unarmed"];
+		var modernSkill = spec.skills["marksmanship-modern"];
+		var modern = st.math.averageUp(dex, modernSkill);
+		var hth = st.math.averageUp(dex, unarmedSkill);
+		var ds = st.math.averageUp(dex, dsSkill);
+		var bare = st.gen.genBareHandDamage(str, unarmedSkill);
+		
+		console.log("str[" + str + "]");
+		console.log("dex[" + dex + "]");
+		console.log("unarmedSkill[" + unarmedSkill + "]");
+		console.log("modernSkill[" + modernSkill + "]");
+		console.log("modern[" + modern + "]");
+		console.log("hth[" + hth + "]");
+		console.log("ds[" + ds + "]");
+		console.log("bare[" + bare + "]");
+					
+		spec.tohits = {
+			"modern": modern,
+			"hth": hth,
+			"ds": ds,
+			"bare": bare
+		};
 	},
 	genBareHandDamage: function(str, unarmed) {
 		var die = 0;
@@ -46,7 +59,7 @@ st.gen = {
 			die = 2;
 			mod = 3;  
 		}
-		mod += Math.floor(unarmed / 10);
+		mod += Math.floor(unarmed / 10.0);
 		return die + "D10" + (mod < 0 ? mod : "") + (mod > 0 ? "+" + mod : "");
 	},
 	genRomulan: function(race) {
@@ -65,10 +78,7 @@ st.gen = {
 		st.gen.genDemographics(race);
 		st.gen.genAttributes();
 		st.gen.genSkills();
-		st.gen.genWeapons();
-		
-		setTimeout(st.render.hideNav, 10);
-		setTimeout(st.render.renderChar, 10);
+		st.gen.genWeapons();		
 		
 		st.gen.step = -1;
 		st.gen.steps = [
@@ -92,7 +102,9 @@ st.gen = {
 			"dialogCleanup"
 		];
 		
-		setTimeout(st.gen.nextStep(),50);
+		setTimeout(st.render.hideNav, 10);
+		setTimeout(st.render.renderChar, 10);
+		setTimeout(st.gen.nextStep(), 100);
 	},
 	
 	nextStep: function() {

@@ -8,8 +8,8 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
-	top: 20%;
+	position: absolute;
+	top: 10%;
 	left: 10%;
 	height: 294px;
 	width: 80%;
@@ -54,8 +54,8 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
-	top: 20%;
+	position: absolute;
+	top: 10%;
 	left: 10%;
 	height: 294px;
 	width: 80%;
@@ -94,8 +94,8 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
-	top:20%;
+	position: absolute;
+	top: 10%;
 	left: 10%;
 	height: 358px;
 	width: 80%;
@@ -125,7 +125,7 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
+	position: absolute;
 	top: 10%;
 	left: 10%;
 	height: 616px;
@@ -178,7 +178,7 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
+	position: absolute;
 	top: 10%;
 	left: 10%;
 	height: 160px;
@@ -227,7 +227,7 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
+	position: absolute;
 	top: 10%;
 	left: 10%;
 	height: 182px;
@@ -276,8 +276,8 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
-	top: 20%;
+	position: absolute;
+	top: 10%;
 	left: 10%;
 	height: 470px;
 	width: 80%;
@@ -321,10 +321,10 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
+	position: absolute;
 	top: 10%;
 	left: 10%;
-	height: 382px;
+	height: 404px;
 	width: 80%;
 	box-shadow: 2px 2px 2px 0px #228b22;
 }
@@ -370,7 +370,7 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
+	position: absolute;
 	top: 10%;
 	left: 10%;
 	height: 358px;
@@ -419,8 +419,8 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
-	top: 20%;
+	position: absolute;
+	top: 10%;
 	left: 10%;
 	height: 436px;
 	width: 80%;
@@ -469,8 +469,8 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
-	top: 20%;
+	position: absolute;
+	top: 10%;
 	left: 10%;
 	height: 374px;
 	width: 80%;
@@ -519,8 +519,8 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
-	top: 20%;
+	position: absolute;
+	top: 10%;
 	left: 10%;
 	height: 132px;
 	width: 80%;
@@ -569,8 +569,8 @@
 	display: block;
 	font-size: 12px;
 	padding: 10px;
-	position: relative;
-	top: 20%;
+	position: absolute;
+	top: 10%;
 	left: 10%;
 	height: 294px;
 	width: 80%;
