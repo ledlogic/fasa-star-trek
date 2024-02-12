@@ -4,7 +4,7 @@
 
 .st-page {
 	position: relative;
-	height: 774px;
+	height: 810px;
 	width: 1013px;
 	overflow: hidden;
 }
@@ -24,11 +24,10 @@
 	position: absolute;
 	top:0;
 	left:0;
-	
     border: 1px solid #000;
     width: 748px;
     display: block;
-    height: 772px;
+    height: 810px;
 }
 
 .st-status {
@@ -73,7 +72,6 @@
 }
 
 .st-overview-item {
-	border-bottom: 1px solid #000;
 	display: inline-block;
 	font-size: 12px;
 	margin-top: 0.6px;

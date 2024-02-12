@@ -144,7 +144,7 @@ st.render = {
 			
 			var $div = $("<div class=\"st-overview-item-row st-overview-item-" + key + "\"></div>");
 			$div.append("<span class=\"st-overview-item-label st-overview-item-" + key + "\">" + k + "</span>");
-			$div.append("<span class=\"st-overview-item st-overview-item-" + key + "\">" + h + "</span>");
+			$div.append("<input type=\"text\" class=\"st-overview-item st-overview-item-" + key + "\" value=\"" + h + "\" />");
 			$overview.append($div);
 		});
 		st.character.$pageft.append($overview);

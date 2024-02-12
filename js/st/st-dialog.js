@@ -93,11 +93,15 @@ st.dialog = {
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
 			$dialog.append($elm)
 		});
-		$dialog.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-beginning-randomize\">Randomize</button>"
+			+ "<button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($dialog);
 		$dialog.hide().fadeIn();
 		st.render.renderAge();
+		$("#st-beginning-randomize").on("click", st.dialog.randomize);
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningOk);
 	},
 	selectBeginningSkill: function() {
@@ -202,9 +206,13 @@ st.dialog = {
 			$elm.append("<span class=\"st-value\" data-key=\"" + key + "\">" + value + "</span>");
 			$dialog.append($elm);
 		});
-		$dialog.append("<div class=\"st-actions\"><button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-beginning-randomize\">Randomize</button>"
+			+ "<button id=\"st-beginning-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 		st.character.$pageft.append($dialog);
 		$dialog.hide().fadeIn();
+		$("#st-beginning-randomize").on("click", st.dialog.randomize);
 		$("#st-beginning-ok").on("click", st.dialog.actionBeginningElectivesOk);
 	},
 	selectBeginningElectivesSkill: function() {
@@ -363,9 +371,14 @@ st.dialog = {
 			$scrollDiv.append($elm);
 		});
 		$broadening.append($scrollDiv);
-		$broadening.append("<div class=\"st-actions\"><button id=\"st-broadening-ok\" disabled=\"disabled\">OK</button></div>");
+		
+		$broadening.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-broadening-randomize\">Randomize</button>"
+			+ "<button id=\"st-broadening-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 		st.character.$pageft.append($broadening);
 		$broadening.hide().fadeIn();
+		$("#st-broadening-randomize").on("click", st.dialog.randomize);
 		$("#st-broadening-ok").on("click", st.dialog.actionBroadeningOk);
 	},
 	actionBroadeningOk: function() {
@@ -517,11 +530,15 @@ st.dialog = {
 			$electives.append($elm);
 		}
 		
-		$electives.append("<div class=\"st-actions\"><button id=\"st-broadening-electives-ok\" disabled=\"disabled\">OK</button></div>");
+		$electives.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-broadening-electives-randomize\">Randomize</button>"
+			+ "<button id=\"st-broadening-electives-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($electives);
 		$electives.hide().fadeIn();
 		st.render.renderAge();
+		$("#st-broadening-electives-randomize").on("click", st.dialog.randomize);
 		$("#st-broadening-electives-ok").on("click", st.dialog.actionBroadeningElectivesOk);
 	},
 	
@@ -616,11 +633,15 @@ st.dialog = {
 			$electives.append($elm);
 		}
 		
-		$electives.append("<div class=\"st-actions\"><button id=\"st-advanced-training-ok\" disabled=\"disabled\">OK</button></div>");
+		$electives.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-advanced-training-randomize\">Randomize</button>"
+			+ "<button id=\"st-advanced-training-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($electives);
 		$electives.hide().fadeIn();
 		st.render.renderAge();
+		$("#st-advanced-training-randomize").on("click", st.dialog.randomize);
 		$("#st-advanced-training-ok").on("click", st.dialog.actionBroadeningAdvancedTrainingOk);
 	},
 	
@@ -723,11 +744,15 @@ st.dialog = {
 				$dialog.append($elm);
 			});
 		});
-		$dialog.append("<div class=\"st-actions\"><button id=\"st-coming-together-ok\" disabled=\"disabled\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-coming-together-randomize\">Randomize</button>"
+			+ "<button id=\"st-coming-together-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($dialog);
 		$dialog.hide().fadeIn();
 		st.render.renderAge();
+		$("#st-coming-together-randomize").on("click", st.dialog.randomize);
 		$("#st-coming-together-ok").on("click", st.dialog.actionComingTogetherOk);
 	},
 	selectComingTogetherSkill: function() {
@@ -842,11 +867,15 @@ st.dialog = {
 			$electives.append($elm);
 		}
 		
-		$electives.append("<div class=\"st-actions\"><button id=\"st-coming-together-advanced-training-ok\" disabled=\"disabled\">OK</button></div>");
+		$electives.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-coming-together-advanced-training-randomize\">Randomize</button>"
+			+ "<button id=\"st-coming-together-advanced-training-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($electives);
 		$electives.hide().fadeIn();
 		st.render.renderAge();
+		$("#st-coming-together-advanced-training-randomize").on("click", st.dialog.randomize);
 		$("#st-coming-together-advanced-training-ok").on("click", st.dialog.actionComingTogetherAdvancedTrainingOk);
 	},
 	
@@ -959,11 +988,15 @@ st.dialog = {
 			$electives.append($elm);
 		}
 		
-		$electives.append("<div class=\"st-actions\"><button id=\"st-coming-together-outside-ok\" disabled=\"disabled\">OK</button></div>");
+		$electives.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-coming-together-outside-randomize\">Randomize</button>"
+			+ "<button id=\"st-coming-together-outside-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($electives);
 		$electives.hide().fadeIn();
 		st.render.renderAge();
+		$("#st-coming-together-outside-randomize").on("click", st.dialog.randomize);
 		$("#st-coming-together-outside-ok").on("click", st.dialog.actionComingTogetherOutsideOk);
 	},
 	
@@ -1218,14 +1251,16 @@ st.dialog = {
 		$dialog.append("<div class=\"st-oer\">OER:<span class=\"st-oer-value\">" + oer + "</span></div>");
 
 		$dialog.append("<div class=\"st-actions\">"
-		 + "<button id=\"st-great-duty-add-oer\">OER +20</button>"
-		 + "<button id=\"st-great-duty-ok\" disabled=\"disabled\">OK</button>"
-		 + "</div>");
+  			+ "<button id=\"st-great-duty-randomize\">Randomize</button>"
+			+ "<button id=\"st-great-duty-add-oer\">OER +20</button>"
+			+ "<button id=\"st-great-duty-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($dialog);
 		$dialog.hide().fadeIn();
 		st.render.renderAge();
 		st.dialog.checkAddOsrStatus();
+		$("#st-great-duty-randomize").on("click", st.dialog.randomize);
 		$("#st-great-duty-add-oer").on("click", st.dialog.actionGreatDutyAddOer);
 		$("#st-great-duty-ok").on("click", st.dialog.actionGreatDutyOk);
 		setTimeout(st.dialog.checkGreatDutyActionStatus, 10)
@@ -1408,6 +1443,7 @@ st.dialog = {
 		});
 
 		$dialog.append("<div class=\"st-actions\">"
+  			+ "<button id=\"st-advanced-officers-randomize\">Randomize</button>"
 			+ "<button id=\"st-advanced-officers-skip\">Skip Officer's Training</button>"
 			+ "<button id=\"st-advanced-officers-ok\" disabled=\"disabled\">OK</button>"
 			+ "</div>");
@@ -1416,6 +1452,7 @@ st.dialog = {
 		$dialog.hide().fadeIn();
 		st.render.renderAge();
 		st.dialog.checkAdvancedOfficersActionStatus();
+		$("#st-advanced-officers-randomize").on("click", st.dialog.randomize);
 		$("#st-advanced-officers-skip").on("click", st.dialog.actionAdvancedOfficersSkip);
 		$("#st-advanced-officers-ok").on("click", st.dialog.actionAdvancedOfficersOk);
 	},
@@ -1504,7 +1541,7 @@ st.dialog = {
 			
 		var $dialog = $("<div class=\"st-tour-number\"></div>");
 		$dialog.append("<h2 class=\"st-tour-number-header\">" + title + "</h2>");
-		$dialog.append("<span class=\"st-tour-number-instructions\">Please select a destined rank rom the choices below:</span>");
+		$dialog.append("<span class=\"st-tour-number-instructions\">Please select a destined rank from the choices below:</span>");
 		
 		var ranks = st.ranks;
 		var $choice = $("<select class=\"st-key\" data-key=\"tour-number\"></select>");
@@ -1516,12 +1553,16 @@ st.dialog = {
 		});
 		$dialog.append($choice)
 		
-		$dialog.append("<div class=\"st-actions\"><button id=\"st-tour-number-ok\" disabled=\"disabled\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-tour-number-randomize\">Randomize</button>"
+			+ "<button id=\"st-tour-number-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($dialog);
 		$dialog.hide().fadeIn();
 		
 		st.render.renderAge();
+		$("#st-tour-number-randomize").on("click", st.dialog.randomize);
 		$("#st-tour-number-ok").on("click", st.dialog.actionTourNumberOk);
 	},
 	selectTourNumber: function() {
@@ -1621,10 +1662,6 @@ st.dialog = {
 			return;
 		}
 
-		// update status		
-		var title = "Tour " + (tourIndex + 1) + "/" + tourCount;
-		st.render.renderStatus(title);
-
 		// store everything about this tour on tour object
 		if (tourIndex < tourCount) {
 			spec.tours[tourIndex] = {};
@@ -1674,9 +1711,15 @@ st.dialog = {
 		var rolls = lengthRolls + intRolls + lucRolls;
 		st.log("rolls0[" + rolls + "]");
 		rolls = Math.max(1, rolls);
+
+		// update status		
+		var tourTitle = st.skills.romulanGreatDutyTerms[tour.duty].title;
+		tourTitle = _.keyToLabel(tourTitle);
+		var title = "Tour " + (tourIndex + 1) + "/" + tourCount + ": " + tourTitle;
+		st.render.renderStatus(title);
 		
 		// special - debugging
-		rolls = 1;
+		// rolls = 1;
 		
 		st.log("rolls1[" + rolls + "]");
 		tour.rolls = rolls;
@@ -1684,7 +1727,7 @@ st.dialog = {
 		var skills = st.skills.baseSkills;
 		var $dialog = $("<div class=\"st-tour\"></div>");
 		$dialog.append("<h2 class=\"st-tour-header\">" + title + "</h2>");
-		
+
 		$dialog.append("<span class=\"st-tour-instructions\">Please select from the choices below:</span>");
 	
 		var outsideValue = "1d10";
@@ -1702,12 +1745,16 @@ st.dialog = {
 			$dialog.append($elm);
 		}
 		
-		$dialog.append("<div class=\"st-actions\"><button id=\"st-tour-ok\" disabled=\"disabled\">OK</button></div>");
+		$dialog.append("<div class=\"st-actions\">"
+			+ "<button id=\"st-tour-randomize\">Randomize</button>"
+			+ "<button id=\"st-tour-ok\" disabled=\"disabled\">OK</button>"
+			+ "</div>");
 
 		st.character.$pageft.append($dialog);
 		$dialog.hide().fadeIn();
 		st.render.renderAge();
 		st.dialog.checkTourActionStatus();
+		$("#st-tour-randomize").on("click", st.dialog.randomize);
 		$("#st-tour-ok").on("click", st.dialog.actionTourOk);
 	},
 	actionTourOk: function() {
@@ -1776,5 +1823,16 @@ st.dialog = {
 		st.log("dialogCleanup");
 		
 		$(".st-status").hide();
+	},
+	
+	randomize: function() {
+		st.log("randomize");	
+		var $sels = $("select");
+		_.each($sels, function(sel) {
+			var opts = $(sel).find("option[value!='']");
+			var i = st.math.dieArray(opts);
+			$(opts[i]).prop('selected', true);
+			$(sel).trigger("change");
+		});
 	}
 };

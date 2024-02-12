@@ -11,15 +11,13 @@ st.nav = {
 		var $sel = $(this);
 		var allegiance = $sel.val();
 		if ("romulan" == allegiance) {
-			st.gen.genRomulan(allegiance);			
+			st.gen.genRomulan(allegiance);
+			st.nav.hideNav();			
 		} else {
 			alert("Allegiance not available yet: " + allegiance);
 		}		
 	},
-	showLinks: function() {
-		$(".st-nav-links").show();
-	},
-	hideLinks: function() {
-		$(".st-nav-links").hide();
+	hideNav: function() {
+		$(".st-nav").remove();
 	}
 };
