@@ -285,8 +285,8 @@ st.render = {
 			
 			t.push("<th class=\"st-tour-names\" colspan=\"10\">");	
 				for (var i=0; i<10; i++) {
-					var y = i+1;
-					st.render.renderSpan(t, "Tour " + y, "st-tour-name");
+					var label = "Tour " + (i+1);
+					st.render.renderSpan(t, label, "st-tour-name");
 				}
 			t.push("</th>");
 		t.push("</tr>");
@@ -341,23 +341,24 @@ st.render = {
 		var advancedYears = spec.advancedOfficers ? 1 : 0;
 		t.push("<tr>");
 			st.render.renderTd(t, dispTerm, "st-division-name");
-				st.render.renderTd(t, 5, "st-value");
-				st.render.renderTd(t, 15, "st-value");
-				st.render.renderTd(t, 1, "st-value");
-				st.render.renderTd(t, 1, "st-value");
-				st.render.renderTd(t, 1, "st-value");
-				st.render.renderTd(t, 1, "st-value");
-				st.render.renderTd(t, 1, "st-value");
-				st.render.renderTd(t, advancedYears, "st-value");
-				st.render.renderTd(t, "", "st-value-spacer");
-				st.render.renderTd(t, "", "st-value-spacer");
+			st.render.renderTd(t, 5, "st-value");
+			st.render.renderTd(t, 15, "st-value");
+			st.render.renderTd(t, 1, "st-value");
+			st.render.renderTd(t, 1, "st-value");
+			st.render.renderTd(t, 1, "st-value");
+			st.render.renderTd(t, 1, "st-value");
+			st.render.renderTd(t, 1, "st-value");
+			st.render.renderTd(t, advancedYears, "st-value");
+			st.render.renderTd(t, "", "st-value-spacer");
+			st.render.renderTd(t, "", "st-value-spacer");
 
-				for (var i=0; i<10;i++) {
-					var tourDuty = st.gen.genTourDuty(i);
-					var check = "";
-					st.render.renderTd(t, check, "st-value");
+			for (var i=0; i<10;i++) {
+				var value = st.gen.genTourDutyLength(i);
+				if (!value) {
+					value = "";
 				}
-
+				st.render.renderTd(t, value, "st-value");
+			}
 		t.push("</tr>");
 
 		// efficiency reports
@@ -378,9 +379,11 @@ st.render = {
 			st.render.renderTd(t, "", "st-value-spacer");
 
 			for (var i=0; i<10;i++) {
-				var tourDuty = st.gen.genTourDuty(i);
-				var check = "";
-				st.render.renderTd(t, check, "st-value");
+				var value = st.gen.genTourDutyOer(i);
+				if (!value) {
+					value = "";
+				}
+				st.render.renderTd(t, value, "st-value");
 			}
 
 		t.push("</tr>");

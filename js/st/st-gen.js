@@ -87,9 +87,9 @@ st.gen = {
 			//"dialogGreatDuty4",
 			//"dialogGreatDuty5",
 			//"dialogAdvancedOfficersTraining",
-			//"dialogTourNumber",
-			//"dialogTours",
-			//"dialogCleanup"
+			"dialogTourNumber",
+			"dialogTours",
+			"dialogCleanup"
 		];
 		
 		setTimeout(st.gen.nextStep(),50);
@@ -297,6 +297,7 @@ st.gen = {
 	
 	genLastTermDuty: function() {
 		st.log("genLastTermDuty");
+		
 		var spec = st.character.spec;
 		var terms = spec.terms;
 		st.logObj("terms", terms);
@@ -338,18 +339,79 @@ st.gen = {
 	},
 	
 	genTourDuty: function(tour) {
+		st.log("genTourDuty");
+		st.log("tour[" + tour + "]");
+		
 		var spec = st.character.spec;
 		var tours = spec.tours;
+		st.logObj("tours", tours);
 		if (!tours) {
 			return -1;
 		}
+		st.logObj("tours.length[" + tours.length + "]");
 		if (tours.length<tour) {
 			return -1;
 		}
-		var tour = tours[tour];
-		if (!tour) {
+		var tourObj = tours[tour];
+		st.logObj("tourObj", tourObj);
+		if (!tourObj) {
 			return -1;
 		}
-		return tour.duty;
+		
+		var ret = tourObj.duty;
+		st.log("ret[" + ret + "]");
+		return ret;
+	},
+	
+	genTourDutyLength: function(tour) {
+		st.log("genTourDutyLength");
+		st.log("tour[" + tour + "]");
+
+		var spec = st.character.spec;
+		var tours = spec.tours;
+		st.logObj("tours", tours);
+		if (!tours) {
+			return 0;
+		}
+		st.logObj("tours.length[" + tours.length + "]");
+		if (tours.length<tour) {
+			return 0;
+		}
+		var tourObj = tours[tour];
+		st.logObj("tourObj", tourObj);
+		if (!tourObj) {
+			return 0;
+		}
+		
+		var ret = 0;
+		ret = tourObj.tourLength;
+		st.log("ret[" + ret + "]");
+		return ret;
+	},
+	
+	genTourDutyOer: function(tour) {
+		st.log("genTourDutyLength");
+		st.log("tour[" + tour + "]");
+
+		var spec = st.character.spec;
+		var tours = spec.tours;
+		st.logObj("tours", tours);
+		if (!tours) {
+			return 0;
+		}
+		st.logObj("tours.length[" + tours.length + "]");
+		if (tours.length<tour) {
+			return 0;
+		}
+		var tourObj = tours[tour];
+		st.logObj("tourObj", tourObj);
+		if (!tourObj) {
+			return 0;
+		}
+		
+		var ret = 0;
+		ret = tourObj.oer;
+		st.log("ret[" + ret + "]");
+		return ret;
 	}
 };

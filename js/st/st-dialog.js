@@ -1064,7 +1064,7 @@ st.dialog = {
 		st.log("dialogGreatDuty");
 
 		var year = st.character.spec.duty + 1;
-		var title = "The Great Duty - Year " + year;
+		var title = "The Great Duty - Year " + year + "/" + 5;
 		st.render.renderStatus(title);
 		st.character.setAge((19 + st.character.spec.duty) + "-" + (20 + st.character.spec.duty) + " years");
 		
@@ -1621,7 +1621,7 @@ st.dialog = {
 		}
 
 		// update status		
-		var title = "Tour " + (tourIndex + 1);
+		var title = "Tour " + (tourIndex + 1) + "/" + tourCount;
 		st.render.renderStatus(title);
 
 		// store everything about this tour on tour object
