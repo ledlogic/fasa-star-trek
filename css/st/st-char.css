@@ -417,19 +417,39 @@
 
 .st-action-points {
 	height: 766px;
-	left: 698px;
-	position: absolute;
-	top: 134px;
+	left: 695px;
+	position: relative;
+	top: 68px;
 	width: 38px;
+}
+
+.st-item.st-action-point-label {
+	border: 1px solid black;
+	display: inline-block;
+	font-size: 10px;
+	line-height: 20px;
+	margin: 1px;
+	position: absolute;
+	text-align: center;
+	vertical-align: middle;
+	width: 32px;
+	height: 20px;
 }
 
 .st-item.st-action-point {
 	border: 1px solid black;
 	display: inline-block;
-	height: 39.5px;
+	height: 38px;
+	line-height: 38px;
 	margin: 1px;
 	position: absolute;
+	text-align: center;
+	vertical-align: middle;
 	width: 32px;
+}
+
+.st-item.st-action-point-max {
+	font-weight: bold;
 }
 
 .st-tohits {

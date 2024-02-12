@@ -40,13 +40,36 @@ st.render = {
 		var dex = attr.dex;
 		var ap = Math.floor(dex / 10.0) + 4;
 		
+		st.log("dex[" + dex + "]");
+		st.log("ap[" + ap + "]");
+		
 		// attr
 		var $attr = $("<div class=\"st-section st-action-points\"></div>");
+
+		var y = 0;
+		$elm = $("<span class=\"st-item st-action-point-label\""
+			+ " style=\"top: " + y + "px;\""
+			+ ">AP</span>");
+		$attr.append($elm);
+
+		for (var i=0; i<18; i++) {
+			var y = i * 38  + 24;
+			$elm = $("<span class=\"st-item st-action-point" + ((18-i == ap) ? " st-action-point-max" : "") + "\""
+				+ " style=\"top: " + y + "px\""
+				+ ">"
+				+ ((18-i <= ap) ? (18-i) : "")
+				+ "</span>");
+			$attr.append($elm);
+		}
+
+		/*
 		var y = (18 - ap) * 42.5;
 		$elm = $("<span class=\"st-item st-action-point\""
 			+ " style=\"top: " + y + "px\""
 			+ "></span>");
 		$attr.append($elm);
+		*/
+		
 		st.character.$pageft.append($attr);
 	},
 	renderAttributes: function() {
