@@ -154,7 +154,7 @@ st.skills = {
 		"leadership": 5,
 		"life-sciences:-*": 5,
 		"marksmanship-archaic:-*": 5,
-		"personal-combat-armed": 5,
+		"personal-combat-armed:-*": 5,
 		"physical-sciences:-*": 5,
 		"planetary-survival:-*": 5,
 		"sports:-*": 5,
