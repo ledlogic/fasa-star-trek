@@ -242,8 +242,8 @@ st.gen = {
 		st.log("oer0[" + oer + "]");
 
 		// adjustments
-		oer += st.gen.genTourOemIntMod();
-		oer += st.gen.genTourOemLucMod();
+		oer += st.gen.genTourOerIntMod();
+		oer += st.gen.genTourOerLucMod();
 		
 		st.log("oer1[" + oer + "]");
 
@@ -254,7 +254,7 @@ st.gen = {
 		return oer;
 	},
 	
-	genTourOemIntMod: function() {
+	genTourOerIntMod: function() {
 		var attributes = st.character.spec.attributes;
 		var int = attributes.int;
 		var ret = 0;
@@ -268,7 +268,7 @@ st.gen = {
 		return ret;
 	},
 	
-	genTourOemLucMod: function() {
+	genTourOerLucMod: function() {
 		var attributes = st.character.spec.attributes;
 		var luc = attributes.luc;
 		var ret = 0;
@@ -318,8 +318,8 @@ st.gen = {
 		st.logObj("terms", terms);
 		
 		// fault-tolerance for jump-testing
-		if (!terms || terms.length) {
-			return 0;
+		if (!terms || !terms.length) {
+			return -1;
 		}
 		
 		var term = terms[terms.length - 1];
@@ -386,19 +386,19 @@ st.gen = {
 		var tours = spec.tours;
 		st.logObj("tours", tours);
 		if (!tours) {
-			return 0;
+			return -1;
 		}
 		st.logObj("tours.length[" + tours.length + "]");
 		if (tours.length<tour) {
-			return 0;
+			return -1;
 		}
 		var tourObj = tours[tour];
 		st.logObj("tourObj", tourObj);
 		if (!tourObj) {
-			return 0;
+			return -1;
 		}
 		
-		var ret = 0;
+		var ret = -1;
 		ret = tourObj.tourLength;
 		st.log("ret[" + ret + "]");
 		return ret;
@@ -430,29 +430,36 @@ st.gen = {
 		return ret;
 	},
 	
-	genNextBestTermDuty: function() {
-		st.log("genNextBestTermDuty");
+	genNextTourDuty: function() {
+		st.log("genNextTourDuty");
 		
 		var spec = st.character.spec;
 		var tours = spec.tours;
 		st.logObj("tours", tours);
 		
 		// fault-tolerance for jump-testing
-		if (!tours || tours.length) {
+		if (!tours || !tours.length) {
 			return 0;
 		}
 		
-		var tour = tours[tours.length - 1];
+		var tour = tours[tours.length - 2];
 		st.logObj("tour", tour);
 
-		var termDuty = term.termDuty;
-		st.log("termDuty[" + termDuty + "]");
+		var lastTourDuty = tour.duty;
+		st.log("lastTourDuty[" + lastTourDuty + "]");
+		
+		var tourDuty = lastTourDuty; 
+		st.log("tourDuty0[" + tourDuty + "]");
 
-		if (tour.oem < 50) {
-			termDuty = st.gen.genTermDutyAssignment();
+		var oer = tour.oer;
+		st.log("oer[" + oer + "]");
+
+		if (tour.oer < 50) {
+			tourDuty = st.gen.genTermDutyAssignment();
 		}
+		st.log("tourDuty1[" + tourDuty + "]");
 
-		return termDuty;
+		return tourDuty;
 	},
 	
 	genTermDutyAssignment: function() {

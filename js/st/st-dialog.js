@@ -1267,10 +1267,13 @@ st.dialog = {
 	},
 	actionGreatDutyAddOer: function() {
 		st.log("actionGreatDutyAddOer");
+		
 		st.character.spec.termOerBonusUsed = true;
-		var oer = st.character.spec.terms[st.character.spec.duty].oer + 20;
+		var duty = st.character.spec.duty;
+		var oer = st.character.spec.terms[duty].oer + 20;
+		st.log("oer0[" + oer + "]");
 		oer = st.math.ensureRange(oer, 0, 99);
-		st.character.spec.terms[st.character.spec.duty].oer = oer;
+		st.character.spec.terms[duty].oer = oer;
 		$(".st-oer-value").html(oer);
 		st.dialog.checkAddOsrStatus();
 	},
@@ -1649,7 +1652,9 @@ st.dialog = {
 		var spec = st.character.spec;
 
 		// incr tour
+		st.log("spec.tourIndex[" + spec.tourIndex + "]");
 		spec.tourIndex++;
+		st.log("spec.tourIndex[" + spec.tourIndex + "]");
 		
 		// check tour done
 		var tourIndex = spec.tourIndex;
@@ -1691,7 +1696,7 @@ st.dialog = {
 		if (tourIndex === 0) {
 			duty = st.gen.genLastTermDuty();
 		} else {
-			duty = st.gen.genNextBestTermDuty();
+			duty = st.gen.genNextTourDuty();
 		}
 		st.log("duty[" + duty + "]");
 		tour.duty = duty;
